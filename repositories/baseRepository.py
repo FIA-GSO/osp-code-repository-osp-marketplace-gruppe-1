@@ -22,7 +22,10 @@ class BaseRepository:
         self.cursor.execute('SELECT * FROM ' + self.table_name)
         return self.cursor.fetchall()
     
-    def deleteById(self):
+    def deleteById(self, id: int):
+        sql = 'DELETE FROM ' + self.table_name + ' WHERE uid = ' + str(id)
+        self.cursor.execute(sql)
+        self.connection.commit()
         return
     
 
@@ -47,8 +50,6 @@ class BaseRepository:
 
         sql += ', '. join(conditions)
         sql += ' WHERE uid = ' + str(id)
-
-        print(sql)
 
         self.cursor.execute(sql)
         self.connection.commit()
@@ -84,7 +85,6 @@ class BaseRepository:
                 conditions.append(value)
         sql += ', '. join(conditions)
         sql += ")"
-        print(sql)
 
         self.cursor.execute(sql)
         self.connection.commit()
