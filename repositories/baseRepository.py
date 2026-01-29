@@ -15,7 +15,8 @@ class BaseRepository:
         self.cursor = self.connection.cursor(dictionary=True)
 
     def getById (self, id: int):
-        return
+        self.cursor.execute('SELECT * FROM ' + self.table_name + 'WHERE uid = ' + id)
+        return self.cursor.fetchall()
 
     def getAll(self):
         self.cursor.execute('SELECT * FROM ' + self.table_name)
@@ -25,7 +26,7 @@ class BaseRepository:
         return
     
 
-    def updateById(self, id: int, field: list):
+    def updateById(self, id: int, fields: list):
         """updates fields in database
         
         fields:
@@ -35,6 +36,23 @@ class BaseRepository:
                 {"fieldName2": NewFieldValue2},
             ]
         """
+
+        sql = 'UPDATE ' + self.table_name + ' SET '
+        conditions = []
+
+
+        for field in fields:
+            for key, value in field.items():
+                conditions.append(key + ' = "' + value + '"')
+
+        sql += ', '. join(conditions)
+        sql += ' WHERE uid = ' + str(id)
+
+        print(sql)
+
+        self.cursor.execute(sql)
+        self.connection.commit()
+
         return
     
     def insert(self, fields: list):
