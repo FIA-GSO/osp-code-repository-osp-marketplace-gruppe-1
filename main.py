@@ -34,7 +34,7 @@ def register():
     if request.method == 'GET':
         return render_template('registration/registration.html')
 
-    company = request.form.get('company')
+    company = request.form['company']
     firstname = request.form['firstname']
     lastname = request.form['lastname']
     email = request.form['email']
