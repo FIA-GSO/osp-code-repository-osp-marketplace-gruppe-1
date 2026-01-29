@@ -1,11 +1,14 @@
 from flask import Flask, request, render_template, send_file
 from flask import session, redirect, url_for
-from repositories.userRepository import UserRepository
+from service.userService import UserService
+from repository.userRepository import UserRepository
 from utiltiy.hashUtility import HashUtility
 
 app = Flask(__name__)
 app.secret_key = b'adasdadsgitosjtosjtehprthspi'
 
+userService = UserService()
+user_repository = UserRepository();
 
 @app.route("/", methods=['GET'])
 def index():
@@ -18,6 +21,10 @@ def login():
     else:
         email = request.form.get('email')
         password = request.form.get('password')
+
+        if userService.userExist(email, password):
+            print("True")
+
         # todo: add processing of login
         return redirect('/')
 
@@ -27,14 +34,11 @@ def register():
     if request.method == 'GET':
         return render_template('registration/registration.html')
 
-    user_repository = UserRepository()
-    hash_utility = HashUtility()
-
     company = request.form.get('company')
     firstname = request.form['firstname']
     lastname = request.form['lastname']
     email = request.form['email']
-    password = hash_utility.hash(request.form['password'])
+    password = HashUtility.hash(request.form['password'])
 
     user_repository.insert(
         [

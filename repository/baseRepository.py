@@ -7,7 +7,7 @@ class BaseRepository:
         self.connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            passwd="root",
+            passwd="",
             port=3306,
             database = "osp"
         )
