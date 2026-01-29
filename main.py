@@ -38,20 +38,16 @@ def register():
     firstname = request.form['firstname']
     lastname = request.form['lastname']
     email = request.form['email']
-    password = HashUtility.hash(request.form['password'])
+    password = request.form['password']
 
-    user_repository.insert(
-        [
-            {
-                'company': company,
-                'first_name': firstname,
-                'last_name': lastname,
-                'email': email,
-                'password_hash': password,
-                'role': 1,
-                'donation': 0
-            }
-        ]
+    userService.registerUser(
+        firstname,
+        lastname,
+        email,
+        company,
+        1,
+        0,
+        password
     )
 
     return render_template('registration/process-registration.html', firstname = firstname)

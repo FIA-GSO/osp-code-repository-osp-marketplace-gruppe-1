@@ -12,6 +12,22 @@ class UserService:
             return True
         else:
             return False
+        
+    def registerUser(self, firstname: str, lastname: str, email: str, company: str, role: int, donation: int, password: str):
+        self.userRepository.insert(
+        [
+            {
+                'company': company,
+                'first_name': firstname,
+                'last_name': lastname,
+                'email': email,
+                'password_hash': HashUtility.hash(password),
+                'role': 1,
+                'donation': 0
+            }
+        ]
+    )
+
 
 
 
