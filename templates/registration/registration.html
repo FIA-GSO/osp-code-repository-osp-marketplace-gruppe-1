@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <title>Marketplace GSO - Registrierung</title>
+        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+        <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <form action="/register" method="post">
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-4">
+                        <label for="company">Firmenname:</label>
+                        <input type="text" name="company" id="company" placeholder="Firmenname...">
+                    </div>
+                    <div class="col-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-4">
+                        <label for="firstname">Vorname:</label>
+                        <input type="text" name="firstname" id="firstname" placeholder="Vorname...">
+                    </div>
+                    <div class="col-4">
+                        <label for="lastname">Nachname:</label>
+                        <input type="text" name="lastname" id="lastname" placeholder="Nachname...">
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-4">
+                        <label for="email">E-Mail-Adresse:</label>
+                        <input type="text" name="email" id="email" placeholder="E-Mail-Adresse...">
+                    </div>
+                    <div class="col-4">
+                        <label for="repeatedemail">E-Mail-Adresse wiederholen:</label>
+                        <input type="text" name="repeatedemail" id="repeatedemail" placeholder="E-Mail-Adresse wiederholen...">
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-4">
+                        <label for="password">Passwort:</label>
+                        <input type="password" name="password" id="password" placeholder="Passwort eingeben...">
+                    </div>
+                    <div class="col-4">
+                        <label for="repeatedpasssword">Passwort wiederholen</label>
+                        <input type="password" name="repeatedpassword" id="repeatedpasssword" placeholder="Passwort wiederholen...">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <input type="submit" value="Registrieren">
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

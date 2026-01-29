@@ -7,7 +7,7 @@ class BaseRepository:
         self.connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            passwd="",
+            passwd="root",
             port=3306,
             database = "osp"
         )
@@ -54,11 +54,31 @@ class BaseRepository:
         self.cursor.execute(sql)
         self.connection.commit()
 
-        return
+        columns = []
+        values = []
+
+        for field in fields:
+            for key, value in field.items():
+                columns.append(key)
+                values.append(value)
+
+        # Platzhalter für prepared statement
+        placeholders = ", ".join(["%s"] * len(values))
+        column_names = ", ".join(columns)
+
+        sql = f"""
+                INSERT INTO {self.table_name} ({column_names})
+                VALUES ({placeholders})
+            """
+
+        self.cursor.execute(sql, values)
+        self.connection.commit()
+
+        return self.cursor.lastrowid
     
     def insert(self, fields: list):
-        """insterts fields in database
-        
+        """inserts fields in database
+
         fields:
         example of field array:
             [
@@ -67,27 +87,21 @@ class BaseRepository:
             ]
         """
 
-        sql = 'INSERT INTO ' + self.table_name + ' ('
-        conditions = []
+        keys = []
+        values = []
 
         for field in fields:
             for key, value in field.items():
-                conditions.append(key)
+                keys.append(key)
+                values.append(value)
 
-        sql += ', '. join(conditions)
+        placeholders = ", ".join(["%s"] * len(values))  # sqlite: ?, postgres/mysql: %s
 
-        sql += ') VALUES ('
+        sql = f"""
+                INSERT INTO {self.table_name} ({', '.join(keys)})
+                VALUES ({placeholders})
+            """
 
-        conditions = []
-
-        for field in fields:
-            for key, value in field.items():
-                conditions.append(value)
-        sql += ', '. join(conditions)
-        sql += ")"
-
-        self.cursor.execute(sql)
+        self.cursor.execute(sql, values)
         self.connection.commit()
-
-        return
     
