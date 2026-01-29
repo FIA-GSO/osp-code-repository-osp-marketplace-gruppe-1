@@ -65,5 +65,29 @@ class BaseRepository:
                 {"fieldName2": NewFieldValue2},
             ]
         """
+
+        sql = 'INSERT INTO ' + self.table_name + ' ('
+        conditions = []
+
+        for field in fields:
+            for key, value in field.items():
+                conditions.append(key)
+
+        sql += ', '. join(conditions)
+
+        sql += ') VALUES ('
+
+        conditions = []
+
+        for field in fields:
+            for key, value in field.items():
+                conditions.append(value)
+        sql += ', '. join(conditions)
+        sql += ")"
+        print(sql)
+
+        self.cursor.execute(sql)
+        self.connection.commit()
+
         return
     
