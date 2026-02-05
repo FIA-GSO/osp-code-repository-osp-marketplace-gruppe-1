@@ -8,8 +8,8 @@ class UserService:
         pass
 
     def userExist(self, email: str, password: str):
-        if self.userRepository.getByPasswordAndEmail(email, password) != []:
-            return True
+        if self.userRepository.getByPasswordAndEmail(email, password):
+            return self.userRepository.getByPasswordAndEmail(email, password)
         else:
             return False
         

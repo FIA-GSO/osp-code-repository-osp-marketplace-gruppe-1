@@ -1,35 +1,45 @@
-<Html>
+<html>
     <head>
         <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
         <script src='static/bootstrap/js/bootstrap.min.js'></script>
     </head>
-
     <body>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>test1</th>
-                    <th>test1</th>
-                    <th>test1</th>
+                    <th>Firma</th>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>test1</td>
-                    <td>test1</td>
-                    <td>test1</td>
-                </tr>
-                <tr>
-                    <td>test1</td>
-                    <td>test1</td>
-                    <td>test1</td>
-                </tr>
-                <tr>
-                    <td>test1</td>
-                    <td>test1</td>
-                    <td>test1</td>
+                    <td>{{ user[0]['company'] }}</td>
+                    <td>{{ user[0]['first_name'] }}</td>
+                    <td>{{ user[0]['last_name'] }}</td>
                 </tr>
             </tbody>
         </table>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    {% if user[0]['uid'] == 1 %}
+                        <a href="/">Anmeldung zum Tag der Ausbildung</a>
+                    {% endif %}
+                    {% if user[0]['uid'] == 2 %}
+                        <a href="/">Verwaltung der Anmeldungen zum Tag der Ausbildung</a>
+                    {% endif %}
+                    {% if user[0]['uid'] == 3 %}
+                        <a href="/">Übersicht zum Tag der Ausbildung</a>
+                    {% endif %}
+                </div>
+                <div class="col-4">
+                    Profil bearbeiten
+                </div>
+                <div class="col-4">
+                    Logout
+                </div>
+            </div>
+        </div>
     </body>
-</Html>
+</html>

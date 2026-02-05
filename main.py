@@ -8,11 +8,13 @@ app = Flask(__name__)
 app.secret_key = b'adasdadsgitosjtosjtehprthspi'
 
 userService = UserService()
-user_repository = UserRepository();
+user_repository = UserRepository()
 
 @app.route("/", methods=['GET'])
 def index():
-    return render_template('index.html')
+    user = user_repository.getById(int(session['uid']))
+
+    return render_template('index.html', user = user)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -23,10 +25,12 @@ def login():
         password = request.form.get('password')
 
         if userService.userExist(email, password):
-            print("True")
+            user = userService.userExist(email, password)[0]
+            session['uid'] = user['uid']
 
-        # todo: add processing of login
-        return redirect('/')
+            return redirect('/')
+
+        return render_template('login/login.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])

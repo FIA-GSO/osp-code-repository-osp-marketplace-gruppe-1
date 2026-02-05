@@ -15,7 +15,7 @@ class BaseRepository:
         self.cursor = self.connection.cursor(dictionary=True)
 
     def getById (self, id: int):
-        self.cursor.execute('SELECT * FROM ' + self.table_name + 'WHERE uid = ' + id)
+        self.cursor.execute('SELECT * FROM ' + self.table_name + ' WHERE uid = %s', (id,))
         return self.cursor.fetchall()
 
     def getAll(self):
