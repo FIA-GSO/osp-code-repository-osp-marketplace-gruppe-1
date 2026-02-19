@@ -16,8 +16,8 @@
             <tbody>
                 <tr>
                     <td>{{ user[0]['company'] }}</td>
-                    <td>{{ user[0]['first_name'] }}</td>
-                    <td>{{ user[0]['last_name'] }}</td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
@@ -42,6 +42,18 @@
                 </div>
             </div>
         </div>
+
+<!-- Stand und votrag formular-->
+        <div class="container"></div>
+            <div class="row">
+                <div class="col-4">
+                    <form action="/" method="post">
+                        <input type="text" name="" id="">
+                    </form>
+                </div>
+            </div>
+        </div>
+
         {% endif %}
         {% if user == []  %}
             <a href="/login">Einloggen</a> oder <a href="/register">Registrieren</a>

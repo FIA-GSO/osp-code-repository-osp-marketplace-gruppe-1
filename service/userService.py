@@ -14,19 +14,18 @@ class UserService:
         else:
             return False
         
-    def registerUser(self, firstname: str, lastname: str, email: str, company: str, role: int, donation: int, password: str):
-        self.userRepository.insert(
-        [
-            {
-                'company': company,
-                'first_name': firstname,
-                'last_name': lastname,
-                'email': email,
-                'password_hash': HashUtility.hash(password),
-                'role': 1,
-                'donation': 0
-            }
-        ]
+    def registerUser(self, email: str, company: str, role: int, donation: int, password: str):
+        if (not self.userExist(email, password)):
+            self.userRepository.insert(
+            [
+                {
+                    'company': company,
+                    'email': email,
+                    'password_hash': HashUtility.hash(password),
+                    'role': role,
+                    'donation': donation
+                }
+            ]
     )
         
     def loginUser(self, email: str, password: str):

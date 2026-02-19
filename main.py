@@ -38,14 +38,10 @@ def register():
         return render_template('registration/registration.html')
 
     company = request.form['company']
-    firstname = request.form['firstname']
-    lastname = request.form['lastname']
     email = request.form['email']
     password = request.form['password']
 
     userService.registerUser(
-        firstname,
-        lastname,
         email,
         company,
         1,
@@ -53,7 +49,7 @@ def register():
         password
     )
 
-    return render_template('registration/process-registration.html', firstname = firstname)
+    return render_template('registration/process-registration.html')
 
 if __name__ == '__main__':
     app.run(port=4000, debug=True)
