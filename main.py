@@ -29,6 +29,11 @@ def login():
             return redirect('/')
         return render_template('login/login.html')
 
+@app.route("/logout", methods=['GET'])
+def logout():
+    if session['uid']:
+        session.pop('uid')
+    return redirect('/')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
