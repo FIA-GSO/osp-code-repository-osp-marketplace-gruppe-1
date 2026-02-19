@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 from flask import session, redirect
 from service.userService import UserService
+from service.eventService import EventService
 from repository.userRepository import UserRepository
 
 app = Flask(__name__)
@@ -8,12 +9,17 @@ app.secret_key = b'adasdadsgitosjtosjtehprthspi'
 
 userService = UserService()
 userRepository = UserRepository()
+eventService = EventService()
 
-@app.route("/", methods=['GET'])
+@app.route("/", methods=['GET', 'POST'])
 def index():
-    user = userService.getUser()
+    if request.method == 'GET':
+        user = userService.getUser()
+        events = eventService.getCurrentEvents()
+        return render_template('index.html', user = user, events=events)
+    
+    eventService.registerForEvent(request.form)
 
-    return render_template('index.html', user = user)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():

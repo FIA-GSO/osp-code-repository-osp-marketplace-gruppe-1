@@ -40,6 +40,11 @@ class UserService:
             return self.userRepository.getById(int(session['uid']))
         return []
     
+    def getUserUid(self):
+        if ('uid' in session):
+            return session['uid']
+        return 0
+    
     def logoutUser(self):
         if 'uid' in session:
             session.pop('uid')
