@@ -1,5 +1,8 @@
 from flask import Flask, request, render_template
 from flask import session, redirect
+
+from repository.eventRepository import EventRepository
+from service.eventService import EventService
 from service.userService import UserService
 from service.eventService import EventService
 from repository.userRepository import UserRepository
@@ -10,6 +13,11 @@ app.secret_key = b'adasdadsgitosjtosjtehprthspi'
 userService = UserService()
 userRepository = UserRepository()
 eventService = EventService()
+eventRepository = EventRepository()
+<<<<<<< HEAD
+=======
+eventRepository = EventRepository()
+>>>>>>> e8f37fb10b0e293ab23b10a74525aa1f7caf65c2
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -56,6 +64,30 @@ def register():
     )
 
     return render_template('registration/process-registration.html')
+
+@app.route('/events', methods=['GET', 'POST'])
+def events():
+    user_role = userService.getRoleOfUser()
+    if user_role == 2:
+        events = eventRepository.getAll()
+
+        if request.method == 'POST':
+            date = request.form.get('date')
+            eventService.registerEvent(date)
+
+        return render_template('events/events.html', events = events, request = request.method)
+
+    return redirect('/')
+
+@app.route('/events/delete/<int:uid>', methods=['GET'])
+def delete(uid: int):
+    user_role = userService.getRoleOfUser()
+    if user_role == 2:
+        if uid and eventRepository.getById(uid):
+            eventRepository.deleteById(uid)
+            return redirect('/events')
+
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(port=4000, debug=True)
