@@ -1,5 +1,6 @@
 from utiltiy.hashUtility import HashUtility
 from repository.userRepository import UserRepository
+from flask import session
 
 
 class UserService:
@@ -27,6 +28,13 @@ class UserService:
             }
         ]
     )
+        
+    def loginUser(self, email, password):
+        if self.userExist(email, password):
+            user = self.userExist(email, password)[0]
+            session['uid'] = user['uid']
+            return True
+        return False
 
 
 

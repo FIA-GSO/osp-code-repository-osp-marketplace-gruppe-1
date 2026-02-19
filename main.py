@@ -25,12 +25,8 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        if userService.userExist(email, password):
-            user = userService.userExist(email, password)[0]
-            session['uid'] = user['uid']
-
+        if userService.loginUser(email, password):
             return redirect('/')
-
         return render_template('login/login.html')
 
 
