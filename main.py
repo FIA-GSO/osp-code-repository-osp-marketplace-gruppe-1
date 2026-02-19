@@ -29,8 +29,7 @@ def login():
 
 @app.route("/logout", methods=['GET'])
 def logout():
-    if session['uid']:
-        session.pop('uid')
+    userService.logoutUser()
     return redirect('/')
 
 @app.route('/register', methods=['GET', 'POST'])
