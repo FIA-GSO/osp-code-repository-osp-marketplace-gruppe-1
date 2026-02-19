@@ -39,6 +39,16 @@ class UserService:
         if ('uid' in session):
             return self.userRepository.getById(int(session['uid']))
         return []
+
+    def getRoleOfUser(self):
+        if ('uid' in session):
+            user = self.userRepository.getById(int(session['uid']))
+            user_role = user[0]['role']
+
+            print (user)
+            print (user_role)
+            return user_role
+        return []
     
     def logoutUser(self):
         if 'uid' in session:

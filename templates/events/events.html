@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+        <script src='static/bootstrap/js/bootstrap.min.js'></script>
+        <title>Veranstaltungen</title>
+    </head>
+    <body>
+        <h1>Auflistung aller Veranstaltungen</h1>
+        {% if events != []  %}
+        <div class="container">
+            {% for event in events %}
+            <div class="row">
+                <div class="col-5">
+                    Event Nr. {{event.uid}} - Tag der Ausbildung
+                </div>
+                <div class="col-5">
+                    {{event.date}}
+                </div>
+                <div class="col-2">
+                    <a href="events/delete/{{ event.uid }}">
+                        <button>Löschen</button>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <h2>Neue Veranstaltung erstellen</h2>
+        <form action="/events" method="POST">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="date">Datum:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="date" name="date" id="date">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6"></div>
+                    <div class="col-6">
+                        <input type="submit">
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% if request == 'POST' %}
+            <h4>Neue Veranstaltung erfolgreich hinzugefügt.</h4>
+        {% endif %}
+    </body>
+</html>
