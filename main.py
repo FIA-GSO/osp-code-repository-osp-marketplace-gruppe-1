@@ -7,13 +7,11 @@ app = Flask(__name__)
 app.secret_key = b'adasdadsgitosjtosjtehprthspi'
 
 userService = UserService()
-user_repository = UserRepository()
+userRepository = UserRepository()
 
 @app.route("/", methods=['GET'])
 def index():
-    user = []
-    if ('uid' in session):
-        user = user_repository.getById(int(session['uid']))
+    user = userService.getUser()
 
     return render_template('index.html', user = user)
 

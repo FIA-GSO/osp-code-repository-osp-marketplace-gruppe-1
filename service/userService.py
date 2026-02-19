@@ -29,13 +29,17 @@ class UserService:
         ]
     )
         
-    def loginUser(self, email, password):
+    def loginUser(self, email: str, password: str):
         if self.userExist(email, password):
             user = self.userExist(email, password)[0]
             session['uid'] = user['uid']
             return True
         return False
 
+    def getUser(self):
+        if ('uid' in session):
+            return self.userRepository.getById(int(session['uid']))
+        return []
 
 
 
