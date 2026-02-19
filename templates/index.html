@@ -13,25 +13,29 @@
                 </tr>
             </thead>
             <tbody>
+                {% if user != []  %}
                 <tr>
                     <td>{{ user[0]['company'] }}</td>
                     <td>{{ user[0]['first_name'] }}</td>
                     <td>{{ user[0]['last_name'] }}</td>
                 </tr>
+                {% endif  %}
             </tbody>
         </table>
         <div class="container">
             <div class="row">
                 <div class="col-4">
-                    {% if user[0]['uid'] == 1 %}
-                        <a href="/">Anmeldung zum Tag der Ausbildung</a>
-                    {% endif %}
-                    {% if user[0]['uid'] == 2 %}
-                        <a href="/">Verwaltung der Anmeldungen zum Tag der Ausbildung</a>
-                    {% endif %}
-                    {% if user[0]['uid'] == 3 %}
-                        <a href="/">Übersicht zum Tag der Ausbildung</a>
-                    {% endif %}
+                    {% if user != []  %}
+                        {% if user[0]['user'] == 1 %}
+                            <a href="/">Anmeldung zum Tag der Ausbildung</a>
+                        {% endif %}
+                        {% if user[0]['user'] == 2 %}
+                            <a href="/">Verwaltung der Anmeldungen zum Tag der Ausbildung</a>
+                        {% endif %}
+                        {% if user[0]['user'] == 3 %}
+                            <a href="/">Übersicht zum Tag der Ausbildung</a>
+                        {% endif %}
+                    {% endif  %}
                 </div>
                 <div class="col-4">
                     Profil bearbeiten

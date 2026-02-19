@@ -11,7 +11,9 @@ user_repository = UserRepository()
 
 @app.route("/", methods=['GET'])
 def index():
-    user = user_repository.getById(int(session['uid']))
+    user = []
+    if ('uid' in session):
+        user = user_repository.getById(int(session['uid']))
 
     return render_template('index.html', user = user)
 
