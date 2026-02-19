@@ -14,16 +14,26 @@ class BaseRepository:
 
         self.cursor = self.connection.cursor(dictionary=True)
 
-    def getById (self, id: int):
-        self.cursor.execute('SELECT * FROM ' + self.table_name + ' WHERE uid = %s', (id,))
+    def getById (self, id: int, respectDisabled:bool = True):
+        sql = 'SELECT * FROM ' + self.table_name + ' WHERE'
+        if respectDisabled:
+            sql += ' disabled = 0'
+
+        sql += ' AND uid = %s'
+        print(sql)
+        self.cursor.execute(sql, (id,))
         return self.cursor.fetchall()
 
-    def getAll(self):
-        self.cursor.execute('SELECT * FROM ' + self.table_name)
+    def getAll(self, respectDisabled:bool = True):
+        sql = 'SELECT * FROM ' + self.table_name
+        if respectDisabled:
+            sql += ' WHERE disabled = 0'
+
+        self.cursor.execute(sql)
         return self.cursor.fetchall()
     
     def deleteById(self, id: int):
-        sql = 'DELETE FROM ' + self.table_name + ' WHERE uid = ' + str(id)
+        sql = 'UPDATE ' + self.table_name + ' SET disabled = true WHERE uid = ' + str(id)
         self.cursor.execute(sql)
         self.connection.commit()
         return
