@@ -87,7 +87,6 @@
                                     {% endif %}
 
                                     {% set chairsKey = "chairs" ~ event.uid %}
-                                    <div>{{ chairsKey }}</div>
                                     <input type="number" placeholder="Benötigte Stühle" name="{{ chairsKey }}" class="form-control {% if errors and chairsKey in errors.keys() %}is-invalid{% endif %}">
                                     {% if errors%}
                                     {% for key, error in errors.items() %}
