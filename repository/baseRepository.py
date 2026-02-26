@@ -20,7 +20,6 @@ class BaseRepository:
             sql += ' disabled = 0'
 
         sql += ' AND uid = %s'
-        print(sql)
         self.cursor.execute(sql, (id,))
         return self.cursor.fetchall()
 
@@ -63,28 +62,6 @@ class BaseRepository:
 
         self.cursor.execute(sql)
         self.connection.commit()
-
-        columns = []
-        values = []
-
-        for field in fields:
-            for key, value in field.items():
-                columns.append(key)
-                values.append(value)
-
-        # Platzhalter für prepared statement
-        placeholders = ", ".join(["%s"] * len(values))
-        column_names = ", ".join(columns)
-
-        sql = f"""
-                INSERT INTO {self.table_name} ({column_names})
-                VALUES ({placeholders})
-            """
-
-        self.cursor.execute(sql, values)
-        self.connection.commit()
-
-        return self.cursor.lastrowid
     
     def insert(self, fields: list):
         """inserts fields in database

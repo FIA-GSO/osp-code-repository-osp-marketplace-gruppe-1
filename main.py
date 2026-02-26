@@ -23,6 +23,7 @@ def index():
         return render_template('index.html', user = user, events=events)
     
     eventService.registerForEvent(request.form)
+    return redirect('/')
 
 
 @app.route("/login", methods=['GET', 'POST'])

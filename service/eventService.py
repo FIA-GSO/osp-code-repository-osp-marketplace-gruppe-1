@@ -17,3 +17,69 @@ class EventService:
 
     def getCurrentEvents(self):
        return self.eventRepository.getAll()
+
+    def registerForEvent(self, form):
+        events =  form.getlist('events[]')
+
+        donation = form.get('donation')
+
+        if donation:
+            self.userRepository.updateById(
+                self.userService.getUserUid(),
+                [
+                    {
+                        'donation': donation
+                    }
+                ]
+            )
+
+        for eventId in events:
+            eventId = str(eventId)
+
+            firstName = form.get('firstName')
+            lastName = form.get('lastName')
+            email =  form.get('email')
+            telefon =  form.get('telefon')
+            fax =  form.get('fax')
+            booth =  form.get('booth'+eventId)
+            tables =  form.get('tables'+eventId)
+            chairs =  form.get('chairs'+eventId)
+            technicalLecture =  form.get('technicalLecture'+eventId)
+            technicalLectureTitle = form.get('technicalLectureTitle'+eventId)
+            technicalLectureDuration = form.get('technicalLectureDuration'+eventId)
+
+            if (technicalLecture):
+                self.lectureRepository.insert(
+                    [
+                        {
+                            'user': self.userService.getUserUid(),
+                            'first_name': firstName,
+                            'last_name': lastName,
+                            'event': eventId,
+                            'status': 1,
+                            'email': email,
+                            'telephone': telefon,
+                            'fax': fax,
+                            'topic': technicalLectureTitle,
+                            'duration': technicalLectureDuration
+                        }
+                    ]
+                )
+
+            if (booth):
+                self.boothRepository.insert(
+                    [
+                        {
+                            'user': self.userService.getUserUid(),
+                            'first_name': firstName,
+                            'last_name': lastName,
+                            'event': eventId,
+                            'status': 1,
+                            'email': email,
+                            'telephone': telefon,
+                            'fax': fax,
+                            'table_count': tables,
+                            'chair_count': chairs
+                        }
+                    ]
+                )
