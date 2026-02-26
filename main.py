@@ -84,5 +84,15 @@ def delete(uid: int):
 
     return redirect('/')
 
+@app.route('/tagderausbildung/register', methods=['GET'])
+def tagderausbildungRegister():
+    if request.method == 'GET':
+        events = eventService.getCurrentEvents()
+        return render_template('tagderausbildung/register.html', events=events)
+    
+    eventService.registerForEvent(request.form)
+    return redirect('/')
+
+
 if __name__ == '__main__':
     app.run(port=4000, debug=True)

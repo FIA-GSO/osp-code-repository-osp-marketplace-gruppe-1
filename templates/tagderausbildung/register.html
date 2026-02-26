@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+        <script src='/static/bootstrap/js/bootstrap.min.js'></script>
+    </head>
+    <body>
+<!-- Stand und votrag formular-->
+        <div class="container"></div>
+            <div class="row">
+                <div class="col-4">
+                    <form action="/" method="post">
+                        <div class="container">
+                            <div class="mb-3">
+                                <div>Ansprechpartner</div>
+                                <input placeholder="Vorname" type="text" name="firstName">
+                                <input placeholder="Nachname" type="text" name="lastName">
+                                <input placeholder="E-Mail" type="email" name="email">
+                                <input placeholder="Telefon" type="text" name="telefon">
+                                <input placeholder="Fax" type="text" name="fax">   
+                            </div>
+                            <div class="mb-3 form-check">
+                                {% for event in events %}
+                                <label>
+                                    <input type="checkbox" name="events[]" value="{{ event.uid }}">
+                                    {{ event.date }}
+                                </label>
+                                <div class="mb-3">
+                                    <label>
+                                        <input type="checkbox" name="booth{{ event.uid }}">
+                                        Ich mochte einen Stand beantragen
+                                    </label>
+                                    <input type="number" placeholder="Benötigte Tische" name="tables{{ event.uid }}">
+                                    <input type="number" placeholder="Benötigte Stühle" name="chairs{{ event.uid }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label>
+                                        <input type="checkbox" name="technicalLecture{{ event.uid }}">
+                                        Ich mochte einen Fachvortrag halten
+                                    </label>
+                                    <input type="text" placeholder="Vortrag Titel" name="technicalLectureTitle{{ event.uid }}">
+                                    <input type="number" placeholder="Vortrag Dauer" name="technicalLectureDuration{{ event.uid }}">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="mb-3 form-check">
+                                <label>
+                                    <input type="checkbox" name="donation">
+                                    Ich möchte (oder habe) mich für den Förderverein des GSO Anmelden. (Das Anmeldeformular wird ihnen per E-Mail gesendet.)
+                                </label>
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-primary">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
