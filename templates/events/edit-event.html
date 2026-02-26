@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+        <script src='static/bootstrap/js/bootstrap.min.js'></script>
+        <title>Veranstaltung bearbeiten</title>
+    </head>
+    <body>
+        {% if event != []  %}
+        <h1>Veranstaltung {{ event[0]['uid'] }} - {{ event[0]['date'] }}</h1>
+        <form action="{{ url_for('edit_event', uid=event[0]['uid']) }}" method="POST">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <label for="uid">UID:</label>
+                        <input type="text" name="uid" id="uid" value="{{ event[0]['uid'] }}" readonly="readonly">
+                    </div>
+                    <div class="col-4">
+                        <label for="date">Datum:</label>
+                        <input type="date" name="date" id="date" value="{{ event[0]['date'] }}">
+                    </div>
+                    <div class="col-4">
+                        <input type="submit" value="Editieren">
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% endif %}
+    </body>
+</html>
