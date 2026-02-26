@@ -20,7 +20,7 @@ def index():
     if request.method == 'GET':
         user = userService.getUser()
         events = eventService.getCurrentEvents()
-        return render_template('index.html', user = user, events=events)
+        return render_template('index.html', user = user, events=events, userService=userService)
     
     eventService.registerForEvent(request.form)
     return redirect('/')
@@ -63,7 +63,7 @@ def register():
 @app.route('/events', methods=['GET', 'POST'])
 def events():
     user_role = userService.getRoleOfUser()
-    if user_role == 2:
+    if user_role == userService.ORGANISATIONSTEAM:
         events = eventRepository.getAll()
 
         if request.method == 'POST':
@@ -77,7 +77,7 @@ def events():
 @app.route('/events/delete/<int:uid>', methods=['GET'])
 def delete(uid: int):
     user_role = userService.getRoleOfUser()
-    if user_role == 2:
+    if user_role == userService.ORGANISATIONSTEAM:
         if uid and eventRepository.getById(uid):
             eventRepository.deleteById(uid)
             return redirect('/events')

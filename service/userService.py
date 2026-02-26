@@ -4,6 +4,11 @@ from flask import session
 
 
 class UserService:
+
+    AUSBILDUNGSBETRIEB = 1
+    ORGANISATIONSTEAM = 2
+    LEHRER = 3
+
     def __init__(self):
         self.userRepository = UserRepository()
         pass
