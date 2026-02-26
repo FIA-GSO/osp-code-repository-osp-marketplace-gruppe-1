@@ -14,7 +14,7 @@ class UserService:
         else:
             return False
         
-    def registerUser(self, email: str, company: str, role: int, donation: int, password: str):
+    def registerUser(self, email: str, company: str, password: str):
         if (not self.userExist(email, password)):
             self.userRepository.insert(
             [
@@ -22,8 +22,8 @@ class UserService:
                     'company': company,
                     'email': email,
                     'password_hash': HashUtility.hash(password),
-                    'role': role,
-                    'donation': donation
+                    'role': 1,
+                    'donation': 0
                 }
             ]
     )

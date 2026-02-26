@@ -55,8 +55,6 @@ def register():
     userService.registerUser(
         email,
         company,
-        1,
-        0,
         password
     )
 
