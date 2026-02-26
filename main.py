@@ -75,7 +75,7 @@ def events():
     return redirect('/')
 
 @app.route('/events/delete/<int:uid>', methods=['GET'])
-def delete(uid: int):
+def delete_event(uid: int):
     user_role = userService.getRoleOfUser()
     if user_role == userService.ORGANISATIONSTEAM:
         if uid and eventRepository.getById(uid):
@@ -98,6 +98,20 @@ def tagderausbildungRegister():
 
     eventService.registerForEvent(request.form)
 
+
+@app.route('/events/edit/<int:uid>', methods=['GET', 'POST'])
+def edit_event(uid: int):
+    user_role = userService.getRoleOfUser()
+    if user_role == userService.ORGANISATIONSTEAM:
+        if uid and eventRepository.getById(uid):
+            if request.method == 'POST':
+                uid = request.form.get('uid')
+                date = request.form.get('date')
+                eventService.updateEvent(uid, date)
+                return redirect('/events')
+
+            event = eventRepository.getById(uid)
+            return render_template('events/edit-event.html', event = event)
 
 if __name__ == '__main__':
     app.run(port=4000, debug=True)

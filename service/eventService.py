@@ -18,6 +18,25 @@ class EventService:
     def getCurrentEvents(self):
        return self.eventRepository.getAll()
 
+    def registerEvent(self, date: str):
+        self.eventRepository.insert(
+            [
+                {
+                    'date': date,
+                }
+            ]
+        )
+
+    def updateEvent(self, uid: str, date: str):
+        self.eventRepository.updateById(
+            int(uid),
+            [
+                {
+                    'date': date
+                }
+            ]
+        )
+
     def registerForEvent(self, form):
         events =  form.getlist('events[]')
 
