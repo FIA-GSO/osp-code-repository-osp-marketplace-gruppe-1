@@ -39,7 +39,7 @@ class EventService:
             firstName = form.get('firstName')
             lastName = form.get('lastName')
             email =  form.get('email')
-            telefon =  form.get('telefon')
+            telephone =  form.get('telephone')
             fax =  form.get('fax')
             booth =  form.get('booth'+eventId)
             tables =  form.get('tables'+eventId)
@@ -58,7 +58,7 @@ class EventService:
                             'event': eventId,
                             'status': 1,
                             'email': email,
-                            'telephone': telefon,
+                            'telephone': telephone,
                             'fax': fax,
                             'topic': technicalLectureTitle,
                             'duration': technicalLectureDuration
@@ -76,7 +76,7 @@ class EventService:
                             'event': eventId,
                             'status': 1,
                             'email': email,
-                            'telephone': telefon,
+                            'telephone': telephone,
                             'fax': fax,
                             'table_count': tables,
                             'chair_count': chairs

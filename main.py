@@ -6,6 +6,7 @@ from service.eventService import EventService
 from service.userService import UserService
 from service.eventService import EventService
 from repository.userRepository import UserRepository
+from service.validatorService import ValidatorService
 
 app = Flask(__name__)
 app.secret_key = b'adasdadsgitosjtosjtehprthspi'
@@ -14,15 +15,14 @@ userService = UserService()
 userRepository = UserRepository()
 eventService = EventService()
 eventRepository = EventRepository()
+validatorService = ValidatorService()
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
         user = userService.getUser()
-        events = eventService.getCurrentEvents()
-        return render_template('index.html', user = user, events=events, userService=userService)
-    
-    eventService.registerForEvent(request.form)
+        return render_template('index.html', user = user, userService=userService)
+
     return redirect('/')
 
 
@@ -84,14 +84,19 @@ def delete(uid: int):
 
     return redirect('/')
 
-@app.route('/tagderausbildung/register', methods=['GET'])
+@app.route('/tagderausbildung/register', methods=['GET', 'POST'])
 def tagderausbildungRegister():
     if request.method == 'GET':
         events = eventService.getCurrentEvents()
         return render_template('tagderausbildung/register.html', events=events)
     
+    errors = {}
+    validatorService.validateRegisterForEventForm(request.form, errors)
+    if errors:
+        events = eventService.getCurrentEvents()
+        return render_template('tagderausbildung/register.html', events=events, errors=errors)
+
     eventService.registerForEvent(request.form)
-    return redirect('/')
 
 
 if __name__ == '__main__':

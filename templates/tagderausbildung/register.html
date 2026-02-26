@@ -8,15 +8,60 @@
         <div class="container"></div>
             <div class="row">
                 <div class="col-4">
-                    <form action="/" method="post">
+                    <form action="/tagderausbildung/register" method="post" class="needs-validation" novalidate>
                         <div class="container">
                             <div class="mb-3">
                                 <div>Ansprechpartner</div>
-                                <input placeholder="Vorname" type="text" name="firstName">
-                                <input placeholder="Nachname" type="text" name="lastName">
-                                <input placeholder="E-Mail" type="email" name="email">
-                                <input placeholder="Telefon" type="text" name="telefon">
-                                <input placeholder="Fax" type="text" name="fax">   
+                                <input placeholder="Vorname" type="text" name="firstName" class="form-control {% if errors and "firstName" in errors.keys() %}is-invalid{% endif %}" required>
+                                {% if errors%}
+                                    {% for key, error in errors.items() %}
+                                        {% if key == "firstName" %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                <input placeholder="Nachname" type="text" name="lastName" class="form-control {% if errors and "lastName" in errors.keys() %}is-invalid{% endif %}" required>
+                                {% if errors%}
+                                    {% for key, error in errors.items() %}
+                                        {% if key == "lastName" %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                <input placeholder="E-Mail" type="email" name="email" class="form-control {% if errors and "email" in errors.keys() %}is-invalid{% endif %}" required>
+                                {% if errors%}
+                                    {% for key, error in errors.items() %}
+                                        {% if key == "email" %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                <input placeholder="telephone" type="text" name="telephone" class="form-control {% if errors and "telephone" in errors.keys() %}is-invalid{% endif %}" required>
+                                {% if errors%}
+                                    {% for key, error in errors.items() %}
+                                        {% if key == "telephone" %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                <input placeholder="Fax" type="text" name="fax" class="form-control {% if errors and "fax" in errors.keys() %}is-invalid{% endif %}" required>
+                                {% if errors%}
+                                    {% for key, error in errors.items() %}
+                                        {% if key == "fax" %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                             </div>
                             <div class="mb-3 form-check">
                                 {% for event in events %}
@@ -29,16 +74,58 @@
                                         <input type="checkbox" name="booth{{ event.uid }}">
                                         Ich mochte einen Stand beantragen
                                     </label>
-                                    <input type="number" placeholder="Benötigte Tische" name="tables{{ event.uid }}">
-                                    <input type="number" placeholder="Benötigte Stühle" name="chairs{{ event.uid }}">
+                                    {% set tablesKey = "tables" ~ event.uid %}
+                                    <input type="number" placeholder="Benötigte Tische" name="{{ tablesKey }}" class="form-control {% if errors and tablesKey in errors.keys() %}is-invalid{% endif %}">
+                                    {% if errors%}
+                                    {% for key, error in errors.items() %}
+                                        {% if key == tablesKey %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+
+                                    {% set chairsKey = "chairs" ~ event.uid %}
+                                    <div>{{ chairsKey }}</div>
+                                    <input type="number" placeholder="Benötigte Stühle" name="{{ chairsKey }}" class="form-control {% if errors and chairsKey in errors.keys() %}is-invalid{% endif %}">
+                                    {% if errors%}
+                                    {% for key, error in errors.items() %}
+                                        {% if key == chairsKey %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
                                 </div>
                                 <div class="mb-3">
                                     <label>
                                         <input type="checkbox" name="technicalLecture{{ event.uid }}">
                                         Ich mochte einen Fachvortrag halten
                                     </label>
-                                    <input type="text" placeholder="Vortrag Titel" name="technicalLectureTitle{{ event.uid }}">
-                                    <input type="number" placeholder="Vortrag Dauer" name="technicalLectureDuration{{ event.uid }}">
+                                    {% set technicalLectureTitelKey = "technicalLectureTitle" ~ event.uid %}
+                                    <input type="text" placeholder="Vortrag Titel" name="{{ technicalLectureTitelKey }}" class="form-control {% if errors and technicalLectureTitelKey in errors.keys() %}is-invalid{% endif %}">
+                                    {% if errors%}
+                                    {% for key, error in errors.items() %}
+                                        {% if key == technicalLectureTitelKey %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% set technicalLectureDurationKey = "technicalLectureDuration" ~ event.uid %}
+                                    <input type="number" placeholder="Vortrag Dauer" name="{{ technicalLectureDurationKey }}" class="form-control {% if errors and technicalLectureDurationKey in errors.keys() %}is-invalid{% endif %}">
+                                    {% if errors%}
+                                    {% for key, error in errors.items() %}
+                                        {% if key == "technicalLectureDurationKey" %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
                                 </div>
                                 {% endfor %}
                             </div>
