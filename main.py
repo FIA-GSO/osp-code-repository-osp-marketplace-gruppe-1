@@ -14,10 +14,6 @@ userService = UserService()
 userRepository = UserRepository()
 eventService = EventService()
 eventRepository = EventRepository()
-<<<<<<< HEAD
-=======
-eventRepository = EventRepository()
->>>>>>> e8f37fb10b0e293ab23b10a74525aa1f7caf65c2
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
