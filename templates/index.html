@@ -24,13 +24,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-4">
-                    {% if user[0]['role'] == 1 %}
+                    {% if user[0]['role'] == userService.AUSBILDUNGSBETRIEB %}
                         <a href="/">Anmeldung zum Tag der Ausbildung</a>
                     {% endif %}
-                    {% if user[0]['role'] == 2 %}
+                    {% if user[0]['role'] == userService.ORGANISATIONSTEAM %}
                         <a href="/">Verwaltung der Anmeldungen zum Tag der Ausbildung</a>
                     {% endif %}
-                    {% if user[0]['role'] == 3 %}
+                    {% if user[0]['role'] == userService.LEHRER %}
                         <a href="/">Übersicht zum Tag der Ausbildung</a>
                     {% endif %}
                 </div>
