@@ -23,7 +23,6 @@ def index():
         user = userService.getUser()
         return render_template('index.html', user = user, userService=userService)
 
-
     return redirect('/')
 
 
