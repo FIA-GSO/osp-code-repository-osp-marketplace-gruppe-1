@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+  <script src="static/bootstrap/js/bootstrap.min.js"></script>
+  <style>
+    .event-block { display: none; }
+    .event-block.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <select id="eventSelect">
+    {% for event in events %}
+        <option {% if loop.first %}selected{% endif %} value="{{ event.uid }}">{{ event.date }}</option>
+    {% endfor %}
+    </select>
+
+    {% for event in events %}
+    <div class="event-block" data-uid="{{ event.uid }}">
+      <div>
+        {% if eventLectures[event.uid] %}
+        <h6>Fachvorträge</h6>
+        <ul>
+          {% for eventLecture in eventLectures[event.uid] %}
+            <li>{{ eventLecture }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <script>
+    (function(){
+      const select = document.getElementById('eventSelect');
+      const blocks = document.querySelectorAll('.event-block');
+
+      function showUid(uid) {
+        blocks.forEach(b => {
+          if (!uid) {
+            b.classList.remove('active');
+          } else {
+            b.classList.toggle('active', b.dataset.uid === uid);
+          }
+        });
+      }
+
+      select.addEventListener('change', e => {
+        showUid(e.target.value);
+      });
+      showUid(select.value);
+    })();
+  </script>
+</body>
+</html>

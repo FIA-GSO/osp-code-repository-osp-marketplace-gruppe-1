@@ -55,7 +55,7 @@ class BaseRepository:
 
         for field in fields:
             for key, value in field.items():
-                conditions.append(key + ' = "' + value + '"')
+                conditions.append(key + ' = "' + str(value) + '"')
 
         sql += ', '. join(conditions)
         sql += ' WHERE uid = ' + str(id)
