@@ -28,10 +28,10 @@
                         <a href="/tagderausbildung/register">Anmeldung zum Tag der Ausbildung</a>
                     {% endif %}
                     {% if user[0]['role'] == userService.ORGANISATIONSTEAM %}
-                        <a href="/">Verwaltung der Anmeldungen zum Tag der Ausbildung</a>
+                        <a href="/dashboard">Verwaltung der Anmeldungen zum Tag der Ausbildung</a>
                     {% endif %}
                     {% if user[0]['role'] == userService.LEHRER %}
-                        <a href="/">Übersicht zum Tag der Ausbildung</a>
+                        <a href="/dashboard">Übersicht zum Tag der Ausbildung</a>
                     {% endif %}
                 </div>
                 <div class="col-4">

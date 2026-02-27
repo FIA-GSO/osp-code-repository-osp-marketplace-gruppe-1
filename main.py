@@ -75,7 +75,7 @@ def events():
     return redirect('/')
 
 @app.route('/events/delete/<int:uid>', methods=['GET'])
-def delete_event(uid: int):
+def delete_eventEvent(uid: int):
     user_role = userService.getRoleOfUser()
     if user_role == userService.ORGANISATIONSTEAM:
         if uid and eventRepository.getById(uid):
@@ -107,6 +107,16 @@ def edit_event(uid: int):
 
             event = eventRepository.getById(uid)
             return render_template('events/edit-event.html', event = event)
+
+@app.route("/dashboard", methods=['GET', 'POST'])
+def dashboard():
+    if request.method == 'GET':
+        user = userService.getUser()
+        if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
+            events = eventService.getCurrentEvents()
+            return render_template('dashboards/organisationsteam/dashboard.html', user = user, events = events)
+
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(port=4000, debug=True)
