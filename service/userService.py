@@ -45,13 +45,17 @@ class UserService:
             return self.userRepository.getById(int(session['uid']))
         return []
 
-    def getRoleOfUser(self):
-        if ('uid' in session):
-            user = self.userRepository.getById(int(session['uid']))
-            user_role = user[0]['role']
+    def getUserEmail(self):
+        user = self.getUser()
+        if user != []:
+            userEmail = user[0]['email']
+            return userEmail
 
-            print (user)
-            print (user_role)
+
+    def getRoleOfUser(self):
+        user = self.getUser()
+        if (user != []):
+            user_role = user[0]['role']
             return user_role
         return []
     

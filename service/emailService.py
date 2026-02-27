@@ -1,24 +1,46 @@
-import smtplib
+import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 import os
 
 class EmailService:
-    SENDER_EMAIL = "your_email@gmail.com"
-    RECIEVER_EMAIL = "recipient_email@gmail.com"
-    SUBJECT = "Updated Email Subject"
+    # login information of a microsoft hotmail account you want to send the service emails from
+    TRY_TO_SEND_EMAIL = False
+    SENDER_EMAIL = "%%% ACCOUNT EMAIL ADDRESS %%%"
+    SENDER_PASSWORD = "%%% ACCOUNT PASSWORD %%%"
 
-def sendUpdateNotifictionMail(userId, body_data):
-    
+    def sendUpdateNotifictionMail(self, toEmailAddress, eventRegistrationData):
+        msg = MIMEMultipart()
+        msg['From'] = self.SENDER_EMAIL
+        msg['To'] = toEmailAddress
+        msg['Subject'] = "Der Status ihrer event anmeldung wurde aktualisiert"
+
+        body = "ihre neuen daten: \n"
+
+        for key, value in eventRegistrationData[0].items():
+            body += str(key) + ": " + str(value) + "\n"
+
+        body += "\n"
+        body += "Mit freundlichen Grüßen"
+        body += "\n"
+        body += "ihr GSO Team"
+
+        msg.attach(MIMEText(body, 'plain'))
+        if self.TRY_TO_SEND_EMAIL:
+            self.sendEmail(msg)
 
 
-# Create a MIMEMultipart object for the email
-msg = MIMEMultipart()
-msg['From'] = sender_email
-msg['To'] = receiver_email
-msg['Subject'] = subject
 
-# Update the email body
-body = "This is the updated content of the email."
-msg.attach(MIMEText(body, 'plain'))
+    def sendEmail(self, email:MIMEText):
+        smtp_server = "imap-mail.outlook.com"
+        port = 465
+        SSL_context = ssl.create_default_context()
+
+        try:
+            with smtplib.SMTP_SSL(smtp_server, port, context=SSL_context) as server:  # Using localhost (no actual server)
+                server.login(self.SENDER_EMAIL, self.SENDER_PASSWORD)
+                server.sendmail(sender_email, receiver_email, msg.as_string())
+            print("Email sent successfully!")
+        except Exception as e:
+            print(f"Failed to send email: {e}")
