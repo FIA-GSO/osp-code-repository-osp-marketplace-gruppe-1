@@ -32,7 +32,7 @@ class EmailService:
 
 
 
-    def sendEmail(self, email:MIMEText):
+    def _sendEmail(self, email:MIMEText):
         smtp_server = "imap-mail.outlook.com"
         port = 465
         SSL_context = ssl.create_default_context()
