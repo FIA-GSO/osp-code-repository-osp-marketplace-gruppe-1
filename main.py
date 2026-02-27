@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, url_for
 from flask import session, redirect
+import jinja_partials
 
 from repository.eventRepository import EventRepository
 from service.eventService import EventService
@@ -11,6 +12,7 @@ from repository.userRepository import UserRepository
 from service.validatorService import ValidatorService
 
 app = Flask(__name__)
+jinja_partials.register_extensions(app)
 app.secret_key = b'adasdadsgitosjtosjtehprthspi'
 
 userService = UserService()
