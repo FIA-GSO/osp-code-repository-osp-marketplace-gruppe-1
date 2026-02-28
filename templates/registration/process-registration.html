@@ -2,18 +2,85 @@
 <html lang="de">
     <head>
         <title>Marketplace GSO - Registrierung</title>
-        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
-        <script src="static/bootstrap/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/styles.css">
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-2"></div>
-                <div class="col-4">
-                    Danke für ihre Registrierung! Sie können ihren stand jetzt <a href="/login">hier</a> Anmelden 
-                </div>  
-                <div class="col-6"></div>
+        {{ render_partial('partials/header.html') }}
+        <main class="pb-md-5">
+            <div class="container mt-md-5">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <h1>Registrierung</h1>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
             </div>
-        </div>
+            <div class="container">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <div class="container" id="container-frame">
+                            <div class="row mt-md-3">
+                                <div class="col-xl-2"></div>
+                                <div class="col-xl-8 col-sm-12 mt-sm-3 text-center">
+                                    {% if error == 0 %}
+                                    <div class="alert alert-success">
+                                        <p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                                <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5"/>
+                                            </svg><br><br>
+                                            Ihre Registrierung war erfolgreich.<br>
+                                            Über den "Anmelden"-Button können Sie sich nun anmelden.
+                                        </p>
+                                    </div>
+                                    {% endif %}
+                                    {% if error == 1 %}
+                                    <div class="alert alert-danger">
+                                        <p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-emoji-dizzy" viewBox="0 0 16 16">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                                <path d="M9.146 5.146a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708m-5 0a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 1 1 .708.708l-.647.646.647.646a.5.5 0 1 1-.708.708L5.5 7.207l-.646.647a.5.5 0 1 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 0-.708M10 11a2 2 0 1 1-4 0 2 2 0 0 1 4 0"/>
+                                            </svg><br><br>
+                                            Ihre Registrierung war nicht erfolgreich.<br>
+                                            Die eingegebene E-Mail-Adresse gibt es bereits.<br>
+                                        </p>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-xl-2"></div>
+                            </div>
+                            <div class="row mt-md-3">
+                                <div class="col-xl-4 col-sm-2"></div>
+                                <div class="col-xl-4 col-sm-12 text-end">
+                                    <div class="d-grid gap-2">
+                                        {% if error == 0 %}
+                                        <button class="btn btn-primary mb-3">
+                                            <a href="{{ url_for('index') }}">Anmelden</a>
+                                        </button>
+                                        {% endif %}
+                                        {% if error == 1 %}
+                                        <button class="btn btn-secondary mb-3">
+                                            <a href="{{ url_for('register') }}">Zurück zur Registrierung</a>
+                                        </button>
+                                        <p class="text-center">
+                                            <a href="{{ url_for('index') }}">Anmelden</a>
+                                        </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-xl-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
+        </main>
+        {{ render_partial('partials/footer.html') }}
     </body>
 </html>

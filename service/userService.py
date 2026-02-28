@@ -13,15 +13,23 @@ class UserService:
         self.userRepository = UserRepository()
         pass
 
-    def userExist(self, email: str, password: str):
-        if self.userRepository.getByPasswordAndEmail(email, password):
-            return self.userRepository.getByPasswordAndEmail(email, password)
-        else:
+    def userExist(self, email: str, password: str = None):
+        if password is not None:
+            if self.userRepository.getByPasswordAndEmail(email, password):
+                return self.userRepository.getByPasswordAndEmail(email, password)
+
             return False
-        
-    def registerUser(self, email: str, company: str, password: str):
-        if (not self.userExist(email, password)):
-            self.userRepository.insert(
+
+        if self.userRepository.getByEmail(email):
+            return True
+
+        return False
+
+    def registerUser(self, company: str, email: str, password: str):
+        if self.userExist(email):
+            return False
+
+        self.userRepository.insert(
             [
                 {
                     'company': company,
@@ -31,7 +39,8 @@ class UserService:
                     'donation': 0
                 }
             ]
-    )
+        )
+        return True
         
     def loginUser(self, email: str, password: str):
         if self.userExist(email, password):

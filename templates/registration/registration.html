@@ -3,9 +3,10 @@
     <head>
         <title>Marketplace GSO - Registrierung</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/static/css/styles.css">
-        <script src="static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/scrip/registrationForm.js" defer></script>
     </head>
     <body>
         {{ render_partial('partials/header.html') }}
@@ -23,13 +24,14 @@
                 <div class="row mt-md-3">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <form action="/register" method="post">
-                            <div class="container">
+                        <form action="{{ url_for('register') }}" method="POST" class="needs-validation" novalidate>
+                            <div class="container" id="container-frame">
                                 <div class="row mt-md-3">
                                     <div class="col-xl-2"></div>
                                     <div class="col-xl-4 col-sm-12 mt-sm-3">
                                         <label for="company" class="form-label">Firma</label>
-                                        <input type="text" id="company" class="form-control" placeholder="Firma">
+                                        <input type="text" id="company" name="company" class="form-control" placeholder="Firma" required>
+                                        <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
                                     </div>
                                     <div class="col-xl-4"></div>
                                     <div class="col-xl-2"></div>
@@ -38,11 +40,13 @@
                                     <div class="col-xl-2"></div>
                                     <div class="col-xl-4 col-sm-12">
                                         <label for="email" class="form-label">E-Mail-Adresse</label>
-                                        <input type="email" id="email" class="form-control" placeholder="E-Mail-Adresse">
+                                        <input type="email" id="email" name="email" class="form-control" placeholder="E-Mail-Adresse" required>
+                                        <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
                                     </div>
                                     <div class="col-xl-4 col-sm-12 mt-sm-3 mt-xl-0">
                                         <label for="repeatedemail" class="form-label">E-Mail-Adresse wiederholen</label>
-                                        <input type="email" id="repeatedemail" class="form-control" placeholder="E-Mail-Adresse wiederholen">
+                                        <input type="email" id="repeatedemail" class="form-control" placeholder="E-Mail-Adresse wiederholen" required>
+                                        <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
                                     </div>
                                     <div class="col-xl-2"></div>
                                 </div>
@@ -50,11 +54,13 @@
                                     <div class="col-sm-2"></div>
                                     <div class="col-xl-4 col-sm-12">
                                         <label for="password" class="form-label">Passwort</label>
-                                        <input type="password" id="password" class="form-control" placeholder="Passwort">
+                                        <input type="password" id="password" name="password" class="form-control" placeholder="Passwort" required>
+                                        <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
                                     </div>
                                     <div class="col-xl-4 mt-sm-3 mt-xl-0">
                                         <label for="repeatedpasssword" class="form-label">Passwort wiederholen</label>
-                                        <input type="password" id="repeatedpasssword" class="form-control" placeholder="Passwort wiederholen">
+                                        <input type="password" id="repeatedpasssword" class="form-control" placeholder="Passwort wiederholen" required>
+                                        <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
                                     </div>
                                     <div class="col-sm-2"></div>
                                 </div>

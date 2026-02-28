@@ -53,13 +53,10 @@ def register():
     email = request.form['email']
     password = request.form['password']
 
-    userService.registerUser(
-        email,
-        company,
-        password
-    )
+    if userService.registerUser(company, email, password):
+        return render_template('registration/process-registration.html', error = 0)
 
-    return render_template('registration/process-registration.html')
+    return render_template('registration/process-registration.html', error = 1)
 
 @app.route('/events', methods=['GET', 'POST'])
 def events():
