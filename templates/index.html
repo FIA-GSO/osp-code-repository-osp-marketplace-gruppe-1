@@ -1,51 +1,69 @@
 <html>
     <head>
+        <title>Marketplace GSO</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/styles.css">
         <script src='static/bootstrap/js/bootstrap.min.js'></script>
     </head>
     <body>
-        {% if user != []  %}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Firma</th>
-                    <th>Vorname</th>
-                    <th>Nachname</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ user[0]['company'] }}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="container">
-            <div class="row">
-                <div class="col-4">
-                    {% if user[0]['role'] == userService.AUSBILDUNGSBETRIEB %}
-                        <a href="/tagderausbildung/register">Anmeldung zum Tag der Ausbildung</a>
-                    {% endif %}
-                    {% if user[0]['role'] == userService.ORGANISATIONSTEAM %}
-                        <a href="/dashboard">Verwaltung der Anmeldungen zum Tag der Ausbildung</a>
-                    {% endif %}
-                    {% if user[0]['role'] == userService.LEHRER %}
-                        <a href="/dashboard">Übersicht zum Tag der Ausbildung</a>
-                    {% endif %}
-                </div>
-                <div class="col-4">
-                    Profil bearbeiten
-                </div>
-                <div class="col-4">
-                    <a href="/logout">Logout</a>
+        {{ render_partial('partials/header.html') }}
+        <main class="pb-md-5">
+            <div class="container mt-md-5">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <h1>Login</h1>
+                    </div>
+                    <div class="col-1"></div>
                 </div>
             </div>
-        </div>
-
-        {% endif %}
-        {% if user == []  %}
-            <a href="/login">Einloggen</a> oder <a href="/register">Registrieren</a>
-        {% endif %}
+            <div class="container">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <form action="{{ url_for('index') }}" method="post">
+                            <div class="container">
+                                <div class="row mt-md-3">
+                                    <div class="col-xl-4"></div>
+                                    <div class="col-xl-4 col-sm-12  mt-sm-3">
+                                        <label for="email" class="form-label">E-Mail-Adresse</label>
+                                        <input type="email" id="email" name="email" class="form-control" placeholder="E-Mail-Adresse">
+                                    </div>
+                                    <div class="col-xl-4"></div>
+                                </div>
+                                <div class="row mt-md-3">
+                                    <div class="col-xl-4"></div>
+                                    <div class="col-xl-4 col-sm-12">
+                                        <label for="password" class="form-label">Passwort</label>
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Passwort">
+                                    </div>
+                                    <div class="col-xl-4 col-sm-12"></div>
+                                </div>
+                                <div class="row mt-md-3">
+                                    <div class="col-xl-4 col-sm-2"></div>
+                                    <div class="col-xl-4 col-sm-12 text-end">
+                                        <div class="d-grid gap-2">
+                                            <button type="submit" class="btn btn-primary mb-3">Login</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4"></div>
+                                </div>
+                                <div class="row mt-md-3">
+                                    <div class="col-xl-4 col-sm-2"></div>
+                                    <div class="col-xl-4 col-sm-12">
+                                        <p>Passwort vergessen?</p>
+                                        <p><a href="{{ url_for('register') }}">Registrieren</a></p>
+                                    </div>
+                                    <div class="col-xl-4"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
+        </main>
+        {{ render_partial('partials/footer.html') }}
     </body>
 </html>

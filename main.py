@@ -27,22 +27,17 @@ validatorService = ValidatorService()
 def index():
     if request.method == 'GET':
         user = userService.getUser()
-        return render_template('index.html', user = user, userService=userService)
+        if not user:
+            return render_template('index.html')
 
-    return redirect((url_for('index')))
+        return redirect((url_for('dashboard')))
 
+    email = request.form.get('email')
+    password = request.form.get('password')
 
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    if request.method == 'GET':
-        return render_template('login/login.html')
-    else:
-        email = request.form.get('email')
-        password = request.form.get('password')
+    userService.loginUser(email, password)
 
-        if userService.loginUser(email, password):
-            return redirect((url_for('index')))
-        return render_template('login/login.html')
+    return redirect((url_for('dashboard')))
 
 @app.route("/logout", methods=['GET'])
 def logout():
