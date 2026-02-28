@@ -122,7 +122,7 @@ def dashboard():
         elif userService.getRoleOfUser() == userService.LEHRER:
             return render_template('dashboards/lehrer/dashboard.html')
         elif userService.getRoleOfUser() == userService.AUSBILDUNGSBETRIEB:
-            return render_template('dashboards/ausbildungsbetiereb/dashboard.html')
+            return render_template('dashboards/ausbildungsbetrieb/dashboard.html')
     return redirect((url_for('index')))
 
 @app.route("/booths", methods=['GET'])
