@@ -20,12 +20,35 @@
     <div class="event-block" data-uid="{{ event.uid }}">
       <div>
         {% if eventLectures[event.uid] %}
-        <h6>Fachvorträge</h6>
-        <ul>
+        <h6>Stände</h6>
           {% for eventLecture in eventLectures[event.uid] %}
-            <li>{{ eventLecture }}</li>
+            <div>
+              Unternehmen: INSERT_UNTERNEHMEN_HERE
+              <br>
+              Vorname: <span>{{ eventLecture.first_name }}</span>
+              <br>
+              Nachanme: <span>{{ eventLecture.last_name }}</span>
+              <br>
+              Status: <span>{{ eventLecture.status }}</span>
+              <br>
+              E-Mail: <span>{{ eventLecture.email }}</span>
+              <br>
+              Telefon: <span>{{ eventLecture.telephone }}</span>
+              <br>
+              Thema: <span>{{ eventLecture.topic }}</span>
+              <br>
+              Anmerkung: <span>{{ eventLecture.note }}</span>
+              <br>
+              Dauer: <span>{{ eventLecture.duration }}</span>
+            </div>
+            <form action="{{ url_for('lecturesAccept', uid=eventLecture.uid) }}" method="post">
+              <button>Annehmen</button>
+            </form>
+            <form action="{{ url_for('lecturesReject', uid=eventLecture.uid) }}" method="post">
+              <button>Ablehnen</button>
+            </form>
+            {{ eventLecture }}
           {% endfor %}
-        </ul>
         {% endif %}
       </div>
     </div>

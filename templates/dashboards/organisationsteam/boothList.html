@@ -23,6 +23,8 @@
         <h6>Stände</h6>
           {% for eventBooth in eventBooths[event.uid] %}
             <div>
+              Unternehmen: INSERT_UNTERNEHMEN_HERE
+              <br>
               Vorname: <span>{{ eventBooth.first_name }}</span>
               <br>
               Nachanme: <span>{{ eventBooth.last_name }}</span>
@@ -33,21 +35,15 @@
               <br>
               Telefon: <span>{{ eventBooth.telephone }}</span>
               <br>
-              Fax: <span>{{ eventBooth.fax }}</span>
-              <br>
               Anmerkung: <span>{{ eventBooth.note }}</span>
               <br>
               Tische: <span>{{ eventBooth.table_count }}</span>
               <br>
               Stühle: <span>{{ eventBooth.chair_count }}</span>
             </div>
-            <form action="{{ url_for('boothsAccept', uid=eventBooth.uid) }}" method="post">
-              <button>Annehmen</button>
-            </form>
-            <form action="{{ url_for('boothsReject', uid=eventBooth.uid) }}" method="post">
-              <button>Ablehnen</button>
-            </form>
-            <li>{{ eventBooth }}</li>
+            <button class="js-button" event-id="{{ event.uid }}" action="accept">Annehmen</button>
+            <button class="js-button" event-id="{{ event.uid }}" action="reject">Ablehnen</button>
+            {{ eventBooth }}
           {% endfor %}
         {% endif %}
       </div>
@@ -75,6 +71,25 @@
       });
       showUid(select.value);
     })();
+
+    document.querySelectorAll('.js-button').forEach(btn =>
+      btn.addEventListener('click', async event => {
+        event.preventDefault();
+        userId = btn.getAttribute('event-id');
+        action = btn.getAttribute('action');
+
+        if (action === 'accept') {
+          const res = await fetch('/api/booths', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 'action': action, 'uid': userId }),
+          });
+        }
+
+        console.log(event);
+      })
+    );
+
   </script>
 </body>
 </html>

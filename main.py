@@ -10,6 +10,7 @@ from service.boothService import BoothService
 from service.lectureService import LectureService
 from repository.userRepository import UserRepository
 from service.validatorService import ValidatorService
+from service.notificationService import NotificationService
 
 app = Flask(__name__)
 jinja_partials.register_extensions(app)
@@ -22,6 +23,7 @@ eventRepository = EventRepository()
 boothService = BoothService()
 lectureService = LectureService()
 validatorService = ValidatorService()
+notificationService = NotificationService()
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -117,6 +119,10 @@ def dashboard():
         user = userService.getUser()
         if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
             return render_template('dashboards/organisationsteam/dashboard.html', user = user)
+        elif userService.getRoleOfUser() == userService.LEHRER:
+            return render_template('dashboards/lehrer/dashboard.html')
+        elif userService.getRoleOfUser() == userService.AUSBILDUNGSBETRIEB:
+            return render_template('dashboards/ausbildungsbetiereb/dashboard.html')
     return redirect((url_for('index')))
 
 @app.route("/booths", methods=['GET'])
@@ -125,25 +131,26 @@ def booths():
         user = userService.getUser()
         if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
             events = eventService.getCurrentEvents()
+            eventBooths = {}
             for event in events:
                 uid = event.get('uid')
-                eventBooths = boothService.getBoothRegestrationsForEvent(uid)
+                eventBooths[uid] = boothService.getBoothRegestrationsForEvent(uid)
             return render_template('dashboards/organisationsteam/boothList.html', user = user, events = events, eventBooths = eventBooths)
     return redirect((url_for('index')))
 
-@app.route("/booths/reject/<int:uid>", methods=['POST'])
-def boothsReject(uid: int):
-    if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
-        boothService.rejectBoothRegistration(uid)
-        return redirect((url_for('booths')))
-    return redirect((url_for('index')))
+@app.route("/api/booths", methods=['POST'])
+def boothsApi(uid: int):
+    data = request.get_json(silent=True)
+    if not data or userService.getRoleOfUser() != userService.ORGANISATIONSTEAM:
+        return jsonify({'data': data}), 400
 
-@app.route("/booths/accept/<int:uid>", methods=['POST'])
-def boothsAccept(uid: int):
-    if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
-        boothService.acceptBoothRegistration(uid)
-        return redirect((url_for('booths')))
-    return redirect((url_for('index')))
+    if data.action == 'accept':
+        boothService.acceptBoothRegistration(data.uid)
+
+    if data.action == 'reject':
+        boothService.rejectBoothRegistration(data.uid)  
+    
+    return jsonify({'data': data}), 200
 
 @app.route("/lectures", methods=['GET'])
 def lectures():
@@ -155,22 +162,23 @@ def lectures():
             for event in events:
                 uid = event.get('uid')
                 eventLectures[uid] = lectureService.getTechnicalLectureRegestrationsForEvent(uid)
-            return render_template('dashboards/organisationsteam/boothList.html', user = user, events = events, eventLectures = eventLectures)
+            return render_template('dashboards/organisationsteam/lectureList.html', user = user, events = events, eventLectures = eventLectures)
     return redirect((url_for('index')))
 
-@app.route("/lectures/reject/<int:uid>", methods=['POST'])
+@app.route("/api/lectures/reject/<int:uid>", methods=['POST'])
 def lecturesReject(uid: int):
     if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
         lectureService.rejectLectureRegistration(uid)
         return redirect((url_for('lectures')))
     return redirect((url_for('index')))
 
-@app.route("/lectures/accept/<int:uid>", methods=['POST'])
+@app.route("/api/lectures/accept/<int:uid>", methods=['POST'])
 def lecturesAccept(uid: int):
     if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
         lectureService.acceptLectureRegistration(uid)
         return redirect((url_for('lectures')))
     return redirect((url_for('index')))
+
 
 if __name__ == '__main__':
     app.run(port=4000, debug=True)
