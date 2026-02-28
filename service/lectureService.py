@@ -14,11 +14,17 @@ class LectureService:
         return self.lectureRepository.getByEventID(eventID)
     
     def rejectLectureRegistration(self, lectureID: int):
-        self.lectureRepository.updateById(lectureID, [
+        self.lectureRepository.updateById(
+            lectureID, 
+            [
                 {"status": self.STATUS_REJECTED},
-            ])
+            ]
+        )
     
     def acceptLectureRegistration(self, lectureID: int):
-                self.lectureRepository.updateById(lectureID, [
+        self.lectureRepository.updateById(
+            lectureID, 
+            [
                 {"status": self.STATUS_ACCEPTED},
-            ])
+            ]
+        )

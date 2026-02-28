@@ -41,12 +41,8 @@
               <br>
               Dauer: <span>{{ eventLecture.duration }}</span>
             </div>
-            <form action="{{ url_for('lecturesAccept', uid=eventLecture.uid) }}" method="post">
-              <button>Annehmen</button>
-            </form>
-            <form action="{{ url_for('lecturesReject', uid=eventLecture.uid) }}" method="post">
-              <button>Ablehnen</button>
-            </form>
+            <button class="js-button" data-lecture-id="{{ eventLecture.uid }}" action="accept">Annehmen</button>
+            <button class = "js-button" data-lecture-id="{{ eventLecture.uid }}" action="reject">Ablehnen</button>
             {{ eventLecture }}
           {% endfor %}
         {% endif %}
@@ -75,6 +71,31 @@
       });
       showUid(select.value);
     })();
+
+    document.querySelectorAll('.js-button').forEach(btn =>
+      btn.addEventListener('click', async event => {
+        event.preventDefault();
+        lectureId = btn.getAttribute('data-lecture-id');
+        action = btn.getAttribute('action');
+
+        response = '';
+
+        if (action === 'accept') {
+          response = await fetch('/api/lectures', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 'action': action, 'uid': lectureId }),
+          });
+        }
+        else if (action === 'reject') {
+          response = await fetch('/api/lectures', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 'action': action, 'uid': lectureId }),
+          });
+        }
+      })
+    );
   </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, url_for
+from flask import Flask, request, render_template, url_for, jsonify
 from flask import session, redirect
 import jinja_partials
 
@@ -7,7 +7,9 @@ from service.eventService import EventService
 from service.userService import UserService
 from service.eventService import EventService
 from service.boothService import BoothService
+from repository.boothRepository import BoothRepository
 from service.lectureService import LectureService
+from repository.lectureRepository import LectureRepository
 from repository.userRepository import UserRepository
 from service.validatorService import ValidatorService
 from service.notificationService import NotificationService
@@ -21,7 +23,9 @@ userRepository = UserRepository()
 eventService = EventService()
 eventRepository = EventRepository()
 boothService = BoothService()
+boothRepository = BoothRepository()
 lectureService = LectureService()
+lectureRepository = LectureRepository()
 validatorService = ValidatorService()
 notificationService = NotificationService()
 
@@ -139,18 +143,16 @@ def booths():
     return redirect((url_for('index')))
 
 @app.route("/api/booths", methods=['POST'])
-def boothsApi(uid: int):
+def boothsApi():
     data = request.get_json(silent=True)
     if not data or userService.getRoleOfUser() != userService.ORGANISATIONSTEAM:
-        return jsonify({'data': data}), 400
-
-    if data.action == 'accept':
-        boothService.acceptBoothRegistration(data.uid)
-
-    if data.action == 'reject':
-        boothService.rejectBoothRegistration(data.uid)  
-    
-    return jsonify({'data': data}), 200
+        return jsonify(), 400
+    elif data['action'] == 'accept':
+        boothService.acceptBoothRegistration(int(data['uid']))
+        return jsonify(boothRepository.getById(int(data['uid']))), 200
+    elif data['action'] == 'reject':
+        boothService.rejectBoothRegistration(int(data['uid']))
+        return jsonify(boothRepository.getById(int(data['uid']))), 200
 
 @app.route("/lectures", methods=['GET'])
 def lectures():
@@ -165,20 +167,17 @@ def lectures():
             return render_template('dashboards/organisationsteam/lectureList.html', user = user, events = events, eventLectures = eventLectures)
     return redirect((url_for('index')))
 
-@app.route("/api/lectures/reject/<int:uid>", methods=['POST'])
-def lecturesReject(uid: int):
-    if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
-        lectureService.rejectLectureRegistration(uid)
-        return redirect((url_for('lectures')))
-    return redirect((url_for('index')))
-
-@app.route("/api/lectures/accept/<int:uid>", methods=['POST'])
-def lecturesAccept(uid: int):
-    if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
-        lectureService.acceptLectureRegistration(uid)
-        return redirect((url_for('lectures')))
-    return redirect((url_for('index')))
-
+@app.route("/api/lectures", methods=['POST'])
+def lecturesApi():
+    data = request.get_json(silent=True)
+    if not data or userService.getRoleOfUser() != userService.ORGANISATIONSTEAM:
+        return jsonify({'data': data}), 400
+    elif data['action'] == 'accept':
+        lectureService.acceptLectureRegistration(int(data['uid']))
+        return jsonify(lectureRepository.getById(int(data['uid']))), 200
+    elif data['action'] == 'reject':
+        lectureService.rejectLectureRegistration(int(data['uid']))
+        return jsonify(lectureRepository.getById(int(data['uid']))), 200
 
 if __name__ == '__main__':
     app.run(port=4000, debug=True)

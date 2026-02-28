@@ -52,13 +52,14 @@ class BaseRepository:
         sql = 'UPDATE ' + self.table_name + ' SET '
         conditions = []
 
-
         for field in fields:
             for key, value in field.items():
                 conditions.append(key + ' = "' + str(value) + '"')
 
         sql += ', '. join(conditions)
         sql += ' WHERE uid = ' + str(id)
+
+        print(sql)
 
         self.cursor.execute(sql)
         self.connection.commit()

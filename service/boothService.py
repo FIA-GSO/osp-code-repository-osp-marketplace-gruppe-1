@@ -14,8 +14,7 @@ class BoothService:
         return self.boothRepository.getByEventID(eventID)
     
     def rejectBoothRegistration(self, boothID: int):
-        self.boothRepository.updateById
-        (
+        self.boothRepository.updateById(
             boothID, 
             [
                 {"status": self.STATUS_REJECTED},
@@ -23,8 +22,7 @@ class BoothService:
         )
     
     def acceptBoothRegistration(self, boothID: int):
-        self.boothRepository.updateById
-        (
+        self.boothRepository.updateById(
             boothID, 
             [
                 {"status": self.STATUS_ACCEPTED},

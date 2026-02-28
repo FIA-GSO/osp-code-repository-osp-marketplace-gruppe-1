@@ -41,8 +41,8 @@
               <br>
               Stühle: <span>{{ eventBooth.chair_count }}</span>
             </div>
-            <button class="js-button" event-id="{{ event.uid }}" action="accept">Annehmen</button>
-            <button class="js-button" event-id="{{ event.uid }}" action="reject">Ablehnen</button>
+            <button class="js-button" data-booth-id="{{ eventBooth.uid }}" action="accept">Annehmen</button>
+            <button class="js-button" data-booth-id="{{ eventBooth.uid }}" action="reject">Ablehnen</button>
             {{ eventBooth }}
           {% endfor %}
         {% endif %}
@@ -75,18 +75,25 @@
     document.querySelectorAll('.js-button').forEach(btn =>
       btn.addEventListener('click', async event => {
         event.preventDefault();
-        userId = btn.getAttribute('event-id');
+        boothId = btn.getAttribute('data-booth-id');
         action = btn.getAttribute('action');
 
+        response = '';
+
         if (action === 'accept') {
-          const res = await fetch('/api/booths', {
+          response = await fetch('/api/booths', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 'action': action, 'uid': userId }),
+            body: JSON.stringify({ 'action': action, 'uid': boothId }),
           });
         }
-
-        console.log(event);
+        else if (action === 'reject') {
+          response = await fetch('/api/booths', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 'action': action, 'uid': boothId }),
+          });
+        }
       })
     );
 
