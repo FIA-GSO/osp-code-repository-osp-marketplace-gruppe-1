@@ -13,55 +13,15 @@
                             <div class="mb-3">
                                 <div>Ansprechpartner</div>
                                 <input placeholder="Vorname" type="text" name="firstName" class="form-control {% if errors and "firstName" in errors.keys() %}is-invalid{% endif %}" required>
-                                {% if errors%}
-                                    {% for key, error in errors.items() %}
-                                        {% if key == "firstName" %}
-                                    <div class="invalid-feedback">
-                                        {{ error }}
-                                    </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+                                {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="firstName") }}
                                 <input placeholder="Nachname" type="text" name="lastName" class="form-control {% if errors and "lastName" in errors.keys() %}is-invalid{% endif %}" required>
-                                {% if errors%}
-                                    {% for key, error in errors.items() %}
-                                        {% if key == "lastName" %}
-                                    <div class="invalid-feedback">
-                                        {{ error }}
-                                    </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+                                {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="lastName") }}
                                 <input placeholder="E-Mail" type="email" name="email" class="form-control {% if errors and "email" in errors.keys() %}is-invalid{% endif %}" required>
-                                {% if errors%}
-                                    {% for key, error in errors.items() %}
-                                        {% if key == "email" %}
-                                    <div class="invalid-feedback">
-                                        {{ error }}
-                                    </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+                                {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="email") }}
                                 <input placeholder="telephone" type="text" name="telephone" class="form-control {% if errors and "telephone" in errors.keys() %}is-invalid{% endif %}" required>
-                                {% if errors%}
-                                    {% for key, error in errors.items() %}
-                                        {% if key == "telephone" %}
-                                    <div class="invalid-feedback">
-                                        {{ error }}
-                                    </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+                                {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="telephone") }}
                                 <input placeholder="Fax" type="text" name="fax" class="form-control {% if errors and "fax" in errors.keys() %}is-invalid{% endif %}" required>
-                                {% if errors%}
-                                    {% for key, error in errors.items() %}
-                                        {% if key == "fax" %}
-                                    <div class="invalid-feedback">
-                                        {{ error }}
-                                    </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+                                {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="fax") }}
                             </div>
                             <div class="mb-3 form-check">
                                 {% for event in events %}
@@ -76,27 +36,11 @@
                                     </label>
                                     {% set tablesKey = "tables" ~ event.uid %}
                                     <input type="number" placeholder="Benötigte Tische" name="{{ tablesKey }}" class="form-control {% if errors and tablesKey in errors.keys() %}is-invalid{% endif %}">
-                                    {% if errors%}
-                                    {% for key, error in errors.items() %}
-                                        {% if key == tablesKey %}
-                                    <div class="invalid-feedback">
-                                        {{ error }}
-                                    </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% endif %}
+                                    {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=tablesKey) }}
 
                                     {% set chairsKey = "chairs" ~ event.uid %}
                                     <input type="number" placeholder="Benötigte Stühle" name="{{ chairsKey }}" class="form-control {% if errors and chairsKey in errors.keys() %}is-invalid{% endif %}">
-                                    {% if errors%}
-                                    {% for key, error in errors.items() %}
-                                        {% if key == chairsKey %}
-                                    <div class="invalid-feedback">
-                                        {{ error }}
-                                    </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% endif %}
+                                    {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=chairsKey) }}
                                 </div>
                                 <div class="mb-3">
                                     <label>
@@ -105,26 +49,11 @@
                                     </label>
                                     {% set technicalLectureTitelKey = "technicalLectureTitle" ~ event.uid %}
                                     <input type="text" placeholder="Vortrag Titel" name="{{ technicalLectureTitelKey }}" class="form-control {% if errors and technicalLectureTitelKey in errors.keys() %}is-invalid{% endif %}">
-                                    {% if errors%}
-                                    {% for key, error in errors.items() %}
-                                        {% if key == technicalLectureTitelKey %}
-                                    <div class="invalid-feedback">
-                                        {{ error }}
-                                    </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% endif %}
+                                    {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=technicalLectureTitelKey) }}
+
                                     {% set technicalLectureDurationKey = "technicalLectureDuration" ~ event.uid %}
                                     <input type="number" placeholder="Vortrag Dauer" name="{{ technicalLectureDurationKey }}" class="form-control {% if errors and technicalLectureDurationKey in errors.keys() %}is-invalid{% endif %}">
-                                    {% if errors%}
-                                    {% for key, error in errors.items() %}
-                                        {% if key == "technicalLectureDurationKey" %}
-                                    <div class="invalid-feedback">
-                                        {{ error }}
-                                    </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% endif %}
+                                    {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=technicalLectureDurationKey) }}
                                 </div>
                                 {% endfor %}
                             </div>
