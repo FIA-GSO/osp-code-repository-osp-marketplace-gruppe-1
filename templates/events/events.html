@@ -102,7 +102,7 @@
                                                                 {{event.slots}}
                                                         </p>
                                                         <div class="d-grid gap-2 mt-auto">
-                                                            <a href="#" class="btn btn-primary">Bearbeiten</a>
+                                                            <a href="{{ url_for('edit_event', uid=event.uid) }}" class="btn btn-primary">Bearbeiten</a>
                                                         </div>
                                                         <div class="d-grid gap-2 mt-2 text-center">
                                                             <a href="{{ url_for('delete_event', uid=event.uid) }}">Löschen</a>

@@ -112,12 +112,14 @@ def edit_event(uid: int):
     if user_role == userService.ORGANISATIONSTEAM:
         if uid and eventRepository.getById(uid):
             if request.method == 'POST':
-                uid = request.form.get('uid')
+                uid = int(request.form.get('uid'))
+                name = request.form.get('name')
                 date = request.form.get('date')
-                eventService.updateEvent(uid, date)
+                slots = int(request.form.get('slots'))
+                eventService.updateEvent(uid, name, date, slots)
                 return redirect((url_for('events')))
 
-            event = eventRepository.getById(uid)
+            event = eventRepository.getById(uid)[0]
             return render_template('events/edit-event.html', event = event)
 
 @app.route("/dashboard", methods=['GET', 'POST'])

@@ -29,12 +29,14 @@ class EventService:
             ]
         )
 
-    def updateEvent(self, uid: str, date: str):
+    def updateEvent(self, uid: int, name: str, date: str, slots: int):
         self.eventRepository.updateById(
-            int(uid),
+            uid,
             [
                 {
-                    'date': date
+                    'name': name,
+                    'date': date,
+                    'slots': slots
                 }
             ]
         )

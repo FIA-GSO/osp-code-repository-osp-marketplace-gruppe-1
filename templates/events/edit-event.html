@@ -1,29 +1,74 @@
 <html>
     <head>
-        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
-        <script src='static/bootstrap/js/bootstrap.min.js'></script>
-        <title>Veranstaltung bearbeiten</title>
+        <title>Marketplace GSO - Veranstaltungen</title>
+        {{ render_partial('partials/headIncludes.html') }}
+        <script src="/static/scripts/events.js" defer></script>
     </head>
     <body>
-        {% if event != []  %}
-        <h1>Veranstaltung {{ event[0]['uid'] }} - {{ event[0]['date'] }}</h1>
-        <form action="{{ url_for('edit_event', uid=event[0]['uid']) }}" method="POST">
-            <div class="container">
-                <div class="row">
-                    <div class="col-4">
-                        <label for="uid">UID:</label>
-                        <input type="text" name="uid" id="uid" value="{{ event[0]['uid'] }}" readonly="readonly">
+        {{ render_partial('partials/header.html') }}
+        <main class="pb-md-5">
+            <div class="container mt-md-5">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-6">
+                        <h1>Veranstaltung bearbeiten</h1>
                     </div>
-                    <div class="col-4">
-                        <label for="date">Datum:</label>
-                        <input type="date" name="date" id="date" value="{{ event[0]['date'] }}">
+                    <div class="col-4 text-end">
+                        <span class="me-sm-1"><a href="#">Passwort ändern</a></span>
+                        <span class="me-sm-1"><a href="{{ url_for('logout') }}">Abmelden</a></span>
                     </div>
-                    <div class="col-4">
-                        <input type="submit" value="Editieren">
-                    </div>
+                    <div class="col-1"></div>
                 </div>
             </div>
-        </form>
-        {% endif %}
+            <div class="container">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <form action="{{ url_for('edit_event', uid=event['uid']) }}" method="POST" class="needs-validation" novalidate>
+                            <div class="container" id="container-frame">
+                                <div class="row mt-md-3">
+                                    <div class="col-xl-2"></div>
+                                    <div class="col-xl-8 col-sm-12 mt-sm-3">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" id="name" name="name" class="form-control" value="{{ event['name'] }}" required>
+                                        <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
+                                    </div>
+                                    <div class="col-xl-2"></div>
+                                </div>
+                                <div class="row mt-md-3">
+                                    <div class="col-xl-2"></div>
+                                    <div class="col-xl-4 col-sm-12 mt-sm-3">
+                                        <label for="date" class="form-label">Datum</label>
+                                        <input type="date" id="date" name="date" class="form-control" value="{{ event['date'] }}" required>
+                                        <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
+                                    </div>
+                                    <div class="col-xl-4 col-sm-12 mt-sm-3">
+                                        <label for="slots" class="form-label">Anzahl der Plätze</label>
+                                        <input type="number" min="1" id="slots" name="slots" class="form-control" value="{{ event['slots'] }}" required>
+                                        <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
+                                    </div>
+                                    <div class="col-xl-2"></div>
+                                </div>
+                                <div class="row mt-md-3">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-xl-4">
+                                        <input type="text" name="uid" class="invisible" value="{{ event['uid'] }}" required>
+                                    </div>
+                                    <div class="col-xl-4 col-sm-12 text-end">
+                                        <button type="submit" class="btn btn-primary mb-3">Veranstaltung bearbeiten</button>
+                                        <p class="text-end">
+                                            <a href="{{ url_for('events') }}">Veranstaltungen</a>
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
+        </main>
+        {{ render_partial('partials/footer.html') }}
     </body>
 </html>
