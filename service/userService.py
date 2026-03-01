@@ -1,6 +1,7 @@
 from utiltiy.hashUtility import HashUtility
 from repository.userRepository import UserRepository
 from flask import session
+from service.emailService import EmailService
 
 
 class UserService:
@@ -11,6 +12,7 @@ class UserService:
 
     def __init__(self):
         self.userRepository = UserRepository()
+        self.emailService = EmailService()
         pass
 
     def userExist(self, email: str, password: str = None):
@@ -40,6 +42,7 @@ class UserService:
                 }
             ]
         )
+        self.emailService.sendRegistrationNoticeMail(email, company)
         return True
         
     def loginUser(self, email: str, password: str):

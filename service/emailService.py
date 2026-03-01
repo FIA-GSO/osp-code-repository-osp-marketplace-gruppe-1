@@ -30,6 +30,26 @@ class EmailService:
         if self.TRY_TO_SEND_EMAIL:
             self.sendEmail(msg)
 
+    def sendRegistrationNoticeMail(self, toEmailAddress:str, companyName:str):
+        msg = MIMEMultipart()
+        msg['From'] = self.SENDER_EMAIL
+        msg['To'] = toEmailAddress
+        msg['Subject'] = "Ihre Registrierung war erfolgreich."
+
+        body = "Hallo " + companyName + ", \n"
+        body += "\n"
+
+        body += "hiermit bestätigen wir Ihnen Ihre Registrierung. Sie können sich jetzt mit Ihrem Konto anmelden."
+
+        body += "\n"
+        body += "Mit freundlichen Grüßen"
+        body += "\n"
+        body += "ihr GSO Team"
+
+        msg.attach(MIMEText(body, 'plain'))
+        if self.TRY_TO_SEND_EMAIL:
+            self.sendEmail(msg)
+
 
 
     def _sendEmail(self, email:MIMEText):
