@@ -18,11 +18,13 @@ class EventService:
     def getCurrentEvents(self):
        return self.eventRepository.getAll()
 
-    def registerEvent(self, date: str):
+    def registerEvent(self, name: str, date: str, slots: int):
         self.eventRepository.insert(
             [
                 {
+                    'name': name,
                     'date': date,
+                    'slots': slots
                 }
             ]
         )

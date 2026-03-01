@@ -72,15 +72,17 @@ def events():
         events = eventRepository.getAll()
 
         if request.method == 'POST':
+            name = request.form.get('name')
             date = request.form.get('date')
-            eventService.registerEvent(date)
+            slots = int(request.form.get('slots'))
+            eventService.registerEvent(name, date, slots)
 
         return render_template('events/events.html', events = events, request = request.method)
 
     return redirect((url_for('index')))
 
 @app.route('/events/delete/<int:uid>', methods=['GET'])
-def delete_eventEvent(uid: int):
+def delete_event(uid: int):
     user_role = userService.getRoleOfUser()
     if user_role == userService.ORGANISATIONSTEAM:
         if uid and eventRepository.getById(uid):

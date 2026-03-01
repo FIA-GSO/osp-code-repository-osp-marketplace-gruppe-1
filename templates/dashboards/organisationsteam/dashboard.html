@@ -1,22 +1,77 @@
-<!doctype html>
 <html>
-<head>
-  <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
-  <script src="static/bootstrap/js/bootstrap.min.js"></script>
-  <style>
-    .event-block { display: none; }
-    .event-block.active { display: block; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <a href="/booths">Anmeldungen der Stände</a>
-    <br>
-    <a href="/lectures">Anmeldungen der Fachvorträge</a>
-    <br>
-    <a href="/events">Veranstalltungen</a>
-    <br>
-    <a href="/">Spenden</a>
-  </div>
-</body>
+    <head>
+        <title>Marketplace GSO - Dashboard</title>
+        {{ render_partial('partials/headIncludes.html') }}
+    </head>
+    <body>
+        {{ render_partial('partials/header.html') }}
+        <main class="pb-md-5">
+            <div class="container mt-md-5">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-6">
+                        <h1>Dashboard - Organisationsteam</h1>
+                    </div>
+                    <div class="col-4 text-end">
+                        <span class="me-sm-1"><a href="#">Passwort ändern</a></span>
+                        <span class="me-sm-1"><a href="{{ url_for('logout') }}">Abmelden</a></span>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                            <div class="container">
+                                <div class="row mt-md-3">
+                                    <div class="col-xl-5 dashboard-action-frame p-sm-4 d-flex flex-column">
+                                        <strong>Verwaltung von Veranstaltungen</strong>
+                                        <p>Öffnet die Oberfläche zum Anlegen, Bearbeiten oder Löschen von Veranstaltungen.</p>
+                                        <div class="d-grid gap-2 mt-auto">
+                                            <button class="btn btn-primary">
+                                                <a href="{{ url_for('events') }}">Veranstaltungen</a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-2 col-sm-12 mt-sm-3"></div>
+                                    <div class="col-xl-5 dashboard-action-frame p-sm-4">
+                                        <strong>Einsicht in Spenden</strong>
+                                        <p>Öffnet die Übersicht zur Einsicht aller interessierten Spender.</p>
+                                        <div class="d-grid gap-2 mt-auto">
+                                            <button class="btn btn-primary">
+                                                <a href="#">Spenden</a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-md-3">
+                                    <div class="col-xl-5 dashboard-action-frame p-sm-4 d-flex flex-column">
+                                        <strong>Anmeldungen von Informationsständen</strong>
+                                        <p>Öffnet die Verwaltung zur Einsicht und Bearbeitung der Anmeldungen von Informationsständen.</p>
+                                        <div class="d-grid gap-2 mt-auto">
+                                            <button class="btn btn-primary">
+                                                <a href="#">Informationsstände</a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-2 col-sm-12 mt-sm-3"></div>
+                                    <div class="col-xl-5 dashboard-action-frame p-sm-4 d-flex flex-column">
+                                        <strong>Anmeldungen von Fachvorträgen</strong>
+                                        <p>Öffnet die Verwaltung zur Einsicht und Bearbeitung der Anmeldungen von Fachvorträgen.</p>
+                                        <div class="d-grid gap-2 mt-auto">
+                                            <button class="btn btn-primary">
+                                                <a href="#">Fachvorträge</a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
+        </main>
+        {{ render_partial('partials/footer.html') }}
+    </body>
 </html>

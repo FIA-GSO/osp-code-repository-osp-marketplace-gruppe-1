@@ -56,6 +56,10 @@ header a:hover {
     border: 1px solid lightgrey;
 }
 
+.dashboard-action-frame {
+    border: 1px solid lightgrey;
+}
+
 h1 {
     font-size: 1.5rem;
     font-weight: 600;
