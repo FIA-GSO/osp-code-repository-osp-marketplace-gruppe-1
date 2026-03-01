@@ -41,9 +41,10 @@ def index():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    userService.loginUser(email, password)
+    if userService.loginUser(email, password):
+        return redirect((url_for('dashboard')))
 
-    return redirect((url_for('dashboard')))
+    return render_template('index.html', error = 1)
 
 @app.route("/logout", methods=['GET'])
 def logout():
