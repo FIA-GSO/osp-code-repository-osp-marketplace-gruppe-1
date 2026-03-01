@@ -1,4 +1,4 @@
-html, body {
+hhtml, body {
     height: 100%;
     margin: 0;
 }
@@ -37,11 +37,6 @@ a:hover {
     text-decoration: none;
 }
 
-button a {
-    color: white;
-    text-decoration: none;
-}
-
 header a:hover {
     border-top: 2px solid black;
     padding-top: 6px;
@@ -54,6 +49,8 @@ header a:hover {
 
 #container-frame {
     border: 1px solid lightgrey;
+    border-radius: 8px;
+    background-color: white;
 }
 
 .dashboard-action-frame {
