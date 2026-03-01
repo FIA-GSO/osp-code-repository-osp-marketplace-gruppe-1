@@ -91,20 +91,20 @@ def delete_event(uid: int):
 
     return redirect((url_for('index')))
 
-@app.route('/tagderausbildung/register', methods=['GET', 'POST'])
-def tagderausbildungRegister():
+@app.route('/vocationalfair/register', methods=['GET', 'POST'])
+def vocationalfairRegister():
     if request.method == 'GET':
         events = eventService.getCurrentEvents()
-        return render_template('tagderausbildung/register.html', events=events)
+        return render_template('vocationalFair/register.html', events=events)
     
     errors = {}
     validatorService.validateRegisterForEventForm(request.form, errors)
     if errors:
         events = eventService.getCurrentEvents()
-        return render_template('tagderausbildung/register.html', events=events, errors=errors)
+        return render_template('vocationalFair/register.html', events=events, errors=errors)
 
     eventService.registerForEvent(request.form)
-    return redirect((url_for('index')))
+    return redirect((url_for('dashboard')))
 
 @app.route('/events/edit/<int:uid>', methods=['GET', 'POST'])
 def edit_event(uid: int):

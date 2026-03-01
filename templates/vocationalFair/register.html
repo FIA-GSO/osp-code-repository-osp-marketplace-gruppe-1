@@ -8,7 +8,7 @@
         <div class="container"></div>
             <div class="row">
                 <div class="col-4">
-                    <form action="/tagderausbildung/register" method="post" class="needs-validation" novalidate>
+                    <form action="/vocationalfair/register" method="post" class="needs-validation" novalidate>
                         <div class="container">
                             <div class="mb-3">
                                 <div>Ansprechpartner</div>
@@ -52,7 +52,7 @@
                                     {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=technicalLectureTitelKey) }}
 
                                     {% set technicalLectureDurationKey = "technicalLectureDuration" ~ event.uid %}
-                                    <input type="number" placeholder="Vortrag Dauer" name="{{ technicalLectureDurationKey }}" class="form-control {% if errors and technicalLectureDurationKey in errors.keys() %}is-invalid{% endif %}">
+                                    <input type="number" placeholder="Vortrag Dauer (std)" name="{{ technicalLectureDurationKey }}" class="form-control {% if errors and technicalLectureDurationKey in errors.keys() %}is-invalid{% endif %}">
                                     {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=technicalLectureDurationKey) }}
                                 </div>
                                 {% endfor %}
