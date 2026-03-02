@@ -1,102 +1,89 @@
-<!doctype html>
 <html>
 <head>
-  <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
-  <script src="static/bootstrap/js/bootstrap.min.js"></script>
-  <style>
-    .event-block { display: none; }
-    .event-block.active { display: block; }
-  </style>
+    <title>Marketplace GSO - Informationsstände</title>
+    {{ render_partial('partials/headIncludes.html') }}
+    <script src="/static/scripts/booths.js" defer></script>
 </head>
 <body>
-  <div class="container">
-    <select id="eventSelect">
-    {% for event in events %}
-        <option {% if loop.first %}selected{% endif %} value="{{ event.uid }}">{{ event.date }}</option>
-    {% endfor %}
-    </select>
-
-    {% for event in events %}
-    <div class="event-block" data-uid="{{ event.uid }}">
-      <div>
-        {% if eventBooths[event.uid] %}
-        <h6>Stände</h6>
-          {% for eventBooth in eventBooths[event.uid] %}
-            <div>
-              Unternehmen: INSERT_UNTERNEHMEN_HERE
-              <br>
-              Vorname: <span>{{ eventBooth.first_name }}</span>
-              <br>
-              Nachanme: <span>{{ eventBooth.last_name }}</span>
-              <br>
-              Status: <span>{{ eventBooth.status }}</span>
-              <br>
-              E-Mail: <span>{{ eventBooth.email }}</span>
-              <br>
-              Telefon: <span>{{ eventBooth.telephone }}</span>
-              <br>
-              Anmerkung: <span>{{ eventBooth.note }}</span>
-              <br>
-              Tische: <span>{{ eventBooth.table_count }}</span>
-              <br>
-              Stühle: <span>{{ eventBooth.chair_count }}</span>
+{{ render_partial('partials/header.html') }}
+<main class="pb-md-5">
+    <div class="container mt-md-5">
+        <div class="row mt-md-3">
+            <div class="col-1"></div>
+            <div class="col-6">
+                <h1>Anmeldungen von Informationsständen</h1>
             </div>
-            <button class="js-button" data-booth-id="{{ eventBooth.uid }}" action="accept">Annehmen</button>
-            <button class="js-button" data-booth-id="{{ eventBooth.uid }}" action="reject">Ablehnen</button>
-            {{ eventBooth }}
-          {% endfor %}
-        {% endif %}
-      </div>
+            <div class="col-4 text-end">
+                <span class="me-sm-1"><a href="#">Passwort ändern</a></span>
+                <span class="me-sm-1"><a href="{{ url_for('logout') }}">Abmelden</a></span>
+            </div>
+            <div class="col-1"></div>
+        </div>
     </div>
-    {% endfor %}
-  </div>
-
-  <script>
-    (function(){
-      const select = document.getElementById('eventSelect');
-      const blocks = document.querySelectorAll('.event-block');
-
-      function showUid(uid) {
-        blocks.forEach(b => {
-          if (!uid) {
-            b.classList.remove('active');
-          } else {
-            b.classList.toggle('active', b.dataset.uid === uid);
-          }
-        });
-      }
-
-      select.addEventListener('change', e => {
-        showUid(e.target.value);
-      });
-      showUid(select.value);
-    })();
-
-    document.querySelectorAll('.js-button').forEach(btn =>
-      btn.addEventListener('click', async event => {
-        event.preventDefault();
-        boothId = btn.getAttribute('data-booth-id');
-        action = btn.getAttribute('action');
-
-        response = '';
-
-        if (action === 'accept') {
-          response = await fetch('/api/booths', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 'action': action, 'uid': boothId }),
-          });
-        }
-        else if (action === 'reject') {
-          response = await fetch('/api/booths', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 'action': action, 'uid': boothId }),
-          });
-        }
-      })
-    );
-
-  </script>
+    <div class="container">
+        <div class="row mt-md-3">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <h2>Liste aller Veranstaltungen</h2>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mt-md-3">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <select id="eventSelect">
+                    {% for event in events %}
+                    <option {% if loop.first %}selected{% endif %} value="{{ event.uid }}">{{ event.date }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mt-md-3">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <div class="accordion" id="accordionExample">
+                    {% for event in events %}
+                        {% for eventBooth in eventBooths[event.uid] %}
+                        <div class="accordion-item event-block" data-uid="{{ event.uid }}">
+                            <h2 class="accordion-header" id="heading{{ event.uid }}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ event.uid }}" aria-expanded="true" aria-controls="collapse{{ event.uid }}">
+                                    <strong class="event-date">{{ event.date }}</strong>
+                                    {{ event.name }} - Firma: {company} - Vorname: {{ eventBooth.first_name }} - Nachname: {{ eventBooth.last_name }}
+                                </button>
+                            </h2>
+                            <div id="collapse{{ event.uid }}" class="accordion-collapse collapse" aria-labelledby="heading{{ event.uid }}" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Firma:</strong> {company}<br>
+                                    <strong>Status:</strong> {status}<br>
+                                    <strong>E-Mail-Adresse:</strong> {{ eventBooth.email }}<br>
+                                    <strong>Telefon:</strong> {{ eventBooth.telephone }}<br>
+                                    <strong>Tische:</strong> {{ eventBooth.table_count }}<br>
+                                    <strong>Stühle:</strong> {{ eventBooth.chair_count }}<br>
+                                    <strong>Anmerkung:</strong> {note}<br><br>
+                                    <a href="{{ url_for('edit_event', uid=event.uid) }}"
+                                       class="js-button btn btn-primary"
+                                       data-booth-id="{{ eventBooth.uid }}"
+                                       data-action="accept">Annehmen</a>
+                                    <a href="{{ url_for('edit_event', uid=event.uid) }}"
+                                       class="js-button btn btn-danger"
+                                       data-booth-id="{{ eventBooth.uid }}"
+                                       data-action="reject">Ablehnen</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                <div class="col-1"></div>
+            </div>
+        </div>
+    </div>
+</main>
+{{ render_partial('partials/footer.html') }}
 </body>
 </html>

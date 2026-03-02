@@ -67,6 +67,16 @@ h1 {
     font-weight: 600;
 }
 
+/*
+.event-block {
+    display: none;
+}
+
+.event-block.active {
+    display: block;
+}
+*/
+
 footer {
     background-color: #dddddd;
 }
