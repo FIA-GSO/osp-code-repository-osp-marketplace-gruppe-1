@@ -49,14 +49,14 @@
                 <div class="accordion" id="accordionExample">
                     {% for event in events %}
                         {% for eventBooth in eventBooths[event.uid] %}
-                        <div class="accordion-item event-block" data-uid="{{ event.uid }}">
-                            <h2 class="accordion-header" id="heading{{ event.uid }}">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ event.uid }}" aria-expanded="true" aria-controls="collapse{{ event.uid }}">
+                        <div class="accordion-item event-block" data-uid="{{ eventBooth.uid }}">
+                            <h2 class="accordion-header" id="heading{{ eventBooth.uid }}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ eventBooth.uid }}" aria-expanded="true" aria-controls="collapse{{ eventBooth.uid }}">
                                     <strong class="event-date">{{ event.date }}</strong>
                                     {{ event.name }} - Firma: {company} - Vorname: {{ eventBooth.first_name }} - Nachname: {{ eventBooth.last_name }}
                                 </button>
                             </h2>
-                            <div id="collapse{{ event.uid }}" class="accordion-collapse collapse" aria-labelledby="heading{{ event.uid }}" data-bs-parent="#accordionExample">
+                            <div id="collapse{{ eventBooth.uid }}" class="accordion-collapse collapse" aria-labelledby="heading{{ eventBooth.uid }}" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Firma:</strong> {company}<br>
                                     <strong>Status:</strong> {status}<br>
