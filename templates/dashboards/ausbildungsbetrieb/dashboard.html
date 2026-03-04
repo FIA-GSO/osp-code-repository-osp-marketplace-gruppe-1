@@ -1,12 +1,36 @@
-<!DOCTYPE html>
-<html lang="de">
+<html>
     <head>
-        <title>Marketplace GSO - Registrierung</title>
+        <title>Marketplace GSO - Dashboard</title>
         {{ render_partial('partials/headIncludes.html') }}
     </head>
     <body>
         {{ render_partial('partials/header.html') }}
-        <main class="pb-md-5">
+        <main class="container pb-md-5">
+            <div class="row d-flex my-5 justify-content-evenly">
+                <div class="col-4">
+                    <h1>Dashboard - Ausbildungsbetriebe</h1>
+                </div>
+                <div class="col-4 text-end">
+                    <span class="me-sm-1"><a href="#">Passwort ändern</a></span>
+                    <span class="me-sm-1"><a href="{{ url_for('logout') }}">Abmelden</a></span>
+                </div>
+            </div>
+            <div class="row d-flex my-1 justify-content-evenly">
+                <div class="dashboard-action-frame col-4 p-4">
+                    <strong>Anmeldung zum Tag der Ausbildung</strong>
+                    <p>Medlen sie sich zum Tag der Ausbildung an</p>
+                    <div class="d-grid gap-2 mt-auto">
+                        <a href="" class="btn btn-primary">Ansehen</a>
+                    </div>
+                </div>
+                <div class="dashboard-action-frame col-4 p-4">
+                    <strong>Status der Anmedlung</strong>
+                    <p>Sehen Sie sich den Status Ihrer Anmedlungen an.</p>
+                    <div class="d-grid gap-2 mt-auto">
+                        <a href="" class="btn btn-primary">Ansehen</a>
+                    </div>
+                </div>
+            </div>
         </main>
         {{ render_partial('partials/footer.html') }}
     </body>
