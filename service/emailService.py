@@ -10,7 +10,27 @@ class EmailService:
     SENDER_EMAIL = "%%% ACCOUNT EMAIL ADDRESS %%%"
     SENDER_PASSWORD = "%%% ACCOUNT PASSWORD %%%"
 
-    def sendUpdateNotifictionMail(self, toEmailAddress, eventRegistrationData):
+    def sendSupportAssociationMail(self, toEmailAddress:str,  companyName:str):
+        msg = MIMEMultipart()
+        msg['From'] = self.SENDER_EMAIL
+        msg['To'] = toEmailAddress
+        msg['Subject'] = "Beitrittserklärung für die Anmeldung zum Förderverein"
+
+        body = "Hallo " + companyName + ", \n"
+        body += "\n"
+
+        body += "Im Anhang dieser E-Mail finden Sie das Formular zur Anmeldung zum GSO-Förderverein."
+
+        body += "\n"
+        body += "Mit freundlichen Grüßen"
+        body += "\n"
+        body += "ihr GSO Team"
+
+        msg.attach(MIMEText(body, 'plain'))
+        if self.TRY_TO_SEND_EMAIL:
+            self.sendEmail(msg)
+
+    def sendUpdateNotifictionMail(self, toEmailAddress:str, eventRegistrationData):
         msg = MIMEMultipart()
         msg['From'] = self.SENDER_EMAIL
         msg['To'] = toEmailAddress

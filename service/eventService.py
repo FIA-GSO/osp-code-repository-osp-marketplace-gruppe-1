@@ -3,6 +3,7 @@ from repository.boothRepository import BoothRepository
 from repository.lectureRepository import LectureRepository
 from repository.statusRepository import StatusRepository
 from repository.userRepository import UserRepository
+from service.emailService import EmailService
 from service.userService import UserService
 
 
@@ -15,6 +16,7 @@ class EventService:
         self.statusRepository = StatusRepository()
         self.userRepository = UserRepository()
         self.userService = UserService()
+        self.emailService = EmailService()
         pass
 
     def getCurrentEvents(self):
@@ -57,6 +59,8 @@ class EventService:
                     }
                 ]
             )
+            userCompany = self.userService.getUser()[0]['company']
+            self.emailService.sendSupportAssociationMail(self.userService.getUserEmail(), userCompany)
 
         for eventId in events:
             eventId = str(eventId)

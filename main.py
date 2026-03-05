@@ -105,7 +105,6 @@ def vocationalfairRegister():
     
     errors = {}
     validatorService.validateRegisterForEventForm(request.form, errors)
-    print(request.form.getlist('events[]'))
     if errors:
         events = eventService.getCurrentEvents()
         return render_template('vocationalFair/register.html', events=events, errors=errors)
