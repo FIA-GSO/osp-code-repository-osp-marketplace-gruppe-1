@@ -78,6 +78,9 @@ class UserService:
         if ('uid' in session):
             return session['uid']
         return 0
+
+    def getDonatingUser(self):
+        return self.userRepository.getByDonation()
     
     def logoutUser(self):
         if 'uid' in session:

@@ -140,6 +140,12 @@ def dashboard():
             return render_template('dashboards/ausbildungsbetrieb/dashboard.html', userUid = userService.getUserUid())
     return redirect((url_for('index')))
 
+@app.route("/donations", methods=['GET'])
+def donations():
+    donating_users = userService.getDonatingUser()
+
+    return render_template('dashboards/organisationsteam/donationList.html', donating_users = donating_users)
+
 @app.route("/booths", methods=['GET'])
 def booths():
     if request.method == 'GET':

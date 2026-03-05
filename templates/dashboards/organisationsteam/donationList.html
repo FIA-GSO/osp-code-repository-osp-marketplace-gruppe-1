@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>Marketplace GSO - Spenden</title>
+    {{ render_partial('partials/headIncludes.html') }}
+    <script src="/static/scripts/booths.js" defer></script>
+</head>
+<body>
+{{ render_partial('partials/header.html') }}
+<main class="pb-5">
+    <div class="container mt-md-5">
+        <div class="row mt-md-3">
+            <div class="col-1"></div>
+            <div class="col-6">
+                <h1>Interessierte Spender</h1>
+            </div>
+            <div class="col-4 text-end">
+                <span class="me-sm-1"><a href="{{ url_for('change_password') }}">Passwort ändern</a></span>
+                <span class="me-sm-1"><a href="{{ url_for('logout') }}">Abmelden</a></span>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <ul class="list-group">
+                    {% if donating_users %}
+                        {% for donating_user in donating_users %}
+                        <li class="list-group-item list-group-item-info">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                                <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                                </svg>
+                            <strong>{{ donating_user.company }}</strong>
+                            - {{ donating_user.email }}
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item list-group-item-warning">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+                                <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
+                            </svg>
+                            Bisher gibt es noch keine interessierten Spender.
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+</main>
+{{ render_partial('partials/footer.html') }}
+</body>
+</html>

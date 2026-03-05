@@ -15,3 +15,8 @@ class UserRepository(BaseRepository):
         sql = 'SELECT * FROM ' + self.table_name + ' WHERE email = "' + email + '" AND password_hash = "' + HashUtility.hash(password)+ '"'
         self.cursor.execute(sql)
         return self.cursor.fetchall()
+
+    def getByDonation(self):
+        sql = f'SELECT * FROM {self.table_name} WHERE donation = %s'
+        self.cursor.execute(sql, (1,))
+        return self.cursor.fetchall()
