@@ -1,6 +1,7 @@
 (function(){
     const eventSelect = document.getElementById('eventSelect');
     const boothStatusSelect = document.getElementById('boothStatusSelect');
+    const donationSelect = document.getElementById('donationSelect');
     const blocks = document.querySelectorAll('.event-block');
 
     function showUid(uid) {
@@ -23,11 +24,24 @@
         });
     }
 
+    function showDonationUid(uid) {
+        blocks.forEach(b => {
+            if (!uid) {
+                b.classList.remove('active');
+            } else {
+                b.classList.toggle('active', b.dataset.donationUid === uid);
+            }
+        });
+    }
+
     eventSelect.addEventListener('change', e => {
         showUid(e.target.value);
     });
     boothStatusSelect.addEventListener('change', e => {
         showStatusUid(e.target.value);
+    });
+    donationSelect.addEventListener('change', e => {
+        showDonationUid(e.target.value);
     });
     showUid(eventSelect.value);
 })();
