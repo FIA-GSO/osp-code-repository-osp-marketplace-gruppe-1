@@ -24,7 +24,7 @@
         <div class="row mt-3">
             <div class="col-2"></div>
             <div class="col-8 d-flex justify-content-center">
-                <div class="col-6 d-flex justify-content-center flex-column">
+                <div class="col-4 d-flex justify-content-center flex-column">
                     <h5>Filtern nach Veranstaltung</h5>
                     <select id="eventSelect" class="w-75 mt-auto">
                         {% for event in events %}
@@ -32,12 +32,19 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="col-6 d-flex justify-content-center flex-column">
+                <div class="col-4 d-flex justify-content-center flex-column">
                     <h5>Filtern nach Status</h5>
                     <select id="lectureStatusSelect" class="w-75 mt-auto">
                         {% for status in status.values() %}
                         <option {% if loop.first %}selected{% endif %} value="{{ status.uid }}">{{ status.name }}</option>
                         {% endfor %}
+                    </select>
+                </div>
+                <div class="col-4 d-flex justify-content-center flex-column">
+                    <h5>Filtern nach Spenden</h5>
+                    <select id="donationSelect" class="w-75 mt-auto">
+                        <option value="1" selected>Interesse</option>
+                        <option value="0">kein Interesse</option>
                     </select>
                 </div>
             </div>
@@ -51,7 +58,7 @@
                 <div class="accordion accordion-flush" id="accordionExample">
                     {% for event in events %}
                         {% for eventLecture in eventLectures[event.uid] %}
-                        <div class="accordion-item event-block" data-uid="{{ event.uid }}" data-status-uid="{{ eventLecture.status }}">
+                        <div class="accordion-item event-block" data-uid="{{ event.uid }}" data-status-uid="{{ eventLecture.status }}" data-donation-uid="{{ user[eventLecture.user].donation }}">
                             <h2 class="accordion-header" id="heading{{ eventLecture.uid }}">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ eventLecture.uid }}" aria-expanded="true" aria-controls="collapse{{ eventLecture.uid }}">
                                     <div class="col-3 col-lg-2 col-sm-4 col-md-3">
@@ -82,6 +89,13 @@
                                     <strong>Telefon:</strong> {{ eventLecture.telephone }}<br>
                                     <strong>Thema:</strong> {{ eventLecture.topic }}<br>
                                     <strong>Dauer:</strong> {{ eventLecture.duration }}<br>
+                                    <strong>Interesse an Spende:</strong>
+                                        {% if user[eventLecture.user].donation == 1  %}
+                                        <span class="text-success">Ja</span><br>
+                                        {% endif %}
+                                        {% if user[eventLecture.user].donation == 0  %}
+                                        <span class="">Nein</span><br>
+                                        {% endif %}
                                     <strong>Anmerkung:</strong><br><br>
                                     <a href="{{ url_for('lecturesApi') }}"
                                        class="js-button btn btn-success"
