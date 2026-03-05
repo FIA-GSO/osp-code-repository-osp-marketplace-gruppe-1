@@ -27,7 +27,7 @@
             <div class="col-8 d-flex justify-content-center">
                 <div class="col-4 d-flex justify-content-center flex-column">
                     <h5>Filtern nach Veranstaltung</h5>
-                    <select id="eventSelect" class="w-75 mt-auto">
+                    <select id="eventSelect" class="w-75 mt-auto form-select">
                         {% for event in events %}
                         <option {% if loop.first %}selected{% endif %} value="{{ event.uid }}" class="event-date">{{ event.date }} {{ event.name }}</option>
                         {% endfor %}
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-4 d-flex justify-content-center flex-column">
                     <h5>Filtern nach Status</h5>
-                    <select id="boothStatusSelect" class="w-75 mt-auto">
+                    <select id="boothStatusSelect" class="w-75 mt-auto form-select">
                         <option value="" selected>Bitte auswählen</option>
                         {% for status in status.values() %}
                         <option value="{{ status.uid }}">{{ status.name }}</option>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-4 d-flex justify-content-center flex-column">
                     <h5>Filtern nach Spenden</h5>
-                    <select id="donationSelect" class="w-75 mt-auto">
+                    <select id="donationSelect" class="w-75 mt-auto form-select">
                         <option value="" selected>Bitte auswählen</option>
                         <option value="1">Interesse</option>
                         <option value="0">kein Interesse</option>
