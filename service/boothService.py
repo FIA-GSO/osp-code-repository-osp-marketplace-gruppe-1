@@ -1,5 +1,6 @@
 from repository.boothRepository import BoothRepository
 from service.emailService import EmailService
+from service.notificationService import NotificationService
 
 class BoothService:
 
@@ -10,6 +11,7 @@ class BoothService:
     def __init__(self):
         self.boothRepository = BoothRepository()
         self.emailService = EmailService()
+        self.notificationService = NotificationService()
         pass
 
     def getBoothRegestrationsForEvent(self, eventID: int,):
@@ -22,8 +24,11 @@ class BoothService:
                 {"status": self.STATUS_REJECTED},
             ]
         )
-        contactPersionEmail = self.boothRepository.getById(lectureID)[0]['email']
+        booth = self.boothRepository.getById(boothID)[0]
+        contactPersionEmail = booth['email']
+        userId = booth["user"]
         self.emailService.sendUpdateNotifictionMail(contactPersionEmail, self.boothRepository.getById(boothID))
+        self.notificationService.saveNotificationForStatusChange(userId,  "Abgelehnt")
     
     def acceptBoothRegistration(self, boothID: int):
         self.boothRepository.updateById(
@@ -32,8 +37,11 @@ class BoothService:
                 {"status": self.STATUS_ACCEPTED},
             ]
         )
-        contactPersionEmail = self.boothRepository.getById(lectureID)[0]['email']
+        booth = self.boothRepository.getById(boothID)[0]
+        contactPersionEmail = booth['email']
+        userId = booth["user"]
         self.emailService.sendUpdateNotifictionMail(contactPersionEmail, self.boothRepository.getById(boothID))
+        self.notificationService.saveNotificationForStatusChange(userId,  "Angenommen")
 
     def getBoothRegistrationsForUser(self, userID: int):
         return self.boothRepository.getByUserID(userID)

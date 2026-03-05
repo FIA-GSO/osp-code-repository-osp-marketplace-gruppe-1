@@ -20,14 +20,6 @@
                             <li class="nav-item"><a class="nav-link" href="#">Europa</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">Service</a></li>
                             <li class="nav-item"><a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Tag der Ausbildung</a></li>
-                            
-                            <li class="nav-item ms-lg-3">
-                                <a class="nav-link {% if request.endpoint == 'notifications' %}active{% endif %}" href="{{ url_for('notifications') }}">
-                                    <img src="/static/images/bell.png" alt="Benachrichtigungen" width="22" height="22" class="d-none d-lg-block">
-                                    <span class="d-lg-none">Benachrichtigungen</span>
-                                </a>
-                            </li>
-                            
                         </ul>
                     </div>
                 </nav>

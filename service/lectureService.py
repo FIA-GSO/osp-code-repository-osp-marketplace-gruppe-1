@@ -1,5 +1,6 @@
 from repository.lectureRepository import LectureRepository
 from service.emailService import EmailService
+from service.notificationService import NotificationService
 
 class LectureService:
 
@@ -10,6 +11,7 @@ class LectureService:
     def __init__(self):
         self.lectureRepository = LectureRepository()
         self.emailService = EmailService()
+        self.notificationService = NotificationService()
         pass
 
     def getTechnicalLectureRegestrationsForEvent(self, eventID: int):
@@ -22,18 +24,25 @@ class LectureService:
                 {"status": self.STATUS_REJECTED},
             ]
         )
-        contactPersionEmail = self.lectureRepository.getById(lectureID)[0]['email']
+        lecture = self.lectureRepository.getById(lectureID)[0]
+        contactPersionEmail = lecture['email']
+        userId = lecture["user"]
         self.emailService.sendUpdateNotifictionMail(contactPersionEmail, self.lectureRepository.getById(lectureID))
+        self.notificationService.saveNotificationForStatusChange(userId,  "Abgelehnt")
     
     def acceptLectureRegistration(self, lectureID: int):
         self.lectureRepository.updateById(
-            lectureID, 
+            lectureID,
             [
                 {"status": self.STATUS_ACCEPTED},
             ]
         )
         contactPersionEmail = self.lectureRepository.getById(lectureID)[0]['email']
+        lecture = self.lectureRepository.getById(lectureID)[0]
+        contactPersionEmail = lecture['email']
+        userId = lecture["user"]
         self.emailService.sendUpdateNotifictionMail(contactPersionEmail, self.lectureRepository.getById(lectureID))
+        self.notificationService.saveNotificationForStatusChange(userId, "Angenommen")
     
     def getlectureRegistrationsForUser(self, userID: int):
         return self.lectureRepository.getByUserID(userID)

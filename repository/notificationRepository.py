@@ -10,6 +10,8 @@ class NotificationRepository(BaseRepository):
         sql = 'SELECT * FROM ' + self.table_name + ' WHERE user = "' + str(userID) + '"'
         if respectDisabled:
             sql += ' AND disabled = 0'
+
+        sql += " ORDER BY timestamp DESC"
         self.cursor.execute(sql)
         return self.cursor.fetchall()
         
