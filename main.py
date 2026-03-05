@@ -277,5 +277,13 @@ def deleteBooth(boothUid: int):
             return redirect((url_for('vocationalfairRegistrations', userUid = userService.getUserUid())))
     return redirect((url_for('index')))
 
+@app.route("/notifications", methods=['GET'])
+def notifications():
+    if userService.getRoleOfUser() == userService.AUSBILDUNGSBETRIEB:
+        if request.method == 'GET':
+            notifications = notificationService.getNotificationByUser(userService.getUserUid())
+            return render_template('dashboards/ausbildungsbetrieb/notification.html', notifications = notifications)
+    return redirect((url_for('index')))
+
 if __name__ == '__main__':
     app.run(port=4000, debug=True)

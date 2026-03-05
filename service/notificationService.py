@@ -10,8 +10,12 @@ class NotificationService:
         self.notificationRepository = NotificationRepository()
         pass
 
-    def saveNotification(self, userId: int, message: str,):
+    def saveNotification(self, userId: int, headline: str, message: str,):
         self.notificationRepository.insert(
             {'user': userId},
+            {'headline': headline},
             {'message': message},
         )
+    
+    def getNotificationByUser(self, userId:int):
+        return self.notificationRepository.getByUserID(userId)

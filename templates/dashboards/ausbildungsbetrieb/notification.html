@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Marketplace GSO - Informationsstand Editieren</title>
+        {{ render_partial('partials/headIncludes.html') }}
+    </head>
+    <body>
+        {{ render_partial('partials/header.html') }}
+
+        Benachrichtigungen:
+       
+        {% for notification in notifications %}
+            <br>
+            Headline: {{ notification.headline }}
+            Nachricht: {{ notification.message }}
+            
+        {% endfor %}
+
+        {{ render_partial('partials/footer.html') }}
+    </body>
+</html>
