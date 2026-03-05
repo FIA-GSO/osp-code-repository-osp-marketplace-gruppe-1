@@ -48,9 +48,9 @@ def index():
 
     return render_template('index.html', error = 1)
 
-@app.route('/change-password')
+@app.route('/change-password', methods=['GET'])
 def change_password():
-    return render_template('login/change_password.html')
+    return render_template('login/change-password.html')
 
 @app.route("/logout", methods=['GET'])
 def logout():
