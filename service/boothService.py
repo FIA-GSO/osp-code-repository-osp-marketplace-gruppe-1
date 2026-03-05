@@ -1,4 +1,5 @@
 from repository.boothRepository import BoothRepository
+from service.emailService import EmailService
 
 class BoothService:
 
@@ -8,6 +9,7 @@ class BoothService:
 
     def __init__(self):
         self.boothRepository = BoothRepository()
+        self.emailService = EmailService()
         pass
 
     def getBoothRegestrationsForEvent(self, eventID: int,):
@@ -20,6 +22,8 @@ class BoothService:
                 {"status": self.STATUS_REJECTED},
             ]
         )
+        contactPersionEmail = self.boothRepository.getById(lectureID)[0]['email']
+        self.emailService.sendUpdateNotifictionMail(contactPersionEmail, self.boothRepository.getById(boothID))
     
     def acceptBoothRegistration(self, boothID: int):
         self.boothRepository.updateById(
@@ -28,6 +32,8 @@ class BoothService:
                 {"status": self.STATUS_ACCEPTED},
             ]
         )
+        contactPersionEmail = self.boothRepository.getById(lectureID)[0]['email']
+        self.emailService.sendUpdateNotifictionMail(contactPersionEmail, self.boothRepository.getById(boothID))
 
     def getBoothRegistrationsForUser(self, userID: int):
         return self.boothRepository.getByUserID(userID)

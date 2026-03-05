@@ -1,4 +1,5 @@
 from repository.lectureRepository import LectureRepository
+from service.emailService import EmailService
 
 class LectureService:
 
@@ -8,6 +9,7 @@ class LectureService:
 
     def __init__(self):
         self.lectureRepository = LectureRepository()
+        self.emailService = EmailService()
         pass
 
     def getTechnicalLectureRegestrationsForEvent(self, eventID: int):
@@ -20,6 +22,8 @@ class LectureService:
                 {"status": self.STATUS_REJECTED},
             ]
         )
+        contactPersionEmail = self.lectureRepository.getById(lectureID)[0]['email']
+        self.emailService.sendUpdateNotifictionMail(contactPersionEmail, self.lectureRepository.getById(lectureID))
     
     def acceptLectureRegistration(self, lectureID: int):
         self.lectureRepository.updateById(
@@ -28,6 +32,8 @@ class LectureService:
                 {"status": self.STATUS_ACCEPTED},
             ]
         )
+        contactPersionEmail = self.lectureRepository.getById(lectureID)[0]['email']
+        self.emailService.sendUpdateNotifictionMail(contactPersionEmail, self.lectureRepository.getById(lectureID))
     
     def getlectureRegistrationsForUser(self, userID: int):
         return self.lectureRepository.getByUserID(userID)
