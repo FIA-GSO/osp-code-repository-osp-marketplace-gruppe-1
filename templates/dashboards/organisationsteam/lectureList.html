@@ -6,102 +6,151 @@
 </head>
 <body>
 {{ render_partial('partials/header.html') }}
-<main class="pb-5">
-    <div class="container mt-md-5">
-        <div class="row mt-md-3">
-            <div class="col-1"></div>
-            <div class="col-6">
-                <h1>Anmeldungen von Fachvorträgen</h1>
+
+<main class="container pb-5 mb-5">
+    <div class="row justify-content-center mt-md-5">
+        <div class="col-lg-10">
+            
+            <div class="row align-items-center mb-5">
+                <div class="col-12 col-md-8">
+                    <h1 class="mb-0">Anmeldungen von Fachvorträgen</h1>
+                </div>
+                <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
+                    <span class="me-sm-3"><a href="{{ url_for('change_password') }}">Passwort ändern</a></span>
+                    <span><a href="{{ url_for('logout') }}">Abmelden</a></span>
+                </div>
             </div>
-            <div class="col-4 text-end">
-                <span class="me-sm-1"><a href="{{ url_for('change_password') }}">Passwort ändern</a></span>
-                <span class="me-sm-1"><a href="{{ url_for('logout') }}">Abmelden</a></span>
-            </div>
-            <div class="col-1"></div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row mt-3">
-            <div class="col-2"></div>
-            <div class="col-8 d-flex justify-content-center">
-                <div class="col-6 d-flex justify-content-center flex-column">
-                    <h5>Filtern nach Veranstaltung</h5>
-                    <select id="eventSelect" class="w-75 mt-auto">
+
+            <div class="row mb-4 g-3">
+                <div class="col-12 col-md-6">
+                    <label for="eventSelect" class="form-label fw-bold">Filtern nach Veranstaltung</label>
+                    <select id="eventSelect" class="form-select">
                         {% for event in events %}
                         <option {% if loop.first %}selected{% endif %} value="{{ event.uid }}" class="event-date">{{ event.date }} {{ event.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <div class="col-6 d-flex justify-content-center flex-column">
-                    <h5>Filtern nach Status</h5>
-                    <select id="lectureStatusSelect" class="w-75 mt-auto">
+                <div class="col-12 col-md-6">
+                    <label for="lectureStatusSelect" class="form-label fw-bold">Filtern nach Status</label>
+                    <select id="lectureStatusSelect" class="form-select">
                         {% for status in status.values() %}
                         <option {% if loop.first %}selected{% endif %} value="{{ status.uid }}">{{ status.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
             </div>
-            <div class="col-2"></div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row mt-3">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <div class="accordion accordion-flush" id="accordionExample">
-                    {% for event in events %}
-                        {% for eventLecture in eventLectures[event.uid] %}
-                        <div class="accordion-item event-block" data-uid="{{ event.uid }}" data-status-uid="{{ eventLecture.status }}">
-                            <h2 class="accordion-header" id="heading{{ eventLecture.uid }}">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ eventLecture.uid }}" aria-expanded="true" aria-controls="collapse{{ eventLecture.uid }}">
-                                    <div class="col-3 col-lg-2 col-sm-4 col-md-3">
+
+            <div class="accordion accordion-flush" id="accordionExample">
+                {% for event in events %}
+                    {% for eventLecture in eventLectures[event.uid] %}
+                    <div class="accordion-item event-block" data-uid="{{ event.uid }}" data-status-uid="{{ eventLecture.status }}">
+                        <h2 class="accordion-header" id="heading{{ eventLecture.uid }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ eventLecture.uid }}" aria-expanded="true" aria-controls="collapse{{ eventLecture.uid }}">
+                                <div class="row w-100 align-items-center">
+                                    <div class="col-12 col-md-3 col-lg-2 mb-1 mb-md-0">
                                         <strong class="event-date">{{ event.date }}</strong>
                                     </div>
-                                    <div class="col-8 col-lg-9 col-sm-6 col-md-8">
+                                    <div class="col-12 col-md-9 col-lg-10">
                                         <span class="text-decoration-underline">{{ user[eventLecture.user].company }}</span> - Vorname: {{ eventLecture.first_name }} - Nachname: {{ eventLecture.last_name }}
                                     </div>
-                                </button>
-                            </h2>
-                            <div id="collapse{{ eventLecture.uid }}" class="accordion-collapse collapse" aria-labelledby="heading{{ eventLecture.uid }}" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <strong>Firma:</strong> {{ user[eventLecture.user].company }}<br>
-                                    <strong>Status:</strong>
-                                        {% if eventLecture.status == 1  %}
-                                        <span class="text-primary">{{ status[eventLecture.status].name }}</span>
-                                        <br>
-                                        {% endif %}
-                                        {% if eventLecture.status == 2  %}
-                                        <span class="text-danger">{{ status[eventLecture.status].name }}</span>
-                                        <br>
-                                        {% endif %}
-                                        {% if eventLecture.status == 3  %}
-                                        <span class="text-success">{{ status[eventLecture.status].name }}</span>
-                                        <br>
-                                        {% endif %}
-                                    <strong>E-Mail-Adresse:</strong> {{ eventLecture.email }}<br>
-                                    <strong>Telefon:</strong> {{ eventLecture.telephone }}<br>
-                                    <strong>Thema:</strong> {{ eventLecture.topic }}<br>
-                                    <strong>Dauer:</strong> {{ eventLecture.duration }}<br>
-                                    <strong>Anmerkung:</strong><br><br>
-                                    <a href="{{ url_for('lecturesApi') }}"
-                                       class="js-button btn btn-success"
-                                       data-lecture-id="{{ eventLecture.uid }}"
-                                       data-action="accept">Annehmen</a>
-                                    <a href="{{ url_for('lecturesApi') }}"
-                                       class="js-button btn btn-danger"
-                                       data-lecture-id="{{ eventLecture.uid }}"
-                                       data-action="reject">Ablehnen</a>
                                 </div>
+                            </button>
+                        </h2>
+                        <div id="collapse{{ eventLecture.uid }}" class="accordion-collapse collapse" aria-labelledby="heading{{ eventLecture.uid }}" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>Firma:</strong> {{ user[eventLecture.user].company }}<br>
+                                
+                                <strong>Status:</strong>
+                                <span class="lecture-status">
+                                    {% if eventLecture.status == 1  %}
+                                    <span class="text-primary fw-bold">{{ status[eventLecture.status].name }}</span>
+                                    {% elif eventLecture.status == 2  %}
+                                    <span class="text-danger fw-bold">{{ status[eventLecture.status].name }}</span>
+                                    {% elif eventLecture.status == 3  %}
+                                    <span class="text-success fw-bold">{{ status[eventLecture.status].name }}</span>
+                                    {% endif %}
+                                </span>
+                                <br>
+
+                                <strong>E-Mail-Adresse:</strong> {{ eventLecture.email }}<br>
+                                <strong>Telefon:</strong> {{ eventLecture.telephone }}<br>
+                                <strong>Thema:</strong> {{ eventLecture.topic }}<br>
+                                <strong>Dauer:</strong> {{ eventLecture.duration }}<br>
+                                <strong>Anmerkung:</strong><br><br>
+                                
+                                <div class="mt-2 action-buttons-container">
+                                    <button type="button"
+                                            class="js-action-btn btn btn-success me-2"
+                                            data-url="{{ url_for('lecturesApi') }}"
+                                            data-uid="{{ eventLecture.uid }}"
+                                            data-action="accept">Annehmen</button>
+                                       
+                                    <button type="button"
+                                            class="js-action-btn btn btn-danger"
+                                            data-url="{{ url_for('lecturesApi') }}"
+                                            data-uid="{{ eventLecture.uid }}"
+                                            data-action="reject">Ablehnen</button>
+                                </div>
+                                
                             </div>
                         </div>
-                        {% endfor %}
+                    </div>
                     {% endfor %}
-                </div>
-                <div class="col-1"></div>
+                {% endfor %}
             </div>
+            
         </div>
     </div>
 </main>
+
 {{ render_partial('partials/footer.html') }}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const actionButtons = document.querySelectorAll('.js-action-btn');
+        
+        actionButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                this.disabled = true;
+                
+                const uid = this.getAttribute('data-uid');
+                const action = this.getAttribute('data-action');
+                const url = this.getAttribute('data-url');
+                
+                const accordionBody = this.closest('.accordion-body');
+                const statusContainer = accordionBody.querySelector('.lecture-status');
+                
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ uid: parseInt(uid), action: action })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Backend meldet Fehler ' + response.status);
+                    }
+                    return response.json(); 
+                })
+                .then(data => {
+                    if (data.status === 1) {
+                        statusContainer.innerHTML = '<span class="text-success fw-bold">Angenommen</span>';
+                    } else if (action === 'reject') {
+                        statusContainer.innerHTML = '<span class="text-danger fw-bold">Abgelehnt</span>';
+                    }
+
+                    accordionBody.querySelector('.action-buttons-container').style.display = 'none';
+                    
+                })
+                .catch(error => {
+                    console.error('Fehler bei der Synchronisation:', error);
+                    alert("Es gab einen Fehler beim Speichern. Bitte laden Sie die Seite neu.");
+                    this.disabled = false; 
+                });
+            });
+        });
+    });
+</script>
 </body>
 </html>
