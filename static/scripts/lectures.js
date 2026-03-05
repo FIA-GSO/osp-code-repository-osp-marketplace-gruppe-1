@@ -1,21 +1,35 @@
 (function(){
-  const select = document.getElementById('eventSelect');
-  const blocks = document.querySelectorAll('.event-block');
+    const eventSelect = document.getElementById('eventSelect');
+    const lectureStatusSelect = document.getElementById('lectureStatusSelect');
+    const blocks = document.querySelectorAll('.event-block');
 
-  function showUid(uid) {
-    blocks.forEach(b => {
-      if (!uid) {
-        b.classList.remove('active');
-      } else {
-        b.classList.toggle('active', b.dataset.uid === uid);
-      }
+    function showUid(uid) {
+        blocks.forEach(b => {
+            if (!uid) {
+                b.classList.remove('active');
+            } else {
+                b.classList.toggle('active', b.dataset.uid === uid);
+            }
+        });
+    }
+
+    function showStatusUid(uid) {
+        blocks.forEach(b => {
+            if (!uid) {
+                b.classList.remove('active');
+            } else {
+                b.classList.toggle('active', b.dataset.statusUid === uid);
+            }
+        });
+    }
+
+    eventSelect.addEventListener('change', e => {
+        showUid(e.target.value);
     });
-  }
-
-  select.addEventListener('change', e => {
-    showUid(e.target.value);
-  });
-  showUid(select.value);
+    lectureStatusSelect.addEventListener('change', e => {
+        showStatusUid(e.target.value);
+    });
+    showUid(eventSelect.value);
 })();
 
 document.querySelectorAll('.js-button').forEach(btn =>
