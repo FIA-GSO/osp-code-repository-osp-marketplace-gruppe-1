@@ -200,6 +200,9 @@ def vocationalfairRegistrations(userUid: int):
         user = userService.getUser()
         if userService.getRoleOfUser() == userService.AUSBILDUNGSBETRIEB and userService.getUserUid() == userUid:
 
+            status = statusRepository.getAll()
+            status_list = {s['uid']: s for s in status}
+
             booths = boothService.getBoothRegistrationsForUser(userService.getUserUid())
             boothsWithDate = []
             for booth in booths:
@@ -212,7 +215,7 @@ def vocationalfairRegistrations(userUid: int):
                 lecture['date'] = eventRepository.getById(lecture['event'])[0]['date']
                 lecturesWithDate.append(lecture)
 
-            return render_template('dashboards/ausbildungsbetrieb/registrations.html', user = user, boothsWithDate = boothsWithDate, lecturesWithDate = lecturesWithDate)
+            return render_template('dashboards/ausbildungsbetrieb/registrations.html', user = user, boothsWithDate = boothsWithDate, lecturesWithDate = lecturesWithDate, status_list = status_list)
     return redirect((url_for('index')))
 
 if __name__ == '__main__':

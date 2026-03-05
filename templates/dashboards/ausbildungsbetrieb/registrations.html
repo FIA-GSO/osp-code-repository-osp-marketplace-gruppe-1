@@ -6,12 +6,41 @@
     <body>
         {{ render_partial('partials/header.html') }}
        
+        <b>Stände</b>
+
         {% for boothWithDate in boothsWithDate %}
             <div>
-                {{ boothWithDate.uid }}
+                Date {{ boothWithDate.date }}
             </div>
             <div>
-                {{ boothWithDate.date }}
+                Status: {{ status_list[boothWithDate.status].name }}
+            </div>
+            <div>
+                Stühle: {{ boothWithDate.chair_count }}
+            </div>
+            <div>
+                Tische: {{ boothWithDate.table_count }}
+            </div>
+            <div>
+                Anemerkung: {{ boothWithDate.note }}
+            </div>
+        {% endfor %}
+
+
+        <b>Vorträge</b>
+
+        {% for lectureWithDate in lecturesWithDate %}
+            <div>
+                Date {{ lectureWithDate.date }}
+            </div>
+            <div>
+                Status: {{ status_list[lectureWithDate.status].name }}
+            </div>
+            <div>
+                Anemerkung: {{ lectureWithDate.note }}
+            </div>
+            <div>
+                Thema: {{ lectureWithDate.topic }}
             </div>
         {% endfor %}
 
