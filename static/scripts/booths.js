@@ -1,5 +1,6 @@
 (function(){
-    const select = document.getElementById('eventSelect');
+    const eventSelect = document.getElementById('eventSelect');
+    const boothStatusSelect = document.getElementById('boothStatusSelect');
     const blocks = document.querySelectorAll('.event-block');
 
     function showUid(uid) {
@@ -12,10 +13,23 @@
         });
     }
 
-    select.addEventListener('change', e => {
+    function showStatusUid(uid) {
+        blocks.forEach(b => {
+            if (!uid) {
+                b.classList.remove('active');
+            } else {
+                b.classList.toggle('active', b.dataset.statusUid === uid);
+            }
+        });
+    }
+
+    eventSelect.addEventListener('change', e => {
         showUid(e.target.value);
     });
-    showUid(select.value);
+    boothStatusSelect.addEventListener('change', e => {
+        showStatusUid(e.target.value);
+    });
+    showUid(eventSelect.value);
 })();
 
 document.querySelectorAll('.js-button').forEach(btn =>
