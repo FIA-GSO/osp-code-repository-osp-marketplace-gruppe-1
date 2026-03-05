@@ -28,3 +28,6 @@ class BoothService:
                 {"status": self.STATUS_ACCEPTED},
             ]
         )
+
+    def getBoothRegistrationsForUser(self, userID: int):
+        return self.boothRepository.getByUserID(userID)

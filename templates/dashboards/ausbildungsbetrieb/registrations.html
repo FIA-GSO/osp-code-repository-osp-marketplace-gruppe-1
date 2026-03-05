@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Marketplace GSO - Dashboard</title>
+        {{ render_partial('partials/headIncludes.html') }}
+    </head>
+    <body>
+        {{ render_partial('partials/header.html') }}
+       
+        {% for boothWithDate in boothsWithDate %}
+            <div>
+                {{ boothWithDate.uid }}
+            </div>
+            <div>
+                {{ boothWithDate.date }}
+            </div>
+        {% endfor %}
+
+        {{ render_partial('partials/footer.html') }}
+    </body>
+</html>

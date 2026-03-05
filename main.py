@@ -133,11 +133,11 @@ def dashboard():
     if request.method == 'GET':
         user = userService.getUser()
         if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
-            return render_template('dashboards/organisationsteam/dashboard.html', user = user)
+            return render_template('dashboards/organisationsteam/dashboard.html')
         elif userService.getRoleOfUser() == userService.LEHRER:
             return render_template('dashboards/lehrer/dashboard.html')
         elif userService.getRoleOfUser() == userService.AUSBILDUNGSBETRIEB:
-            return render_template('dashboards/ausbildungsbetrieb/dashboard.html')
+            return render_template('dashboards/ausbildungsbetrieb/dashboard.html', userUid = userService.getUserUid())
     return redirect((url_for('index')))
 
 @app.route("/booths", methods=['GET'])
@@ -193,6 +193,27 @@ def lecturesApi():
     elif data['action'] == 'reject':
         lectureService.rejectLectureRegistration(int(data['uid']))
         return jsonify(lectureRepository.getById(int(data['uid']))), 200
+
+@app.route("/vocationalfair/registrations/<int:userUid>", methods=['GET'])
+def vocationalfairRegistrations(userUid: int):
+    if request.method == 'GET':
+        user = userService.getUser()
+        if userService.getRoleOfUser() == userService.AUSBILDUNGSBETRIEB and userService.getUserUid() == userUid:
+
+            booths = boothService.getBoothRegistrationsForUser(userService.getUserUid())
+            boothsWithDate = []
+            for booth in booths:
+                booth['date'] = eventRepository.getById(booth['event'])[0]['date']
+                boothsWithDate.append(booth)
+            
+            lectures = lectureService.getlectureRegistrationsForUser(userService.getUserUid())
+            lecturesWithDate = []
+            for lecture in lectures:
+                lecture['date'] = eventRepository.getById(lecture['event'])[0]['date']
+                lecturesWithDate.append(lecture)
+
+            return render_template('dashboards/ausbildungsbetrieb/registrations.html', user = user, boothsWithDate = boothsWithDate, lecturesWithDate = lecturesWithDate)
+    return redirect((url_for('index')))
 
 if __name__ == '__main__':
     app.run(port=4000, debug=True)

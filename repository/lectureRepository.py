@@ -12,3 +12,10 @@ class LectureRepository(BaseRepository):
             sql += ' AND disabled = 0'
         self.cursor.execute(sql)
         return self.cursor.fetchall()
+    
+    def getByUserID(self, userID: int, respectDisabled:bool = True):
+        sql = 'SELECT * FROM ' + self.table_name + ' WHERE user = "' + str(userID) + '"'
+        if respectDisabled:
+            sql += ' AND disabled = 0'
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()

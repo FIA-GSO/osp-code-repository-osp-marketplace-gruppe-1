@@ -28,3 +28,6 @@ class LectureService:
                 {"status": self.STATUS_ACCEPTED},
             ]
         )
+    
+    def getlectureRegistrationsForUser(self, userID: int):
+        return self.lectureRepository.getByUserID(userID)
