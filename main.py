@@ -172,14 +172,19 @@ def boothsApi():
 @app.route("/lectures", methods=['GET'])
 def lectures():
     if request.method == 'GET':
-        user = userService.getUser()
+        user = userService.getAllUser()
+        user_list = {u['uid']: u for u in user}
+        status = statusRepository.getAll()
+        status_list = {s['uid']: s for s in status}
+
         if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
             eventLectures = {}
             events = eventService.getCurrentEvents()
             for event in events:
                 uid = event.get('uid')
                 eventLectures[uid] = lectureService.getTechnicalLectureRegestrationsForEvent(uid)
-            return render_template('dashboards/organisationsteam/lectureList.html', user = user, events = events, eventLectures = eventLectures)
+
+            return render_template('dashboards/organisationsteam/lectureList.html', user = user_list, events = events, eventLectures = eventLectures, status = status_list)
     return redirect((url_for('index')))
 
 @app.route("/api/lectures", methods=['POST'])
