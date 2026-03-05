@@ -3,7 +3,7 @@ Oberstufenprojekt der Gruppe 1, zum Thema "Marketplace"
 
 install dependencies: pip install -r requirements.txt
 
-run unittests: python -m unittest -v
+run unittests: /bin/python -m unittest discover -s tests -p "test_*.py" -v
 
 NickGSO = AurelGSO
 
