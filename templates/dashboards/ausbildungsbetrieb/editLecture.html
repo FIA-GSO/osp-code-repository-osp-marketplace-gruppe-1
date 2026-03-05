@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Marketplace GSO - Fachvortrag Editieren</title>
+        {{ render_partial('partials/headIncludes.html') }}
+    </head>
+    <body>
+        {{ render_partial('partials/header.html') }}
+       
+        <form method="post">
+            Vorname: <input name="first_name" type="text" value="{{ lecture.first_name }}">
+            Nachname: <input name="last_name" type="text" value="{{ lecture.last_name }}">
+            Email: <input name="email" type="email" value="{{ lecture.email }}">
+            Telefon: <input name="telephone" type="tel" value="{{ lecture.telephone }}">
+            Anmerkung: <input name="note" type="text" value="{{ lecture.note }}">
+            Thema: <input name="topic" type="text" value="{{ lecture.topic }}">
+            Dauer: <input name="duration" type="number" value="{{ lecture.duration }}" min="0">
+            <button type="submit">Absenden</button>
+        </form>
+
+        {{ render_partial('partials/footer.html') }}
+    </body>
+</html>

@@ -31,3 +31,27 @@ class LectureService:
     
     def getlectureRegistrationsForUser(self, userID: int):
         return self.lectureRepository.getByUserID(userID)
+    
+    def updateLecture(self, uid: int, first_name: str, last_name: str, email: str, telephone: str, note: str, topic: str, duration: int):
+        self.lectureRepository.updateById(
+            uid,
+            [
+                {
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'email': email,
+                    'telephone': telephone,
+                    'note': note,
+                    'topic': topic,
+                    'duration': duration,
+                }
+            ]
+        )
+    
+    def deleteLecture(self, uid):
+        self.lectureRepository.updateById(
+            uid,
+            [
+                {'disabled': 1}
+            ]
+        )

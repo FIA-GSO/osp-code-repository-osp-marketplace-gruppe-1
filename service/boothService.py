@@ -31,3 +31,27 @@ class BoothService:
 
     def getBoothRegistrationsForUser(self, userID: int):
         return self.boothRepository.getByUserID(userID)
+    
+    def updateBooth(self, uid: int, first_name: str, last_name: str, email: str, telephone: str, note: str, table_count: str, chair_count: str):
+        self.boothRepository.updateById(
+            uid,
+            [
+                {
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'email': email,
+                    'telephone': telephone,
+                    'note': note,
+                    'table_count': table_count,
+                    'chair_count': chair_count,
+                }
+            ]
+        )
+    
+    def deleteBooth(self, uid):
+        self.boothRepository.updateById(
+            uid,
+            [
+                {'disabled': 1}
+            ]
+        )

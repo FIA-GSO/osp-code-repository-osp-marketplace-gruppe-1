@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Marketplace GSO - Informationsstand Editieren</title>
+        {{ render_partial('partials/headIncludes.html') }}
+    </head>
+    <body>
+        {{ render_partial('partials/header.html') }}
+       
+        <form method="post">
+            Vorname: <input name="first_name" type="text" value="{{ booth.first_name }}">
+            Nachname: <input name="last_name" type="text" value="{{ booth.last_name }}">
+            Email: <input name="email" type="email" value="{{ booth.email }}">
+            Telefon: <input name="telephone" type="tel" value="{{ booth.telephone }}">
+            Anmerkung: <input name="note" type="text" value="{{ booth.note }}">
+            Tisch Anzahl: <input name="table_count" type="number" value="{{ booth.table_count }}" min="0">
+            Stuhl Anzahl: <input name="chair_count" type="number" value="{{ booth.chair_count }}" min="0">
+            <button type="submit">Absenden</button>
+        </form>
+
+        {{ render_partial('partials/footer.html') }}
+    </body>
+</html>

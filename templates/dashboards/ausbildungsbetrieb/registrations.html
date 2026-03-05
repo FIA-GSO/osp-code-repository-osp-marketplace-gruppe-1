@@ -12,6 +12,19 @@
             <div>
                 Date {{ boothWithDate.date }}
             </div>
+
+            <div>
+                Vorname: {{ boothWithDate.first_name }}
+            </div>
+            <div>
+                Nachname: {{ boothWithDate.last_name }}
+            </div>
+            <div>
+                E-Mail: {{ boothWithDate.email }}
+            </div>
+            <div>
+                Telefon: {{ boothWithDate.telephone }}
+            </div>
             <div>
                 Status: {{ status_list[boothWithDate.status].name }}
             </div>
@@ -25,7 +38,7 @@
                 Anemerkung: {{ boothWithDate.note }}
             </div>
             <a href="{{ url_for('editBooth', boothUid=boothWithDate.uid) }}">Bearbeiten</a>
-            <a href="">Löschen</a>
+            <a href="{{ url_for('deleteBooth', boothUid=boothWithDate.uid) }}">Löschen</a>
         {% endfor %}
 
 
@@ -34,6 +47,19 @@
         {% for lectureWithDate in lecturesWithDate %}
             <div>
                 Date {{ lectureWithDate.date }}
+            </div>
+
+            <div>
+                Vorname: {{ lectureWithDate.first_name }}
+            </div>
+            <div>
+                Nachname: {{ lectureWithDate.last_name }}
+            </div>
+            <div>
+                E-Mail: {{ lectureWithDate.email }}
+            </div>
+            <div>
+                Telefon: {{ lectureWithDate.telephone }}
             </div>
             <div>
                 Status: {{ status_list[lectureWithDate.status].name }}
@@ -44,8 +70,11 @@
             <div>
                 Thema: {{ lectureWithDate.topic }}
             </div>
-            <a href="">Bearbeiten</a>
-            <a href="">Löschen</a>
+            <div>
+                Dauer: {{ lectureWithDate.duration }}
+            </div>
+            <a href="{{ url_for('editLecture', lectureUid=lectureWithDate.uid) }}">Bearbeiten</a>
+            <a href="{{ url_for('deleteLecture', lectureUid=lectureWithDate.uid) }}">Löschen</a>
         {% endfor %}
 
         {{ render_partial('partials/footer.html') }}

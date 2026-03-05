@@ -223,5 +223,59 @@ def vocationalfairRegistrations(userUid: int):
             return render_template('dashboards/ausbildungsbetrieb/registrations.html', user = user, boothsWithDate = boothsWithDate, lecturesWithDate = lecturesWithDate, status_list = status_list)
     return redirect((url_for('index')))
 
+@app.route("/booth/edit/<int:boothUid>", methods=['GET', 'POST'])
+def editBooth(boothUid: int):
+    if userService.getRoleOfUser() == userService.AUSBILDUNGSBETRIEB and userService.getUserUid() == boothRepository.getById(boothUid)[0]['user']:
+        if request.method == 'GET':
+            booth = boothRepository.getById(boothUid)[0]
+            return render_template('dashboards/ausbildungsbetrieb/editBooth.html', booth = booth)
+
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        email = request.form.get('email')
+        telephone = request.form.get('telephone')
+        note = request.form.get('note')
+        table_count = request.form.get('table_count')
+        chair_count = request.form.get('chair_count')
+        boothService.updateBooth(boothUid, first_name, last_name, email, telephone, note, table_count, chair_count)
+
+        return redirect((url_for('vocationalfairRegistrations', userUid = userService.getUserUid())))
+    return redirect((url_for('index')))
+
+@app.route("/lecture/edit/<int:lectureUid>", methods=['GET', 'POST'])
+def editLecture(lectureUid: int):
+    if userService.getRoleOfUser() == userService.AUSBILDUNGSBETRIEB and userService.getUserUid() == lectureRepository.getById(lectureUid)[0]['user']:
+        if request.method == 'GET':
+            lecture = lectureRepository.getById(lectureUid)[0]
+            return render_template('dashboards/ausbildungsbetrieb/editLecture.html', lecture = lecture)
+
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        email = request.form.get('email')
+        telephone = request.form.get('telephone')
+        note = request.form.get('note')
+        topic = request.form.get('topic')
+        duration = request.form.get('duration')
+        lectureService.updateLecture(lectureUid, first_name, last_name, email, telephone, note, topic, duration)
+
+        return redirect((url_for('vocationalfairRegistrations', userUid = userService.getUserUid())))
+    return redirect((url_for('index')))
+
+@app.route("/lecture/delete/<int:lectureUid>", methods=['GET'])
+def deleteLecture(lectureUid: int):
+    if userService.getRoleOfUser() == userService.AUSBILDUNGSBETRIEB and userService.getUserUid() == lectureRepository.getById(lectureUid)[0]['user']:
+        if request.method == 'GET':
+            lectureService.deleteLecture(lectureUid)
+            return redirect((url_for('vocationalfairRegistrations', userUid = userService.getUserUid())))
+    return redirect((url_for('index')))
+
+@app.route("/booth/delete/<int:boothUid>", methods=['GET'])
+def deleteBooth(boothUid: int):
+    if userService.getRoleOfUser() == userService.AUSBILDUNGSBETRIEB and userService.getUserUid() == boothRepository.getById(boothUid)[0]['user']:
+        if request.method == 'GET':
+            boothService.deleteBooth(boothUid)
+            return redirect((url_for('vocationalfairRegistrations', userUid = userService.getUserUid())))
+    return redirect((url_for('index')))
+
 if __name__ == '__main__':
     app.run(port=4000, debug=True)
