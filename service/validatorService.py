@@ -13,13 +13,11 @@ class ValidatorService:
         lastName = form.get('lastName')
         email =  form.get('email')
         telephone =  form.get('telephone')
-        fax =  form.get('fax')
 
         self.registerForEventValidator.validateFirstName(firstName, errors)
         self.registerForEventValidator.validateLastName(lastName, errors)
         self.registerForEventValidator.validateEmail(email, errors)
         self.registerForEventValidator.validateTelephone(telephone, errors)
-        self.registerForEventValidator.validateFax(fax, errors)
 
         for eventId in events:
             eventId = str(eventId)

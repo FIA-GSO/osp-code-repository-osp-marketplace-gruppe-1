@@ -32,15 +32,6 @@ class RegisterForEventValidator(BaseValidator):
 
         if (not self.validateAsNumber(value)):
             errors[valueKey] = self.IS_NOT_NUMMBER_ERROR_MESSAGE
-    
-    def validateFax(self, value, errors:dict):
-        valueKey="fax"
-
-        if (not self.validateAsNotEmpty(value)):
-            errors[valueKey] = self.IS_EMPTY_ERROR_MESSAGE
-
-        if (not self.validateAsNumber(value)):
-            errors[valueKey] = self.IS_NOT_NUMMBER_ERROR_MESSAGE
 
     def validateTables(self, value, errors:dict, eventId):
         valueKey="tables"+eventId
