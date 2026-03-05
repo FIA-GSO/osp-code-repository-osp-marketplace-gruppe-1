@@ -24,6 +24,8 @@
             <div>
                 Anemerkung: {{ boothWithDate.note }}
             </div>
+            <a href="{{ url_for('editBooth', boothUid=boothWithDate.uid) }}">Bearbeiten</a>
+            <a href="">Löschen</a>
         {% endfor %}
 
 
@@ -42,6 +44,8 @@
             <div>
                 Thema: {{ lectureWithDate.topic }}
             </div>
+            <a href="">Bearbeiten</a>
+            <a href="">Löschen</a>
         {% endfor %}
 
         {{ render_partial('partials/footer.html') }}
