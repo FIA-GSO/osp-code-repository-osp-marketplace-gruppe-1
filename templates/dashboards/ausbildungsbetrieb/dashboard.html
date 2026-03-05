@@ -6,29 +6,36 @@
     <body>
         {{ render_partial('partials/header.html') }}
         <main class="container pb-md-5">
-            <div class="row my-5 align-items-center justify-content-evenly">
-                <div class="col-12 col-md-auto">
-                    <h1>Dashboard - Ausbildungsbetriebe</h1>
-                </div>
-                <div class="col-12 col-md-6 text-md-end">
-                    <span class="me-sm-1"><a href="{{ url_for('change_password') }}">Passwort ändern</a></span>
-                    <span class="me-sm-1"><a href="{{ url_for('logout') }}">Abmelden</a></span>
-                </div>
-            </div>
-            <div class="row my-1 justify-content-evenly g-3">
-                <div class="dashboard-action-frame col-12 col-md-5 p-4 mb-4">
-                    <strong>Anmeldung zum Tag der Ausbildung</strong>
-                    <p>Medlen sie sich zum Tag der Ausbildung an</p>
-                    <div class="d-grid gap-2 mt-auto">
-                        <a href="{{ url_for('vocationalfairRegister') }}" class="btn btn-primary">Ansehen</a>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    
+                    <div class="row my-5 align-items-center">
+                        <div class="col-12 col-md-6">
+                            <h1>Dashboard - Ausbildungsbetriebe</h1>
+                        </div>
+                        <div class="col-12 col-md-6 text-md-end">
+                            <span class="me-sm-3"><a href="{{ url_for('change_password') }}">Passwort ändern</a></span>
+                            <span><a href="{{ url_for('logout') }}">Abmelden</a></span>
+                        </div>
                     </div>
-                </div>
-                <div class="dashboard-action-frame col-12 col-md-5 p-4 mb-4">
-                    <strong>Status der Anmeldung</strong>
-                    <p>Sehen Sie sich den Status Ihrer Anmedlungen an.</p>
-                    <div class="d-grid gap-2 mt-auto">
-                        <a href="{{ url_for('vocationalfairRegistrations', userUid=userUid) }}" class="btn btn-primary">Ansehen</a>
+                    
+                    <div class="row my-1 justify-content-between g-3">
+                        <div class="dashboard-action-frame col-12 col-md-5 p-4 mb-4 d-flex flex-column">
+                            <strong>Anmeldung zum Tag der Ausbildung</strong>
+                            <p>Melden Sie sich zum Tag der Ausbildung an.</p>
+                            <div class="d-grid gap-2 mt-auto">
+                                <a href="{{ url_for('vocationalfairRegister') }}" class="btn btn-primary">Ansehen</a>
+                            </div>
+                        </div>
+                        <div class="dashboard-action-frame col-12 col-md-5 p-4 mb-4 d-flex flex-column">
+                            <strong>Status der Anmeldung</strong>
+                            <p>Sehen Sie sich den Status Ihrer Anmeldungen an.</p>
+                            <div class="d-grid gap-2 mt-auto">
+                                <a href="" class="btn btn-primary">Ansehen</a>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </main>
