@@ -19,21 +19,28 @@
                         </div>
                     </div>
                     
-                    <div class="row my-1 justify-content-between g-3">
-                        <div class="dashboard-action-frame col-12 col-md-5 p-4 mb-4 d-flex flex-column">
-                            <strong>Anmeldung zum Tag der Ausbildung</strong>
-                            <p>Melden Sie sich zum Tag der Ausbildung an.</p>
-                            <div class="d-grid gap-2 mt-auto">
-                                <a href="{{ url_for('vocationalfairRegister') }}" class="btn btn-primary">Ansehen</a>
+                    <div class="row my-1 g-4 mb-4">
+                        
+                        <div class="col-12 col-md-6 d-flex">
+                            <div class="dashboard-action-frame w-100 p-4 d-flex flex-column">
+                                <strong>Anmeldung zum Tag der Ausbildung</strong>
+                                <p>Melden Sie sich zum Tag der Ausbildung an.</p>
+                                <div class="d-grid gap-2 mt-auto">
+                                    <a href="{{ url_for('vocationalfairRegistrations', userUid=userUid) }}" class="btn btn-primary">Ansehen</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="dashboard-action-frame col-12 col-md-5 p-4 mb-4 d-flex flex-column">
-                            <strong>Status der Anmeldung</strong>
-                            <p>Sehen Sie sich den Status Ihrer Anmeldungen an.</p>
-                            <div class="d-grid gap-2 mt-auto">
-                                <a href="{{ url_for('vocationalfairRegistrations', userUid=userUid) }}" class="btn btn-primary">Ansehen</a>
+                        
+                        <div class="col-12 col-md-6 d-flex">
+                            <div class="dashboard-action-frame w-100 p-4 d-flex flex-column">
+                                <strong>Status der Anmeldung</strong>
+                                <p>Sehen Sie sich den Status Ihrer Anmeldungen an.</p>
+                                <div class="d-grid gap-2 mt-auto">
+                                    <a href="" class="btn btn-primary">Ansehen</a>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     
                 </div>
