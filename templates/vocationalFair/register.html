@@ -1,74 +1,138 @@
 <html>
     <head>
         {{ render_partial('partials/headIncludes.html') }}
+        <script src="/static/scripts/vocationalFairRegistrationForm.js" defer></script>
     </head>
     <body>
     {{ render_partial('partials/header.html') }}
-    <main>
-        <div class="container"></div>
-            <div class="row">
-                <div class="col-4">
-                    <form action="/vocationalfair/register" method="post" class="needs-validation" novalidate>
-                        <div class="container">
-                            <div class="mb-3">
-                                <div>Ansprechpartner</div>
-                                <input placeholder="Vorname" type="text" name="firstName" class="form-control {% if errors and "firstName" in errors.keys() %}is-invalid{% endif %}" required>
-                                {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="firstName") }}
-                                <input placeholder="Nachname" type="text" name="lastName" class="form-control {% if errors and "lastName" in errors.keys() %}is-invalid{% endif %}" required>
-                                {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="lastName") }}
-                                <input placeholder="E-Mail" type="email" name="email" class="form-control {% if errors and "email" in errors.keys() %}is-invalid{% endif %}" required>
-                                {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="email") }}
-                                <input placeholder="telephone" type="text" name="telephone" class="form-control {% if errors and "telephone" in errors.keys() %}is-invalid{% endif %}" required>
-                                {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="telephone") }}
-                                <input placeholder="Fax" type="text" name="fax" class="form-control {% if errors and "fax" in errors.keys() %}is-invalid{% endif %}" required>
-                                {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="fax") }}
-                            </div>
-                            <div class="mb-3 form-check">
-                                {% for event in events %}
-                                <label>
-                                    <input type="checkbox" name="events[]" value="{{ event.uid }}">
-                                    {{ event.date }}
-                                </label>
-                                <div class="mb-3">
-                                    <label>
-                                        <input type="checkbox" name="booth{{ event.uid }}">
-                                        Ich mochte einen Stand beantragen
-                                    </label>
-                                    {% set tablesKey = "tables" ~ event.uid %}
-                                    <input type="number" placeholder="Benötigte Tische" name="{{ tablesKey }}" class="form-control {% if errors and tablesKey in errors.keys() %}is-invalid{% endif %}">
-                                    {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=tablesKey) }}
-
-                                    {% set chairsKey = "chairs" ~ event.uid %}
-                                    <input type="number" placeholder="Benötigte Stühle" name="{{ chairsKey }}" class="form-control {% if errors and chairsKey in errors.keys() %}is-invalid{% endif %}">
-                                    {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=chairsKey) }}
-                                </div>
-                                <div class="mb-3">
-                                    <label>
-                                        <input type="checkbox" name="technicalLecture{{ event.uid }}">
-                                        Ich mochte einen Fachvortrag halten
-                                    </label>
-                                    {% set technicalLectureTitelKey = "technicalLectureTitle" ~ event.uid %}
-                                    <input type="text" placeholder="Vortrag Titel" name="{{ technicalLectureTitelKey }}" class="form-control {% if errors and technicalLectureTitelKey in errors.keys() %}is-invalid{% endif %}">
-                                    {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=technicalLectureTitelKey) }}
-
-                                    {% set technicalLectureDurationKey = "technicalLectureDuration" ~ event.uid %}
-                                    <input type="number" placeholder="Vortrag Dauer (std)" name="{{ technicalLectureDurationKey }}" class="form-control {% if errors and technicalLectureDurationKey in errors.keys() %}is-invalid{% endif %}">
-                                    {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=technicalLectureDurationKey) }}
-                                </div>
-                                {% endfor %}
-                            </div>
-                            <div class="mb-3 form-check">
-                                <label>
-                                    <input type="checkbox" name="donation">
-                                    Ich möchte (oder habe) mich für den Förderverein des GSO Anmelden. (Das Anmeldeformular wird ihnen per E-Mail gesendet.)
-                                </label>
-                            </div>
-                        </div>
-                        <input type="submit" class="btn btn-primary">
-                    </form>
+    <main class="pb-md-5">
+            <div class="container mt-md-5">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <h1>Anmeldung zum Tag der Ausbildung</h1>
+                    </div>
+                    <div class="col-1"></div>
                 </div>
             </div>
-        </div>
+            <div class="container">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <form action="{{ url_for('vocationalfairRegister') }}" method="POST" class="needs-validation" novalidate>
+                            <div class="container" id="container-frame">
+                                <div class="row mt-md-3">
+                                    <div class="col-xl-2"></div>
+                                    <div class="col-xl-4 col-sm-12">
+                                        <label for="firstName" class="form-label">Vorname</label>
+                                        <input id="firstName" placeholder="Vorname" type="text" name="firstName" class="form-control {% if errors and "firstName" in errors.keys() %}is-invalid{% endif %}" required>
+                                        {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="firstName") }}
+                                    </div>
+                                    <div class="col-xl-4 col-sm-12 mt-sm-3 mt-xl-0">
+                                        <label for="lastName" class="form-label">Nachname</label>
+                                        <input id="lastName" placeholder="Nachname" type="text" name="lastName" class="form-control {% if errors and "lastName" in errors.keys() %}is-invalid{% endif %}" required>
+                                        {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="lastName") }}
+                                    </div>
+                                    <div class="col-xl-2"></div>
+                                </div>
+                                <div class="row mt-md-3">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-xl-4 col-sm-12">
+                                        <label for="email" class="form-label">E-Mail</label>
+                                        <input id="email" placeholder="E-Mail" type="email" name="email" class="form-control {% if errors and "email" in errors.keys() %}is-invalid{% endif %}" required>
+                                        {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="email") }}
+                                    </div>
+                                    <div class="col-xl-4 mt-sm-3 mt-xl-0">
+                                        <label for="telephone" class="form-label">Telefon</label>
+                                        <input id="telephone" placeholder="Telefon" type="text" name="telephone" class="form-control {% if errors and "telephone" in errors.keys() %}is-invalid{% endif %}" required>
+                                        {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="telephone") }}
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                </div>
+                                <div class="row mt-md-3">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-xl-4 col-sm-12">
+                                        <label for="fax" class="form-label">Fax</label>
+                                        <input placeholder="Fax" type="text" name="fax" class="form-control {% if errors and "fax" in errors.keys() %}is-invalid{% endif %}" required>
+                                        {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey="fax") }}       
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                </div>
+                                <div class="row mt-md-6">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-xl-8 col-sm-12">
+                                        <div class="accordion py-3" id="accordionExample">
+                                            {% for event in events %}
+                                            <div class="accordion-item event-block" data-uid="{{ event.uid }}">
+                                                <h2 class="accordion-header" id="heading{{ event.uid }}">
+                                                    <button onclick="selectEvent('eventCheckbox{{ event.uid }}')" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{event.uid }}" aria-expanded="true" aria-controls="collapse{{ event.uid }}">
+                                                        <strong class="event-date">{{ event.date }} {{ event.name }}</strong>
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse{{ event.uid }}" class="accordion-collapse collapse" aria-labelledby="heading{{ event.uid }}" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <div class="mb-3">
+                                                            <input id="eventCheckbox{{ event.uid }}" type="checkbox" name="events[]" value="{{ event.uid }}" hidden>
+                                                            <div class="d-flex">
+                                                                <input id="booth{{ event.uid }}" class="form-check-input m-2" type="checkbox" name="booth{{ event.uid }}">
+                                                                <label for="booth{{ event.uid }}" class="form-check-label">Ich möchte einen Stand beantragen</label>
+                                                            </div>
+                                                            {% set tablesKey = "tables" ~ event.uid %}
+                                                            <input type="number" placeholder="Benötigte Tische" name="{{ tablesKey }}" class="form-control my-3 {% if errors and tablesKey in errors.keys() %}is-invalid{% endif %}">
+                                                            {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=tablesKey) }}
+
+                                                            {% set chairsKey = "chairs" ~ event.uid %}
+                                                            <input type="number" placeholder="Benötigte Stühle" name="{{ chairsKey }}" class="form-control my-3 {% if errors and chairsKey in errors.keys() %}is-invalid{% endif %}">
+                                                            {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=chairsKey) }}
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <div class="d-flex">
+                                                                <input id="technicalLecture{{ event.uid }}" class="form-check-input m-2" type="checkbox" name="technicalLecture{{ event.uid }}">
+                                                                <label for="technicalLecture{{ event.uid }}" class="form-check-label">Ich möchte einen Fachvortrag halten</label>
+                                                            </div>
+                                                            {% set technicalLectureTitelKey = "technicalLectureTitle" ~ event.uid %}
+                                                            <input type="text" placeholder="Vortrag Titel" name="{{ technicalLectureTitelKey }}" class="form-control my-3 {% if errors and technicalLectureTitelKey in errors.keys() %}is-invalid{% endif %}">
+                                                            {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=technicalLectureTitelKey) }}
+
+                                                            {% set technicalLectureDurationKey = "technicalLectureDuration" ~ event.uid %}
+                                                            <input type="number" placeholder="Vortrag Dauer (std)" name="{{ technicalLectureDurationKey }}" class="form-control my-3 {% if errors and technicalLectureDurationKey in errors.keys() %}is-invalid{% endif %}">
+                                                            {{ render_partial('partials/errordisplay.html', errors=errors, fieldKey=technicalLectureDurationKey) }}
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                </div>
+
+                                <div class="row mt-md-3">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-xl-8 col-sm-12 d-flex">
+                                        <input id="foerdervereinCheckbox" class="form-check-input m-2" type="checkbox" name="donation">
+                                        <label for="foerdervereinCheckbox" class="form-check-label">
+                                            Ich möchte mich (oder habe mich bereits) für den Förderverein des GSO anmelden.
+                                        </label>    
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                </div>
+
+                                <div class="row mt-md-3">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-xl-4"></div>
+                                    <div class="col-xl-4 col-sm-12 text-end">
+                                        <input type="submit" class="btn btn-primary my-2">
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
     </main>
     {{ render_partial('partials/footer.html') }}
     </body>
+    
