@@ -26,7 +26,7 @@
                                 <strong>Anmeldung zum Tag der Ausbildung</strong>
                                 <p>Melden Sie sich zum Tag der Ausbildung an.</p>
                                 <div class="d-grid gap-2 mt-auto">
-                                    <a href="{{ url_for('vocationalfairRegistrations', userUid=userUid) }}" class="btn btn-primary">Ansehen</a>
+                                    <a href="{{ url_for('vocationalfairRegister') }}" class="btn btn-primary">Ansehen</a>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                                 <strong>Status der Anmeldung</strong>
                                 <p>Sehen Sie sich den Status Ihrer Anmeldungen an.</p>
                                 <div class="d-grid gap-2 mt-auto">
-                                    <a href="" class="btn btn-primary">Ansehen</a>
+                                    <a href="{{ url_for('vocationalfairRegistrations', userUid=userUid) }}" class="btn btn-primary">Ansehen</a>
                                 </div>
                             </div>
                         </div>
