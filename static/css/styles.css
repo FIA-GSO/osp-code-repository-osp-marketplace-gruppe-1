@@ -66,7 +66,7 @@ h1 {
     font-size: 1.5rem;
     font-weight: 600;
 }
-/*
+
 .event-block {
     display: none;
 }
@@ -74,7 +74,6 @@ h1 {
 .event-block.active {
     display: block;
 }
-*/
 
 footer {
     background-color: #dddddd;
