@@ -38,7 +38,7 @@ class BoothService:
     def getBoothRegistrationsForUser(self, userID: int):
         return self.boothRepository.getByUserID(userID)
     
-    def updateBooth(self, uid: int, first_name: str, last_name: str, email: str, telephone: str, note: str, table_count: str, chair_count: str):
+    def updateBooth(self, uid: int, first_name: str, last_name: str, email: str, telephone: str, note: str, table_count: str, chair_count: str, staus: str):
         self.boothRepository.updateById(
             uid,
             [
@@ -50,6 +50,7 @@ class BoothService:
                     'note': note,
                     'table_count': table_count,
                     'chair_count': chair_count,
+                    'status': staus
                 }
             ]
         )
@@ -61,3 +62,6 @@ class BoothService:
                 {'disabled': 1}
             ]
         )
+
+    def getBoothById(self, uid):
+        return self.boothRepository.getById(uid)[0]

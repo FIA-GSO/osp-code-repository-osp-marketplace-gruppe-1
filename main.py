@@ -170,10 +170,9 @@ def boothsApi():
         return jsonify(), 400
     elif data['action'] == 'accept':
         boothService.acceptBoothRegistration(int(data['uid']))
-        return jsonify(boothRepository.getById(int(data['uid']))), 200
     elif data['action'] == 'reject':
         boothService.rejectBoothRegistration(int(data['uid']))
-        return jsonify(boothRepository.getById(int(data['uid']))), 200
+    return jsonify(boothService.getBoothById(int(data['uid']))), 200
 
 @app.route("/lectures", methods=['GET'])
 def lectures():
@@ -200,10 +199,9 @@ def lecturesApi():
         return jsonify({'data': data}), 400
     elif data['action'] == 'accept':
         lectureService.acceptLectureRegistration(int(data['uid']))
-        return jsonify(lectureRepository.getById(int(data['uid']))), 200
     elif data['action'] == 'reject':
         lectureService.rejectLectureRegistration(int(data['uid']))
-        return jsonify(lectureRepository.getById(int(data['uid']))), 200
+    return jsonify(lectureService.getLectureById(int(data['uid']))), 200
 
 @app.route("/vocationalfair/registrations/<int:userUid>", methods=['GET'])
 def vocationalfairRegistrations(userUid: int):
@@ -243,7 +241,7 @@ def editBooth(boothUid: int):
         note = request.form.get('note')
         table_count = request.form.get('table_count')
         chair_count = request.form.get('chair_count')
-        boothService.updateBooth(boothUid, first_name, last_name, email, telephone, note, table_count, chair_count)
+        boothService.updateBooth(boothUid, first_name, last_name, email, telephone, note, table_count, chair_count, boothService.STATUS_IN_PROGRESS)
 
         return redirect((url_for('vocationalfairRegistrations', userUid = userService.getUserUid())))
     return redirect((url_for('index')))
@@ -262,7 +260,7 @@ def editLecture(lectureUid: int):
         note = request.form.get('note')
         topic = request.form.get('topic')
         duration = request.form.get('duration')
-        lectureService.updateLecture(lectureUid, first_name, last_name, email, telephone, note, topic, duration)
+        lectureService.updateLecture(lectureUid, first_name, last_name, email, telephone, note, topic, duration, LectureService.STATUS_IN_PROGRESS)
 
         return redirect((url_for('vocationalfairRegistrations', userUid = userService.getUserUid())))
     return redirect((url_for('index')))

@@ -45,28 +45,40 @@
     });
     showUid(eventSelect.value);
 })();
+document.addEventListener('DOMContentLoaded', function() {
+    const actionButtons = document.querySelectorAll('.js-button');
 
-document.querySelectorAll('.js-button').forEach(btn =>
-    btn.addEventListener('click', async event => {
-        event.preventDefault();
-        boothId = btn.getAttribute('data-booth-id');
-        action = btn.getAttribute('data-action');
+    actionButtons.forEach(btn =>
+        btn.addEventListener('click', event => {
+            event.preventDefault();
+            boothId = btn.getAttribute('data-booth-id');
+            action = btn.getAttribute('data-action');
 
-        response = '';
+            const accordionBody = btn.closest('.accordion-body');
+            const statusContainer = accordionBody.querySelector('.js-status');
 
-        if (action === 'accept') {
-            response = await fetch('/api/booths', {
+            fetch('/api/booths', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 'action': action, 'uid': boothId }),
+                body: JSON.stringify({ 'uid': parseInt(boothId), 'action': action }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Backend Error: ' + response.status);
+                }
+                return response.json(); 
+            }).then(data => {
+                if( data.status === 2 ) {
+                    statusContainer.innerHTML = 'Abgelehnt';
+                    statusContainer.classList.remove('text-success');
+                    statusContainer.classList.add('text-danger');
+                }
+                else if( data.status === 3 ) {
+                    statusContainer.innerHTML = 'Angenommen';
+                    statusContainer.classList.remove('text-danger');
+                    statusContainer.classList.add('text-success');
+                }
             });
-        }
-        else if (action === 'reject') {
-            response = await fetch('/api/booths', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 'action': action, 'uid': boothId }),
-            });
-        }
-    })
-);
+        })
+    );
+});

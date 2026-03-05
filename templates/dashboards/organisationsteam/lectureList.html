@@ -76,15 +76,15 @@
                                     <strong>Firma:</strong> {{ user[eventLecture.user].company }}<br>
                                     <strong>Status:</strong>
                                         {% if eventLecture.status == 1  %}
-                                        <span class="text-primary">{{ status[eventLecture.status].name }}</span>
+                                        <span class="js-status text-primary">{{ status[eventLecture.status].name }}</span>
                                         <br>
                                         {% endif %}
                                         {% if eventLecture.status == 2  %}
-                                        <span class="text-danger">{{ status[eventLecture.status].name }}</span>
+                                        <span class="js-status text-danger">{{ status[eventLecture.status].name }}</span>
                                         <br>
                                         {% endif %}
                                         {% if eventLecture.status == 3  %}
-                                        <span class="text-success">{{ status[eventLecture.status].name }}</span>
+                                        <span class="js-status text-success">{{ status[eventLecture.status].name }}</span>
                                         <br>
                                         {% endif %}
                                     <strong>E-Mail-Adresse:</strong> {{ eventLecture.email }}<br>

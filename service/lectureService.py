@@ -38,7 +38,7 @@ class LectureService:
     def getlectureRegistrationsForUser(self, userID: int):
         return self.lectureRepository.getByUserID(userID)
     
-    def updateLecture(self, uid: int, first_name: str, last_name: str, email: str, telephone: str, note: str, topic: str, duration: int):
+    def updateLecture(self, uid: int, first_name: str, last_name: str, email: str, telephone: str, note: str, topic: str, duration: int, status: str):
         self.lectureRepository.updateById(
             uid,
             [
@@ -50,6 +50,7 @@ class LectureService:
                     'note': note,
                     'topic': topic,
                     'duration': duration,
+                    'status': status
                 }
             ]
         )
@@ -61,3 +62,6 @@ class LectureService:
                 {'disabled': 1}
             ]
         )
+
+    def getLectureById(self, uid):
+        return self.lectureRepository.getById(uid)[0]

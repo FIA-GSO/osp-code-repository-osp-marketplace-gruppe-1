@@ -77,17 +77,13 @@
                                     <strong>Firma:</strong> {{ user[eventBooth.user].company }}<br>
                                     <strong>Status:</strong>
                                         {% if eventBooth.status == 1  %}
-                                        <span class="text-primary">{{ status[eventBooth.status].name }}</span>
-                                        <br>
+                                        <span class="js-status text-primary">{{ status[eventBooth.status].name }}</span>
+                                        {% elif eventBooth.status == 2  %}
+                                        <span class="js-status text-danger">{{ status[eventBooth.status].name }}</span>
+                                        {% elif eventBooth.status == 3  %}
+                                        <span class="js-status text-success">{{ status[eventBooth.status].name }}</span>
                                         {% endif %}
-                                        {% if eventBooth.status == 2  %}
-                                        <span class="text-danger">{{ status[eventBooth.status].name }}</span>
-                                        <br>
-                                        {% endif %}
-                                        {% if eventBooth.status == 3  %}
-                                        <span class="text-success">{{ status[eventBooth.status].name }}</span>
-                                        <br>
-                                        {% endif %}
+                                    <br>
                                     <strong>E-Mail-Adresse:</strong> {{ eventBooth.email }}<br>
                                     <strong>Telefon:</strong> {{ eventBooth.telephone }}<br>
                                     <strong>Tische:</strong> {{ eventBooth.table_count }}<br>
