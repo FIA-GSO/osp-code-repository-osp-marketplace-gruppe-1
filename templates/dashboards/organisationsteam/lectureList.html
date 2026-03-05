@@ -35,15 +35,17 @@
                 <div class="col-4 d-flex justify-content-center flex-column">
                     <h5>Filtern nach Status</h5>
                     <select id="lectureStatusSelect" class="w-75 mt-auto">
+                        <option value="" selected>Bitte auswählen</option>
                         {% for status in status.values() %}
-                        <option {% if loop.first %}selected{% endif %} value="{{ status.uid }}">{{ status.name }}</option>
+                        <option value="{{ status.uid }}">{{ status.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="col-4 d-flex justify-content-center flex-column">
                     <h5>Filtern nach Spenden</h5>
                     <select id="donationSelect" class="w-75 mt-auto">
-                        <option value="1" selected>Interesse</option>
+                        <option value="" selected>Bitte auswählen</option>
+                        <option value="1">Interesse</option>
                         <option value="0">kein Interesse</option>
                     </select>
                 </div>
