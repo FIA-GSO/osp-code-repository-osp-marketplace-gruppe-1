@@ -3,6 +3,8 @@ Oberstufenprojekt der Gruppe 1, zum Thema "Marketplace"
 
 install dependencies: pip install -r requirements.txt
 
+run unittests: python -m unittest -v
+
 NickGSO = AurelGSO
 
 SQL-Datei (marketplace.sql) zum Import befindet sich im Rootverzeichnis.
