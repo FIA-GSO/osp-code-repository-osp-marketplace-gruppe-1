@@ -2,11 +2,6 @@ import unittest
 from repository.userRepository import UserRepository
 from service.userService import UserService
 
-from flask import Flask, request, render_template, url_for, jsonify
-from flask import session, redirect
-import jinja_partials
-
-
 class TestUserRepository(unittest.TestCase):
 
     userRepository = UserRepository()
