@@ -24,18 +24,10 @@
         <div class="row mt-md-3">
             <div class="col-1"></div>
             <div class="col-10">
-                <h2>Liste aller Veranstaltungen</h2>
-            </div>
-            <div class="col-1"></div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row mt-md-3">
-            <div class="col-1"></div>
-            <div class="col-10">
+                <h5>Veranstaltungen</h5>
                 <select id="eventSelect">
                     {% for event in events %}
-                    <option {% if loop.first %}selected{% endif %} value="{{ event.uid }}">{{ event.date }}</option>
+                    <option {% if loop.first %}selected{% endif %} value="{{ event.uid }}" class="event-date">{{ event.date }} - {{ event.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -52,24 +44,40 @@
                         <div class="accordion-item event-block" data-uid="{{ eventBooth.uid }}">
                             <h2 class="accordion-header" id="heading{{ eventBooth.uid }}">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ eventBooth.uid }}" aria-expanded="true" aria-controls="collapse{{ eventBooth.uid }}">
-                                    <strong class="event-date">{{ event.date }}</strong>
-                                    {{ event.name }} - Firma: {company} - Vorname: {{ eventBooth.first_name }} - Nachname: {{ eventBooth.last_name }}
+                                    <div class="col-1">
+                                        <strong class="event-date">{{ event.date }}</strong>
+                                    </div>
+                                    <div class="col-8">
+                                        <span class="text-decoration-underline">{{ event.name }}</span> Vorname: {{ eventBooth.first_name }} - Nachname: {{ eventBooth.last_name }}
+                                    </div>
                                 </button>
                             </h2>
                             <div id="collapse{{ eventBooth.uid }}" class="accordion-collapse collapse" aria-labelledby="heading{{ eventBooth.uid }}" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <strong>Firma:</strong> {company}<br>
-                                    <strong>Status:</strong> {status}<br>
+                                    <strong>Firma:</strong> {{ user[eventBooth.user].company }}<br>
+                                    <strong>Status:</strong>
+                                        {% if eventBooth.status == 1  %}
+                                        <span class="text-primary">{{ status[eventBooth.status].name }}</span>
+                                        <br>
+                                        {% endif %}
+                                        {% if eventBooth.status == 2  %}
+                                        <span class="text-danger">{{ status[eventBooth.status].name }}</span>
+                                        <br>
+                                        {% endif %}
+                                        {% if eventBooth.status == 3  %}
+                                        <span class="text-success">{{ status[eventBooth.status].name }}</span>
+                                        <br>
+                                        {% endif %}
                                     <strong>E-Mail-Adresse:</strong> {{ eventBooth.email }}<br>
                                     <strong>Telefon:</strong> {{ eventBooth.telephone }}<br>
                                     <strong>Tische:</strong> {{ eventBooth.table_count }}<br>
                                     <strong>Stühle:</strong> {{ eventBooth.chair_count }}<br>
-                                    <strong>Anmerkung:</strong> {note}<br><br>
-                                    <a href="{{ url_for('edit_event', uid=event.uid) }}"
-                                       class="js-button btn btn-primary"
+                                    <strong>Anmerkung:</strong><br><br>
+                                    <a href="{{ url_for('boothsApi') }}"
+                                       class="js-button btn btn-success"
                                        data-booth-id="{{ eventBooth.uid }}"
                                        data-action="accept">Annehmen</a>
-                                    <a href="{{ url_for('edit_event', uid=event.uid) }}"
+                                    <a href="{{ url_for('boothsApi') }}"
                                        class="js-button btn btn-danger"
                                        data-booth-id="{{ eventBooth.uid }}"
                                        data-action="reject">Ablehnen</a>

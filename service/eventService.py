@@ -1,6 +1,7 @@
 from repository.eventRepository import EventRepository
 from repository.boothRepository import BoothRepository
 from repository.lectureRepository import LectureRepository
+from repository.statusRepository import StatusRepository
 from repository.userRepository import UserRepository
 from service.userService import UserService
 
@@ -11,6 +12,7 @@ class EventService:
         self.eventRepository = EventRepository()
         self.boothRepository = BoothRepository()
         self.lectureRepository = LectureRepository()
+        self.statusRepository = StatusRepository()
         self.userRepository = UserRepository()
         self.userService = UserService()
         pass

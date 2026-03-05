@@ -57,6 +57,9 @@ class UserService:
             return self.userRepository.getById(int(session['uid']))
         return []
 
+    def getAllUser(self):
+        return self.userRepository.getAll()
+
     def getUserEmail(self):
         user = self.getUser()
         if user != []:

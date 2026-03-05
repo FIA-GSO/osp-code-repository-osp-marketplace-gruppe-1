@@ -3,6 +3,7 @@ from flask import session, redirect
 import jinja_partials
 
 from repository.eventRepository import EventRepository
+from repository.statusRepository import StatusRepository
 from service.eventService import EventService
 from service.userService import UserService
 from service.eventService import EventService
@@ -28,6 +29,7 @@ lectureService = LectureService()
 lectureRepository = LectureRepository()
 validatorService = ValidatorService()
 notificationService = NotificationService()
+statusRepository = StatusRepository()
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -141,14 +143,18 @@ def dashboard():
 @app.route("/booths", methods=['GET'])
 def booths():
     if request.method == 'GET':
-        user = userService.getUser()
+        user = userService.getAllUser()
+        user_list = {u['uid']: u for u in user}
+        status = statusRepository.getAll()
+        status_list = {s['uid']: s for s in status}
+
         if userService.getRoleOfUser() == userService.ORGANISATIONSTEAM:
             events = eventService.getCurrentEvents()
             eventBooths = {}
             for event in events:
                 uid = event.get('uid')
                 eventBooths[uid] = boothService.getBoothRegestrationsForEvent(uid)
-            return render_template('dashboards/organisationsteam/boothList.html', user = user, events = events, eventBooths = eventBooths)
+            return render_template('dashboards/organisationsteam/boothList.html', user = user_list, events = events, eventBooths = eventBooths, status = status_list)
     return redirect((url_for('index')))
 
 @app.route("/api/booths", methods=['POST'])
