@@ -46,6 +46,10 @@ def index():
 
     return render_template('index.html', error = 1)
 
+@app.route('/change-password')
+def change_password():
+    return render_template('change_password.html')
+
 @app.route("/logout", methods=['GET'])
 def logout():
     userService.logoutUser()
