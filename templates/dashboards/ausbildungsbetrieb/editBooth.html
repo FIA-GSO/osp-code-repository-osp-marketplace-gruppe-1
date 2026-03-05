@@ -2,21 +2,105 @@
     <head>
         <title>Marketplace GSO - Informationsstand Editieren</title>
         {{ render_partial('partials/headIncludes.html') }}
+        <script src="/static/scripts/validateBootstrapFroms.js" defer></script>
     </head>
     <body>
         {{ render_partial('partials/header.html') }}
-       
-        <form method="post">
-            Vorname: <input name="first_name" type="text" value="{{ booth.first_name }}">
-            Nachname: <input name="last_name" type="text" value="{{ booth.last_name }}">
-            Email: <input name="email" type="email" value="{{ booth.email }}">
-            Telefon: <input name="telephone" type="tel" value="{{ booth.telephone }}">
-            Anmerkung: <input name="note" type="text" value="{{ booth.note }}">
-            Tisch Anzahl: <input name="table_count" type="number" value="{{ booth.table_count }}" min="0">
-            Stuhl Anzahl: <input name="chair_count" type="number" value="{{ booth.chair_count }}" min="0">
-            <button type="submit">Absenden</button>
-        </form>
-
+        <main>
+            <div class="container mt-md-5">
+                    <div class="row mt-md-3">
+                        <div class="col-1"></div>
+                        <div class="col-10">
+                            <h1>Anmeldung bearbeiten</h1>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row mt-md-3">
+                        <div class="col-1"></div>
+                        <div class="col-10">
+                            <form method="post" class="needs-validation" novalidate>
+                                <div class="container" id="container-frame">
+                                    <div class="row mt-md-3">
+                                        <div class="col-xl-4"></div>
+                                        <div class="col-xl-4 col-sm-12  mt-sm-3">
+                                            <label for="first_name" class="form-label">Vorname:</label>
+                                            <input class="form-control" name="first_name" type="text" value="{{ booth.first_name }}" id="first_name", placeholder="Vorname" required>
+                                            <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
+                                        </div>
+                                        <div class="col-xl-4"></div>
+                                    </div>
+                                    <div class="row mt-md-3">
+                                        <div class="col-xl-4"></div>
+                                        <div class="col-xl-4 col-sm-12">
+                                            <label for="last_name" class="form-label">Nachname:</label>
+                                            <input class="form-control" name="last_name" type="text" value="{{ booth.last_name }}" id="last_name" placeholder="Nachname" required>
+                                            <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
+                                        </div>
+                                        <div class="col-xl-4 col-sm-12"></div>
+                                    </div>
+                                    <div class="row mt-md-3">
+                                        <div class="col-xl-4"></div>
+                                        <div class="col-xl-4 col-sm-12">
+                                            <label for="email" class="form-label">E-Mail:</label>
+                                            <input class="form-control" name="email" type="email" value="{{ booth.email }}" id="email" placeholder="E-Mail" required>
+                                            <div class="invalid-feedback">Bitte geben sie eine gültige E-Mail-Addresse an.</div>
+                                        </div>
+                                        <div class="col-xl-4 col-sm-12"></div>
+                                    </div>
+                                    <div class="row mt-md-3">
+                                        <div class="col-xl-4"></div>
+                                        <div class="col-xl-4 col-sm-12">
+                                            <label for="telephone" class="form-label">Telefon:</label>
+                                            <input class="form-control" name="telephone" type="tel" value="{{ booth.telephone }}" id="telephone", placeholder="Telefon" required>
+                                            <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
+                                        </div>
+                                        <div class="col-xl-4 col-sm-12"></div>
+                                    </div>
+                                    <div class="row mt-md-3">
+                                        <div class="col-xl-4"></div>
+                                        <div class="col-xl-4 col-sm-12">
+                                            <label for="note" class="form-label">Anmerkung:</label>
+                                            <input class="form-control" name="note" type="text" value="{{ booth.note }}" id="note" placeholder="Anmerkung" required>
+                                            <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
+                                        </div>
+                                        <div class="col-xl-4 col-sm-12"></div>
+                                    </div>
+                                    <div class="row mt-md-3">
+                                        <div class="col-xl-4"></div>
+                                        <div class="col-xl-4 col-sm-12">
+                                            <label for="table_count" class="form-label">Tisch Anzahl:</label>
+                                            <input class="form-control" name="table_count" type="number" value="{{ booth.table_count }}" min="0" id="table_count" placeholder="Tisch Anzahl" required>
+                                            <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
+                                        </div>
+                                        <div class="col-xl-4 col-sm-12"></div>
+                                    </div>
+                                    <div class="row mt-md-3">
+                                        <div class="col-xl-4"></div>
+                                        <div class="col-xl-4 col-sm-12">
+                                            <label for="chair_count" class="form-label">Stuhl Anzahl:</label>
+                                            <input class="form-control" name="chair_count" type="number" value="{{ booth.chair_count }}" min="0" id="chair_count" placeholder="Stuhl Anzahl" required>
+                                            <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
+                                        </div>
+                                        <div class="col-xl-4 col-sm-12"></div>
+                                    </div>
+                                    <div class="row mt-md-3">
+                                        <div class="col-xl-4 col-sm-2"></div>
+                                        <div class="col-xl-4 col-sm-12 text-end">
+                                            <div class="d-grid gap-2">
+                                                <button type="submit" class="btn btn-primary mb-3">Speichern</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                </div>
+            </main>
         {{ render_partial('partials/footer.html') }}
     </body>
 </html>
