@@ -47,15 +47,14 @@ class EventService:
 
     def registerForEvent(self, form):
         events =  form.getlist('events[]')
-
         donation = form.get('donation')
 
-        if donation:
+        if donation == "on":
             self.userRepository.updateById(
                 self.userService.getUserUid(),
                 [
                     {
-                        'donation': donation
+                        'donation': 1
                     }
                 ]
             )
