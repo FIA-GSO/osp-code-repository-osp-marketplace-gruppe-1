@@ -2,81 +2,141 @@
     <head>
         <title>Marketplace GSO - Dashboard</title>
         {{ render_partial('partials/headIncludes.html') }}
+        <script src="/static/scripts/eventDateFormater.js" defer></script>
     </head>
     <body>
         {{ render_partial('partials/header.html') }}
-       
-        <b>Informationstand</b>
+        <main class="pb-md-5">
+            <div class="container mt-md-5">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <h1>Status der Anmeldungen</h1>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mt-md-3">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                            <div class="container" id="container-frame">
+                                <div class="row mt-md-6">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-xl-8 col-sm-12">
+                                        <div class="accordion py-3" id="accordionExample">
+                                            <h2 class="my-3" >Informationsstände:</h2>
+                                            {% for boothWithDate in boothsWithDate %}
+                                            <div class="accordion-item" data-uid="{{ boothWithDate.uid }}">
+                                                <h2 class="accordion-header" id="heading{{ boothWithDate.uid }}">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{boothWithDate.uid }}" aria-expanded="true" aria-controls="collapse{{ boothWithDate.uid }}">
+                                                        <strong class="event-date">{{ boothWithDate.date }}</strong>
+                                                        <strong class="float-end col text-end px-1">{{ status_list[boothWithDate.status].name }}</strong>
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse{{ boothWithDate.uid }}" class="accordion-collapse collapse" aria-labelledby="heading{{ boothWithDate.uid }}" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <div>
+                                                            <div>
+                                                                <b>Vorname:</b> {{ boothWithDate.first_name }}
+                                                            </div>
+                                                            <div>
+                                                                <b>Nachname:</b> {{ boothWithDate.last_name }}
+                                                            </div>
+                                                            <div>
+                                                                <b>E-Mail:</b> {{ boothWithDate.email }}
+                                                            </div>
+                                                            <div>
+                                                                <b>Telefon:</b> {{ boothWithDate.telephone }}
+                                                            </div>
+                                                            <div>
+                                                                <b>Status:</b> {{ status_list[boothWithDate.status].name }}
+                                                            </div>
+                                                            <div>
+                                                                <b>Stühle:</b> {{ boothWithDate.chair_count }}
+                                                            </div>
+                                                            <div>
+                                                                <b>Tische:</b> {{ boothWithDate.table_count }}
+                                                            </div>
+                                                            <div>
+                                                            <b>Anmerkung:</b> {{ boothWithDate.note }}
+                                                            </div>
+                                                            <div class="row d-flex">
+                                                                <a href="{{ url_for('editBooth', boothUid=boothWithDate.uid) }}" class="col-12 col-sm-6">
+                                                                    <button class="btn btn-primary my-2 col-12">Bearbeiten</button>
+                                                                </a>
+                                                                <a href="{{ url_for('deleteBooth', boothUid=boothWithDate.uid) }}" class="col-12 col-sm-6">
+                                                                    <button class="btn btn-danger my-2 col-12">Löschen</button>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            {% endfor %}
 
-        {% for boothWithDate in boothsWithDate %}
-            <div>
-                Date {{ boothWithDate.date }}
-            </div>
+                                            <h2 class="my-3">Vorträge:</h2>
+                                            {% for lectureWithDate in lecturesWithDate %}
+                                            <div class="accordion-item" data-uid="{{ lectureWithDate.uid }}">
+                                                <h2 class="accordion-header" id="heading{{ lectureWithDate.uid }}">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLecture{{lectureWithDate.uid }}" aria-expanded="true" aria-controls="collapseLecture{{ lectureWithDate.uid }}">
+                                                        <strong class="event-date">{{ lectureWithDate.date }}</strong>
+                                                        <strong class="float-end col text-end px-1">{{ status_list[lectureWithDate.status].name }}</strong>
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseLecture{{ lectureWithDate.uid }}" class="accordion-collapse collapse" aria-labelledby="heading{{ lectureWithDate.uid }}" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <div>
+                                                            <b>Vorname:</b> {{ lectureWithDate.first_name }}
+                                                        </div>
+                                                        <div>
+                                                            <b>Nachname:</b> {{ lectureWithDate.last_name }}
+                                                        </div>
+                                                        <div>
+                                                            <b>E-Mail:</b> {{ lectureWithDate.email }}
+                                                        </div>
+                                                        <div>
+                                                            <b>Telefon:</b> {{ lectureWithDate.telephone }}
+                                                        </div>
+                                                        <div>
+                                                            <b>Status:</b> {{ status_list[lectureWithDate.status].name }}
+                                                        </div>
+                                                        <div>
+                                                            <b>Anmerkung:</b> {{ lectureWithDate.note }}
+                                                        </div>
+                                                        <div>
+                                                            <b>Thema:</b> {{ lectureWithDate.topic }}
+                                                        </div>
+                                                        <div>
+                                                            <b>Dauer:</b> {{ lectureWithDate.duration }}
+                                                        </div>
+                                                        <div class="row d-flex">
+                                                            <a href="{{ url_for('editLecture', lectureUid=lectureWithDate.uid) }}" class="col-12 col-sm-6">
+                                                                <button class="btn btn-primary my-2 col-12">Bearbeiten</button>
+                                                            </a>
+                                                            <a href="{{ url_for('deleteLecture', lectureUid=lectureWithDate.uid) }}" class="col-12 col-sm-6">
+                                                                <button class="btn btn-danger my-2 col-12">Löschen</button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            {% endfor %}
 
-            <div>
-                Vorname: {{ boothWithDate.first_name }}
-            </div>
-            <div>
-                Nachname: {{ boothWithDate.last_name }}
-            </div>
-            <div>
-                E-Mail: {{ boothWithDate.email }}
-            </div>
-            <div>
-                Telefon: {{ boothWithDate.telephone }}
-            </div>
-            <div>
-                Status: {{ status_list[boothWithDate.status].name }}
-            </div>
-            <div>
-                Stühle: {{ boothWithDate.chair_count }}
-            </div>
-            <div>
-                Tische: {{ boothWithDate.table_count }}
-            </div>
-            <div>
-                Anemerkung: {{ boothWithDate.note }}
-            </div>
-            <a href="{{ url_for('editBooth', boothUid=boothWithDate.uid) }}">Bearbeiten</a>
-            <a href="{{ url_for('deleteBooth', boothUid=boothWithDate.uid) }}">Löschen</a>
-        {% endfor %}
 
-
-        <b>Vorträge</b>
-
-        {% for lectureWithDate in lecturesWithDate %}
-            <div>
-                Date {{ lectureWithDate.date }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
             </div>
-
-            <div>
-                Vorname: {{ lectureWithDate.first_name }}
-            </div>
-            <div>
-                Nachname: {{ lectureWithDate.last_name }}
-            </div>
-            <div>
-                E-Mail: {{ lectureWithDate.email }}
-            </div>
-            <div>
-                Telefon: {{ lectureWithDate.telephone }}
-            </div>
-            <div>
-                Status: {{ status_list[lectureWithDate.status].name }}
-            </div>
-            <div>
-                Anemerkung: {{ lectureWithDate.note }}
-            </div>
-            <div>
-                Thema: {{ lectureWithDate.topic }}
-            </div>
-            <div>
-                Dauer: {{ lectureWithDate.duration }}
-            </div>
-            <a href="{{ url_for('editLecture', lectureUid=lectureWithDate.uid) }}">Bearbeiten</a>
-            <a href="{{ url_for('deleteLecture', lectureUid=lectureWithDate.uid) }}">Löschen</a>
-        {% endfor %}
-
+        </main>
         {{ render_partial('partials/footer.html') }}
     </body>
 </html>
+
+    
