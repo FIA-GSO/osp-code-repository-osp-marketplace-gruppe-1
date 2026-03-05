@@ -5,62 +5,56 @@
     </head>
     <body>
         {{ render_partial('partials/header.html') }}
-        <main class="pb-md-5">
-            <div class="container mt-md-5">
-                <div class="row mt-md-3">
-                    <div class="col-1"></div>
-                    <div class="col-6">
-                        <h1>Dashboard - Organisationsteam</h1>
+        <main class="container pb-md-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    
+                    <div class="row my-5 align-items-center">
+                        <div class="col-12 col-md-6">
+                            <h1>Dashboard - Organisationsteam</h1>
+                        </div>
+                        <div class="col-12 col-md-6 text-md-end">
+                            <span class="me-sm-3"><a href="{{ url_for('change_password') }}">Passwort ändern</a></span>
+                            <span><a href="{{ url_for('logout') }}">Abmelden</a></span>
+                        </div>
                     </div>
-                    <div class="col-4 text-end">
-                        <span class="me-sm-1"><a href="{{ url_for('change_password') }}">Passwort ändern</a></span>
-                        <span class="me-sm-1"><a href="{{ url_for('logout') }}">Abmelden</a></span>
-                    </div>
-                    <div class="col-1"></div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row mt-md-3">
-                    <div class="col-1"></div>
-                    <div class="col-10">
-                            <div class="container">
-                                <div class="row mt-md-3">
-                                    <div class="col-xl-5 dashboard-action-frame p-sm-4 d-flex flex-column">
-                                        <strong>Verwaltung von Veranstaltungen</strong>
-                                        <p>Öffnet die Oberfläche zum Anlegen, Bearbeiten oder Löschen von Veranstaltungen.</p>
-                                        <div class="d-grid gap-2 mt-auto">
-                                            <a href="{{ url_for('events') }}" class="btn btn-primary">Veranstaltungen</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2 col-sm-12 mt-sm-3"></div>
-                                    <div class="col-xl-5 dashboard-action-frame p-sm-4">
-                                        <strong>Einsicht in Spenden</strong>
-                                        <p>Öffnet die Übersicht zur Einsicht aller interessierten Spender.</p>
-                                        <div class="d-grid gap-2 mt-auto">
-                                            <a href="#" class="btn btn-primary">Spenden</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-md-3">
-                                    <div class="col-xl-5 dashboard-action-frame p-sm-4 d-flex flex-column">
-                                        <strong>Anmeldungen von Informationsständen</strong>
-                                        <p>Öffnet die Verwaltung zur Einsicht und Bearbeitung der Anmeldungen von Informationsständen.</p>
-                                        <div class="d-grid gap-2 mt-auto">
-                                            <a href="{{ url_for('booths') }}" class="btn btn-primary">Informationsstände</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2 col-sm-12 mt-sm-3"></div>
-                                    <div class="col-xl-5 dashboard-action-frame p-sm-4 d-flex flex-column">
-                                        <strong>Anmeldungen von Fachvorträgen</strong>
-                                        <p>Öffnet die Verwaltung zur Einsicht und Bearbeitung der Anmeldungen von Fachvorträgen.</p>
-                                        <div class="d-grid gap-2 mt-auto">
-                                            <a href="{{ url_for('lectures') }}" class="btn btn-primary">Fachvorträge</a>
-                                        </div>
-                                    </div>
-                                </div>
+                    
+                    <div class="row my-1 justify-content-between g-3">
+                        
+                        <div class="dashboard-action-frame col-12 col-md-5 p-4 mb-4 d-flex flex-column">
+                            <strong>Verwaltung von Veranstaltungen</strong>
+                            <p>Öffnet die Oberfläche zum Anlegen, Bearbeiten oder Löschen von Veranstaltungen.</p>
+                            <div class="d-grid gap-2 mt-auto">
+                                <a href="{{ url_for('events') }}" class="btn btn-primary">Veranstaltungen</a>
                             </div>
+                        </div>
+                        
+                        <div class="dashboard-action-frame col-12 col-md-5 p-4 mb-4 d-flex flex-column">
+                            <strong>Einsicht in Spenden</strong>
+                            <p>Öffnet die Übersicht zur Einsicht aller interessierten Spender.</p>
+                            <div class="d-grid gap-2 mt-auto">
+                                <a href="#" class="btn btn-primary">Spenden</a>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-action-frame col-12 col-md-5 p-4 mb-4 d-flex flex-column">
+                            <strong>Anmeldungen von Informationsständen</strong>
+                            <p>Öffnet die Verwaltung zur Einsicht und Bearbeitung der Anmeldungen von Informationsständen.</p>
+                            <div class="d-grid gap-2 mt-auto">
+                                <a href="{{ url_for('booths') }}" class="btn btn-primary">Informationsstände</a>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-action-frame col-12 col-md-5 p-4 mb-4 d-flex flex-column">
+                            <strong>Anmeldungen von Fachvorträgen</strong>
+                            <p>Öffnet die Verwaltung zur Einsicht und Bearbeitung der Anmeldungen von Fachvorträgen.</p>
+                            <div class="d-grid gap-2 mt-auto">
+                                <a href="{{ url_for('lectures') }}" class="btn btn-primary">Fachvorträge</a>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col-1"></div>
+                    
                 </div>
             </div>
         </main>
