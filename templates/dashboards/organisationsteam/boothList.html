@@ -22,28 +22,27 @@
     </div>
     <div class="container">
         <div class="row mt-3">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <div class="row">
-                    <div class="col-4">
+            <div class="col-2"></div>
+            <div class="col-8 d-flex justify-content-center">
+                    <div class="col-6 d-flex justify-content-center flex-column">
                         <h5>Filtern nach Veranstaltung</h5>
-                            <select id="eventSelect">
-                                {% for event in events %}
-                                <option {% if loop.first %}selected{% endif %} value="{{ event.uid }}" class="event-date">{{ event.date }} {{ event.name }}</option>
-                                {% endfor %}
-                            </select>
+                        <select id="eventSelect" class="w-75 mt-auto">
+                            {% for event in events %}
+                            <option {% if loop.first %}selected{% endif %} value="{{ event.uid }}" class="event-date">{{ event.date }} {{ event.name }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6 d-flex justify-content-center flex-column">
                         <h5>Filtern nach Status</h5>
-                        <select id="boothStatusSelect">
+                        <select id="boothStatusSelect" class="w-75 mt-auto">
                             {% for status in status.values() %}
                             <option {% if loop.first %}selected{% endif %} value="{{ status.uid }}">{{ status.name }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                </div>
+
             </div>
-            <div class="col-1"></div>
+            <div class="col-2"></div>
         </div>
     </div>
     <div class="container">
