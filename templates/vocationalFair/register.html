@@ -75,7 +75,7 @@
                                                             <input id="eventCheckbox{{ event.uid }}" type="checkbox" name="events[]" value="{{ event.uid }}" hidden>
                                                             <div class="d-flex">
                                                                 <input id="booth{{ event.uid }}" class="form-check-input m-2" type="checkbox" name="booth{{ event.uid }}">
-                                                                <label for="booth{{ event.uid }}" class="form-check-label">Ich möchte einen Stand beantragen</label>
+                                                                <label for="booth{{ event.uid }}" class="form-check-label">Ich möchte einen Informationstand beantragen</label>
                                                             </div>
                                                             {% set tablesKey = "tables" ~ event.uid %}
                                                             <input type="number" placeholder="Benötigte Tische" name="{{ tablesKey }}" class="form-control my-3 {% if errors and tablesKey in errors.keys() %}is-invalid{% endif %}">
