@@ -28,7 +28,7 @@ class EmailService:
 
         msg.attach(MIMEText(body, 'plain'))
         if self.TRY_TO_SEND_EMAIL:
-            self.sendEmail(msg)
+            self.sendEmail(msg, toEmailAddress)
 
     def sendUpdateNotifictionMail(self, toEmailAddress:str, eventRegistrationData):
         msg = MIMEMultipart()
@@ -48,7 +48,7 @@ class EmailService:
 
         msg.attach(MIMEText(body, 'plain'))
         if self.TRY_TO_SEND_EMAIL:
-            self.sendEmail(msg)
+            self.sendEmail(msg, toEmailAddress)
 
     def sendRegistrationNoticeMail(self, toEmailAddress:str, companyName:str):
         msg = MIMEMultipart()
@@ -68,11 +68,11 @@ class EmailService:
 
         msg.attach(MIMEText(body, 'plain'))
         if self.TRY_TO_SEND_EMAIL:
-            self.sendEmail(msg)
+            self.sendEmail(msg, toEmailAddress)
 
 
 
-    def _sendEmail(self, email:MIMEText):
+    def _sendEmail(self, email:MIMEText, toMail):
         smtp_server = "imap-mail.outlook.com"
         port = 465
         SSL_context = ssl.create_default_context()
@@ -80,7 +80,7 @@ class EmailService:
         try:
             with smtplib.SMTP_SSL(smtp_server, port, context=SSL_context) as server:  # Using localhost (no actual server)
                 server.login(self.SENDER_EMAIL, self.SENDER_PASSWORD)
-                server.sendmail(sender_email, receiver_email, msg.as_string())
+                server.sendmail(self.SENDER_EMAIL, toMail, email.as_string())
             print("Email sent successfully!")
         except Exception as e:
             print(f"Failed to send email: {e}")
