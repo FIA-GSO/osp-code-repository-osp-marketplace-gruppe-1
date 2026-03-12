@@ -91,8 +91,8 @@ def events():
 def delete_event(uid: int):
     user_role = userService.getRoleOfUser()
     if user_role == userService.ORGANISATIONSTEAM:
-        if uid and eventRepository.getById(uid):
-            eventRepository.deleteById(uid)
+        if uid and eventService.getById(uid):
+            eventService.deleteById(uid)
             return redirect((url_for('events')))
 
     return redirect((url_for('index')))

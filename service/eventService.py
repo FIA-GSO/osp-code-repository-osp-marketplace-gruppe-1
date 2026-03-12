@@ -111,3 +111,9 @@ class EventService:
 
     def getAll(self):
         return self.eventRepository.getAll()
+
+    def getById(self, uid):
+        return self.eventRepository.getById(uid)
+    
+    def deleteById(self, uid):
+        self.eventRepository.deleteById(uid)
