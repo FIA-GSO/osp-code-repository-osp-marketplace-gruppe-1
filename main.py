@@ -75,13 +75,13 @@ def register():
 def events():
     user_role = userService.getRoleOfUser()
     if user_role == userService.ORGANISATIONSTEAM:
-        events = eventRepository.getAll()
-
         if request.method == 'POST':
             name = request.form.get('name')
             date = request.form.get('date')
             slots = int(request.form.get('slots'))
             eventService.registerEvent(name, date, slots)
+
+        events = eventService.getAll()
 
         return render_template('events/events.html', events = events, request = request.method)
 

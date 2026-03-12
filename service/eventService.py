@@ -108,3 +108,6 @@ class EventService:
                         }
                     ]
                 )
+
+    def getAll(self):
+        return self.eventRepository.getAll()
