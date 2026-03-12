@@ -215,13 +215,13 @@ def vocationalfairRegistrations(userUid: int):
             booths = boothService.getBoothRegistrationsForUser(userService.getUserUid())
             boothsWithDate = []
             for booth in booths:
-                booth['date'] = eventRepository.getById(booth['event'])[0]['date']
+                booth['date'] = eventService.getById(booth['event'])[0]['date']
                 boothsWithDate.append(booth)
             
             lectures = lectureService.getlectureRegistrationsForUser(userService.getUserUid())
             lecturesWithDate = []
             for lecture in lectures:
-                lecture['date'] = eventRepository.getById(lecture['event'])[0]['date']
+                lecture['date'] = eventService.getById(lecture['event'])[0]['date']
                 lecturesWithDate.append(lecture)
 
             return render_template('dashboards/ausbildungsbetrieb/registrations.html', user = user, boothsWithDate = boothsWithDate, lecturesWithDate = lecturesWithDate, status_list = status_list)
